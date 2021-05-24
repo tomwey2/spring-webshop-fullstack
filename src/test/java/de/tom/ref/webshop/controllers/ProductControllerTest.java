@@ -26,21 +26,21 @@ class ProductControllerTest {
     private ProductCategoryController productCategoryController;
 
     @Test
-    void getProducts() {
+    void getAll() {
         log.info("##### Execute test: getProducts #####");
         assertThat(controller).isNotNull();
-        List<Product> products = controller.getProducts(0);
+        List<Product> products = controller.getAll(0);
         for (Product product : products) {
             log.debug("Product: {} category: {}", product, product.getCategory());
         }
     }
 
     @Test
-    void createProduct() {
+    void create() {
         log.info("##### Execute test: createProduct #####");
         assertThat(controller).isNotNull();
-        ProductCategory category = productCategoryController.createProductCategory("Testcategory");
-        Product product = controller.createProduct("Testproduct", category, new BigDecimal(10.50), 5);
+        ProductCategory category = productCategoryController.create("Testcategory");
+        Product product = controller.create("Testproduct", category, new BigDecimal(10.50), 5);
         log.debug("Product: {}", product);
     }
 }

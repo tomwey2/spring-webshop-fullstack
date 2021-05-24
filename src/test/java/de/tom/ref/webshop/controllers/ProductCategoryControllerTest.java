@@ -1,6 +1,5 @@
 package de.tom.ref.webshop.controllers;
 
-import de.tom.ref.webshop.entities.Product;
 import de.tom.ref.webshop.entities.ProductCategory;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -8,7 +7,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -24,20 +22,20 @@ class ProductCategoryControllerTest {
     private ProductCategoryController controller;
 
     @Test
-    void getProductCategories() {
+    void getAll() {
         log.info("##### Execute test: getProductCategories #####");
         assertThat(controller).isNotNull();
-        List<ProductCategory> categories = controller.getProductCategories();
+        List<ProductCategory> categories = controller.getAll();
         for (ProductCategory category : categories) {
             log.debug("Category: {}", category);
         }
     }
 
     @Test
-    void createProduct() {
-        log.info("##### Execute test: createProduct #####");
+    void create() {
+        log.info("##### Execute test: create #####");
         assertThat(controller).isNotNull();
-        ProductCategory category = controller.createProductCategory("Testcategory");
+        ProductCategory category = controller.create("Testcategory");
         log.debug("Category: {}", category);
     }
 }
