@@ -1,4 +1,5 @@
 let sortDirection = false;
+let serverUrl = "http://tompi:8080/webshop-0.0.1-SNAPSHOT";
 
 let testProducts = [
     {"name": "Test Product 1", "unitsInStock": 30, "unitPrice": 10.50  },
@@ -37,7 +38,7 @@ function loadTestProductCategories() {
 }
 
 function loadProductsFromBackend() {
-    fetch("http://192.168.2.117:8080/webshop-0.0.1-SNAPSHOT/products")
+    fetch(`${serverUrl}/products`)
         .then(function (response) {
             return response.json();
         })
@@ -49,7 +50,7 @@ function loadProductsFromBackend() {
 
 function loadProductsOfCategoryFromBackend(id) {
     categoryId = Number(id);
-    fetch(`http://192.168.2.117:8080/webshop-0.0.1-SNAPSHOT/products?category_id=${categoryId}`)
+    fetch(`${serverUrl}/products?category_id=${categoryId}`)
         .then(function (response) {
             return response.json();
         })
@@ -78,7 +79,7 @@ function buildProducts(data) {
 }
 
 function loadProductCategoriesFromBackend() {
-    fetch("http://192.168.2.117:8080/webshop-0.0.1-SNAPSHOT/product_categories")
+    fetch(`${serverUrl}/product_categories`)
         .then(function (response) {
             return response.json();
         })
