@@ -4,12 +4,16 @@ CREATE TABLE carts (
   customer_id       INT         DEFAULT NULL,
   create_date       DATETIME    NOT NULL,
   last_update       TIMESTAMP   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (cart_id),
+  PRIMARY KEY (cart_id)
 );
 
 DROP TABLE IF EXISTS cart_content;
 CREATE TABLE cart_content (
   cart_id           INT         NOT NULL,
   product_id        INT         NOT NULL,
-  quantity          INT         DEFAULT 0,
+  quantity          INT         DEFAULT 0
 );
+
+INSERT INTO carts (customer_id, create_date)
+VALUES
+( 1, CURTIME());

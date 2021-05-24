@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS customers;
 CREATE TABLE customers (
-  customer_id       INT NOT NULL AUTO_INCREMENT,
+  customer_id       INT         NOT NULL AUTO_INCREMENT,
   first_name        VARCHAR(50) NOT NULL,
   last_name         VARCHAR(50) NOT NULL,
   email             VARCHAR(50) DEFAULT NULL,
@@ -14,3 +14,7 @@ CREATE TABLE customers (
   PRIMARY KEY (customer_id),
   KEY idx_last_name (last_name)
 );
+
+INSERT INTO customers (first_name, last_name, email, address_line1, address_line2, city, country, active, create_date)
+VALUES
+('Alfred', 'Mustermann', 'mustermann@email.de', 'Alpenstraße 1', '', '80000 München', 'Germany', true, CURTIME());
