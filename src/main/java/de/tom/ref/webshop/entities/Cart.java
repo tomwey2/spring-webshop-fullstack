@@ -25,6 +25,11 @@ public class Cart {
     public Cart() {
     }
 
+    public Cart(Customer customer) {
+        this.customer = customer;
+        this.createDate = new Date();
+    }
+
     public Integer getId() {
         return id;
     }
