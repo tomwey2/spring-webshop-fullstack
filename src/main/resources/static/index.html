@@ -1,29 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
     <title>Sample Webshop - Home</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="css/layout.css" type="text/css">
+    <script src="js/shop.js" defer></script>
 </head>
+<style>
+    html,body,h1,h2,h3,h4,h5,h6 {font-family: "Roboto", sans-serif;}
+    .w3-sidebar {
+      z-index: 3;
+      width: 250px;
+      top: 40px;
+      bottom: 50px;
+      height: inherit;
+    }
+    .fill100 {
+        height: 100%;
+    }
+    </style>
 <body>
-    <header class="site-header">
-        <div class="user">
-            <button class="w3-button" name="cart">Cart
-                <i class="fa fa-cart-plus"></i>
-            </button>
-            <button class="w3-button" id="login">Login
-                <i class="fa fa-user"></i>
-            </button>
 
+    <!-- This is the header in case of a large display -->    
+    <header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
+        <div class="w3-bar-item">
+            <a href="#home" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
+        <div class="w3-right w3-margin-right">
+            <button class="w3-button" id="loadTestDataLarge">Test data</button>
+            <button class="w3-button w3-hide-small w3-hover-white" id="cartLarge">
+                <i class="fa fa-shopping-cart w3-margin-right"></i>Cart
+            </button>
+            <button class="w3-button w3-hide-small w3-hover-white" id="loginLarge">
+                <i class="fa fa-user w3-margin-right"></i>Login
+            </button>
+        </div>
+        </div>
+    </header>
+    <!-- This is the header in case of a small or medium display -->    
+    <header class="w3-bar w3-hide-large w3-top w3-black">
+        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left-align" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+        <a href="#home" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
+        <div class="w3-right w3-margin-right">
+            <button class="w3-button" id="loadTestDataSmall">Test data</button>
+            <button class="w3-button w3-hover-white" id="cartSmall">
+                <i class="fa fa-shopping-cart "></i>
+            </button>
+            <button class="w3-button w3-hover-white" id="loginSmall">
+                <i class="fa fa-user "></i>
+            </button>
         </div>
     </header>
 
-    <nav class="site-nav">
-        <div class="logo">
-            <p>MANDARINE shop</p>
+    <aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
+        <div class="w3-container w3-display-container w3-padding-16">
+          <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
         </div>
+        <div class="w3-container w3-center">
+            <p >Please select one of the following categories:</p>
+        </div>
+        <ul class="w3-ul w3-center w3-hoverable" id="productCategories"></ul>
+
+    </aside>
+  
+
+    <section class="w3-main w3-container w3-display-container w3-section w3-center" style="margin-left:280px; margin-top: 50px;">
+        <table class="w3-table w3-bordered" style="margin-top: 25px;">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th style="text-align:center;">Stock</th>
+                <th style="text-align:right;">Price</th>
+            </tr>
+            </thead>
+            <tbody id="products"></tbody>
+        </table>
+    </section>
+
+    <footer class="w3-container w3-bottom">
+        <p style="float: left;">(c) 2021 Thomas Weyrath</p>
+        <p style="float: right;">sources at github.com <a href="#" class="fa fa-github"></a></p>        
+
+    </footer>
+
+        <!--
+    <nav class="w3-display-container w3-content w3-wide">
         <ul>
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Shop</a></li>
@@ -31,15 +94,16 @@
         </ul>
     </nav>
 
-    <aside class="site-aside">
+    <aside class="">
         <p>Sidebar</p>
     </aside>
 
-    <section class="site-section">
+    <section class="site-section w3-container w3-center w3-teal">
         <p>Main Content</p>
     </section>
-    <footer class="site-footer">
-        (c) 2021 Thomas Weyrath
-    </footer>
+    -->
+
+    <script>
+        </script>    
 </body>
 </html>

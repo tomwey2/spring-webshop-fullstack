@@ -1,5 +1,5 @@
 let sortDirection = false;
-let serverUrl = "http://tompi:8080/webshop-0.0.1-SNAPSHOT";
+let serverUrl = "http://tompi:8080/webshop";
 
 let testProducts = [
     {"name": "Test Product 1", "unitsInStock": 30, "unitPrice": 10.50  },
@@ -11,16 +11,29 @@ let testProductCategories = [
     {"name": "Test Category 2" },
 ];
 
+// Open and close sidebar
+function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+}
+    
+function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+}
+          
+
 // Listener
 document.addEventListener("DOMContentLoaded", loadFromBackend);
-document.getElementById("loadTestProducts").addEventListener("click", loadTestProducts);
-document.getElementById("loadTestCategories").addEventListener("click", loadTestProductCategories);
+document.getElementById("loadTestDataSmall").addEventListener("click", loadTestData);
+document.getElementById("loadTestDataLarge").addEventListener("click", loadTestData);
 
 document.getElementById("productCategories").addEventListener("click",function(e) {
     // https://davidwalsh.name/event-delegate
     // e.target is our targetted element.
     if(e.target && e.target.nodeName == "LI") {
-        loadProductsOfCategoryFromBackend(e.target.id)
+        loadProductsOfCategoryFromBackend(e.target.id);
+        w3_close();
     }
 });
 
@@ -29,12 +42,9 @@ function loadFromBackend() {
     loadProductCategoriesFromBackend();
 }
 
-function loadTestProducts() {
-    buildProducts(testProducts)
-}
-
-function loadTestProductCategories() {
+function loadTestData() {
     buildProductCategories(testProductCategories)
+    buildProducts(testProducts)
 }
 
 function loadProductsFromBackend() {
