@@ -15,57 +15,63 @@ public class CustomerController {
     Logger log = LogManager.getLogger(CustomerController.class);
 
     @Autowired
-    CustomerRepository customerRepository;
+    CustomerRepository repository;
 
     @RequestMapping(
             method = RequestMethod.GET,
             path = "/customers",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public List<Customer> all() {
-        return customerRepository.findAll();
+    public List<Customer> getAll() {
+        return repository.findAll();
     }
 
     @GetMapping("/customers/{id}")
-    Customer one(@PathVariable Integer id) {
-        return customerRepository.findById(id)
-                .orElseThrow(() ->
-                        new RuntimeException(String.format("Could not find customer: %d", id)));
+    Customer getById(@PathVariable Integer id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @PostMapping(
-            value = "/createCustomer",
-            consumes = "application/json",
-            produces = "application/json")
-    Customer createCustomer(@RequestBody Customer newCustomer) {
-        log.debug("Call POST /createCustomer/{}", newCustomer);
-        return customerRepository.save(newCustomer);
+    @GetMapping("/customers/{name}")
+    Customer getByUserName(@PathVariable String name) {
+        return repository.findByUserName(name)
+                .orElseThrow(() -> new CustomerNotFoundException(name));
+    }
+
+    @RequestMapping(
+            method = RequestMethod.POST,
+            path = "/createCustomer",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE)
+    Customer post(@RequestBody Customer newCustomer) {
+        Customer customer = create(newCustomer.getUserName(), newCustomer.getFirstName(), newCustomer.getLastName(),
+                newCustomer.getEmail(), newCustomer.getAddressLine1(), newCustomer.getAddressLine2(),
+                newCustomer.getCity(), newCustomer.getPostalCode(), newCustomer.getCountry());
+        log.debug("Call POST /createCustomer/{}", customer);
+        return repository.save(customer);
     }
 
     @PutMapping("/customers/{id}")
-    Customer replaceCustomer(@RequestBody Customer newCustomer, @PathVariable Integer id) {
-
-        return customerRepository.findById(id)
+    Customer put(@RequestBody Customer object, @PathVariable Integer id) {
+        return repository.findById(id)
                 .map(customer -> {
-                    customer.setFirstName(newCustomer.getFirstName());
-                    customer.setLastName(newCustomer.getLastName());
-                    return customerRepository.save(customer);
-                })
-                .orElseGet(() -> {  // TODO
-                    newCustomer.setId(id);
-                    return customerRepository.save(newCustomer);
-                });
+                    customer.setFirstName(object.getFirstName());
+                    customer.setLastName(object.getLastName());
+                    // ... TODO
+                    return repository.save(customer);
+                }).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
     @DeleteMapping("/customers/{id}")
-    void deleteCustomer(@PathVariable Integer id) {
-        customerRepository.deleteById(id);
+    void deleteById(@PathVariable Integer id) {
+        repository.deleteById(id);
     }
 
-    public Customer createCustomer(String firstName, String lastName, String email,
-                                   String addressLine1, String addressLine2,
-                                   String city, String country) {
-        return new Customer(firstName, lastName, email, addressLine1, addressLine2, city, country);
+    public Customer create(String userName, String firstName, String lastName, String email,
+                           String addressLine1, String addressLine2,
+                           String city, String postalcode, String country) {
+        return new Customer(userName, firstName, lastName, email,
+                addressLine1, addressLine2, city, postalcode, country);
     }
 
 }

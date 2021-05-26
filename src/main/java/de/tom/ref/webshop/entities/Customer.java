@@ -13,6 +13,9 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
+    @Column(name = "user_name", length = 20)
+    private String userName;
+
     @Column(name = "first_name", length = 50)
     private String firstName;
 
@@ -31,6 +34,9 @@ public class Customer {
     @Column(name = "city", length = 50)
     private String city;
 
+    @Column(name = "postal_code", length = 10)
+    private String postalCode;
+
     @Column(name = "country", length = 50)
     private String country;
 
@@ -46,15 +52,17 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String firstName, String lastName, String email,
+    public Customer(String userName, String firstName, String lastName, String email,
                     String addressLine1, String addressLine2,
-                    String city, String country) {
+                    String city, String postalCode, String country) {
+        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;
+        this.postalCode = postalCode;
         this.country = country;
         this.active = Boolean.TRUE;
         this.createDate = new Date();
@@ -66,6 +74,14 @@ public class Customer {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -116,6 +132,14 @@ public class Customer {
         this.city = city;
     }
 
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
+    }
+
     public String getCountry() {
         return country;
     }
@@ -152,6 +176,7 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
+                ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
