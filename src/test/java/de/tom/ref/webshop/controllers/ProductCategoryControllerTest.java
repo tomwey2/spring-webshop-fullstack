@@ -23,12 +23,20 @@ class ProductCategoryControllerTest {
 
     @Test
     void getAll() {
-        log.info("##### Execute test: getProductCategories #####");
+        log.info("##### Execute test: getAll #####");
         assertThat(controller).isNotNull();
         List<ProductCategory> categories = controller.getAll();
         for (ProductCategory category : categories) {
             log.debug("Category: {}", category);
         }
+    }
+
+    @Test
+    void getById() {
+        log.info("##### Execute test: getById #####");
+        assertThat(controller).isNotNull();
+        ProductCategory category = controller.getById(1);
+        log.debug("Category id=1: {}", category);
     }
 
     @Test

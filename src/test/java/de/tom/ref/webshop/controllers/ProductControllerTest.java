@@ -27,12 +27,20 @@ class ProductControllerTest {
 
     @Test
     void getAll() {
-        log.info("##### Execute test: getProducts #####");
+        log.info("##### Execute test: getAll #####");
         assertThat(controller).isNotNull();
         List<Product> products = controller.getAll(0);
         for (Product product : products) {
             log.debug("Product: {} category: {}", product, product.getCategory());
         }
+    }
+
+    @Test
+    void getById() {
+        log.info("##### Execute test: getById #####");
+        assertThat(controller).isNotNull();
+        Product product = controller.getById(1);
+        log.debug("Product id=1: {} ", product);
     }
 
     @Test
