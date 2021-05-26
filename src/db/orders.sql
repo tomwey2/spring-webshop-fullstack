@@ -6,12 +6,12 @@ CREATE TABLE orders (
   order_date        DATETIME    NOT NULL,
   create_date       DATETIME    NOT NULL,
   last_update       TIMESTAMP   DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (order_id),
+  PRIMARY KEY (order_id)
 );
 
 DROP TABLE IF EXISTS order_details;
 CREATE TABLE order_details (
   order_id          INT         NOT NULL,
   product_id        INT         NOT NULL,
-  quantity          INT         DEFAULT 0,
+  quantity          INT         DEFAULT 0
 );
