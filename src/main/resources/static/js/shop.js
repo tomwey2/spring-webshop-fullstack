@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", loadFromBackend);
 document.getElementById("loadTestDataSmall").addEventListener("click", loadTestData);
 document.getElementById("loadTestDataLarge").addEventListener("click", loadTestData);
 
-document.getElementById("productCategories").addEventListener("click",function(e) {
+document.getElementById("productCategories").addEventListener("click", function(e) {
     // https://davidwalsh.name/event-delegate
     // e.target is our targetted element.
     if(e.target && e.target.nodeName == "LI") {
@@ -43,6 +43,7 @@ function loadFromBackend() {
 }
 
 function loadTestData() {
+    console.log("Load Testdata");
     buildProductCategories(testProductCategories)
     buildProducts(testProducts)
 }
