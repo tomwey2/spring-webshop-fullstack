@@ -33,9 +33,9 @@ public class CustomerController {
     }
 
     @GetMapping("/customers/{name}")
-    Customer getByUserName(@PathVariable String name) {
-        return repository.findByUserName(name)
-                .orElseThrow(() -> new CustomerNotFoundException(name));
+    Customer getByEmail(@PathVariable String email) {
+        return repository.findByEmail(email)
+                .orElseThrow(() -> new CustomerNotFoundException(email));
     }
 
     @RequestMapping(
@@ -44,8 +44,9 @@ public class CustomerController {
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     Customer post(@RequestBody Customer newCustomer) {
-        Customer customer = create(newCustomer.getUserName(), newCustomer.getFirstName(), newCustomer.getLastName(),
-                newCustomer.getEmail(), newCustomer.getAddressLine1(), newCustomer.getAddressLine2(),
+        Customer customer = create(newCustomer.getFirstName(), newCustomer.getLastName(),
+                newCustomer.getEmail(), newCustomer.getPassword(),
+                newCustomer.getAddressLine1(), newCustomer.getAddressLine2(),
                 newCustomer.getCity(), newCustomer.getPostalCode(), newCustomer.getCountry());
         log.debug("Call POST /createCustomer/{}", customer);
         return repository.save(customer);
@@ -67,10 +68,10 @@ public class CustomerController {
         repository.deleteById(id);
     }
 
-    public Customer create(String userName, String firstName, String lastName, String email,
+    public Customer create(String firstName, String lastName, String email, String password,
                            String addressLine1, String addressLine2,
                            String city, String postalcode, String country) {
-        return new Customer(userName, firstName, lastName, email,
+        return new Customer(firstName, lastName, email, password,
                 addressLine1, addressLine2, city, postalcode, country);
     }
 

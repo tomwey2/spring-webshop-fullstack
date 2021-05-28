@@ -57,19 +57,19 @@ class CustomerControllerTest {
     }
 
     @Test
-    void getByUsername() {
-        log.info(separator, "getByUserName()");
+    void getByEmail() {
+        log.info(separator, "getByEmail()");
         assertThat(controller).isNotNull();
         Customer customer;
         // positive test case for user that exists
-        String existUser = "user1";
-        customer = controller.getByUserName(existUser);
+        String existUser = "muster@test.de";
+        customer = controller.getByEmail(existUser);
         assertThat(customer).isNotNull();
         log.debug("Customer username={}}: {} ", existUser, customer);
         // negative test case for user that not exists
         try {
             String notExistUser = "blabla";
-            customer = controller.getByUserName(notExistUser);
+            customer = controller.getByEmail(notExistUser);
             assertThatExceptionOfType(CustomerNotFoundException.class);
         } catch (CustomerNotFoundException e) {
             log.debug(e);
@@ -80,8 +80,8 @@ class CustomerControllerTest {
     void create() {
         log.info(separator, "create()");
         assertThat(controller).isNotNull();
-        Customer customer = controller.create("test", "John", "Doe", "",
-                "", "", "", "", "");
+        Customer customer = controller.create("John", "Doe", "doe@test.com",
+                "password", "", "", "", "", "");
         log.debug("Customer: {}", customer);
     }
 }

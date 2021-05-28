@@ -13,9 +13,6 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
-    @Column(name = "user_name", length = 20)
-    private String userName;
-
     @Column(name = "first_name", length = 50)
     private String firstName;
 
@@ -24,6 +21,9 @@ public class Customer {
 
     @Column(name = "email", length = 50)
     private String email;
+
+    @Column(name = "password", length = 50)
+    private String password;
 
     @Column(name = "address_line1", length = 50)
     private String addressLine1;
@@ -52,13 +52,13 @@ public class Customer {
     public Customer() {
     }
 
-    public Customer(String userName, String firstName, String lastName, String email,
+    public Customer(String firstName, String lastName, String email, String password,
                     String addressLine1, String addressLine2,
                     String city, String postalCode, String country) {
-        this.userName = userName;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.addressLine1 = addressLine1;
         this.addressLine2 = addressLine2;
         this.city = city;
@@ -74,14 +74,6 @@ public class Customer {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getFirstName() {
@@ -106,6 +98,14 @@ public class Customer {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getAddressLine1() {
@@ -176,10 +176,10 @@ public class Customer {
     public String toString() {
         return "Customer{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
                 ", addressLine1='" + addressLine1 + '\'' +
                 ", addressLine2='" + addressLine2 + '\'' +
                 ", city='" + city + '\'' +
