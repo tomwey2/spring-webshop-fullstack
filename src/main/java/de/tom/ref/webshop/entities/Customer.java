@@ -189,4 +189,17 @@ public class Customer {
                 ", updateDate=" + updateDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Customer other = (Customer) obj;
+        return other.getId() == this.getId();
+    }
+
 }

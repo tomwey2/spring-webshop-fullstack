@@ -20,11 +20,7 @@ public class CartController {
     @Autowired
     CartRepository repository;
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/carts",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping("/carts")
     public List<Cart> getAll() {
         return repository.findAll();
     }
@@ -35,10 +31,18 @@ public class CartController {
                 .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @GetMapping("/carts/{customer_id}")
+    @GetMapping("/carts/customer/{customer_id}")
     Cart getByCustomerId(@PathVariable Integer customerId) {
         return repository.findByCustomerId(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
+    }
+
+    @PostMapping("/carts/save")
+    String save(@RequestBody Cart newCart) {
+        log.debug("Call POST /carts/save {}", newCart);
+        //Cart cart = create(newCart.getCustomer());
+        Cart savedCart = repository.save(newCart);
+        return String.valueOf(savedCart.getId());
     }
 
     @PutMapping("/carts/{id}")

@@ -135,4 +135,17 @@ public class Product {
                 ", updateDate=" + updateDate +
                 '}';
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Product other = (Product) obj;
+        return other.getId() == this.getId();
+    }
+
 }

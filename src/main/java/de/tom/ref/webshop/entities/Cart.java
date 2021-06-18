@@ -1,5 +1,7 @@
 package de.tom.ref.webshop.entities;
 
+import com.sun.istack.NotNull;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -70,5 +72,17 @@ public class Cart {
                 ", createDate=" + createDate +
                 ", updateDate=" + updateDate +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (obj.getClass() != this.getClass()) {
+            return false;
+        }
+        final Cart other = (Cart) obj;
+        return other.getId() == this.getId();
     }
 }
