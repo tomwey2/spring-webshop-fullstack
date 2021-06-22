@@ -1,16 +1,23 @@
 package de.tom.ref.webshop.entities;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="cart_content")
 public class CartContent {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "content_id")
+    private Integer id;
+
+    //@ManyToOne
+    //@JoinColumn(name="cart_id", nullable=false)
     @Column(name = "cart_id")
     private Integer cartId;
 
+    //@ManyToOne
+    //@JoinColumn(name="product_id", nullable=false)
     @Column(name = "product_id")
     private Integer productId;
 
@@ -21,6 +28,14 @@ public class CartContent {
         this.cartId = cartId;
         this.productId = productId;
         this.quantity = quantity;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Integer getCartId() {

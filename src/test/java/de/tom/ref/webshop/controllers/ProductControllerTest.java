@@ -1,54 +1,103 @@
 package de.tom.ref.webshop.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import de.tom.ref.webshop.entities.Customer;
 import de.tom.ref.webshop.entities.Product;
 import de.tom.ref.webshop.entities.ProductCategory;
+import de.tom.ref.webshop.repositories.CustomerRepository;
+import de.tom.ref.webshop.repositories.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-// The @SpringBootTest annotation tells Spring Boot to look for a main configuration class
-// (one with @SpringBootApplication, for instance) and use that to start a Spring application context.
-@SpringBootTest
+@WebMvcTest(ProductController.class)
 class ProductControllerTest {
     Logger log = LogManager.getLogger(ProductControllerTest.class);
+    private String separator = "##### Execute test: {} #####";
 
-    // Spring interprets the @Autowired annotation, and the controller is injected before the test methods are run.
+    private static List<Product> testProducts;
+    private static Product testProduct1;
+
     @Autowired
-    private ProductController controller;
+    private MockMvc mockMvc;
     @Autowired
-    private ProductCategoryController productCategoryController;
+    private ObjectMapper objectMapper;
+    @MockBean
+    private ProductRepository repo;
 
-    @Test
-    void getAll() {
-        log.info("##### Execute test: getAll #####");
-        assertThat(controller).isNotNull();
-        List<Product> products = controller.getAll(0);
-        for (Product product : products) {
-            log.debug("Product: {} category: {}", product, product.getCategory());
-        }
+    @BeforeAll
+    public static void init() {
+        testProduct1 = new Product("Test1", null, BigDecimal.ZERO, 10);
+        testProduct1.setId(1);
+        testProducts = new ArrayList<>();
+        testProducts.add(testProduct1);
+        testProducts.add(new Product("Test2", null, BigDecimal.ZERO, 5));
     }
 
     @Test
-    void getById() {
-        log.info("##### Execute test: getById #####");
-        assertThat(controller).isNotNull();
-        Product product = controller.getById(1);
-        log.debug("Product id=1: {} ", product);
+    public void getAll() throws Exception {
+        log.info(separator, "getAll");
+        Mockito.when(repo.findAll()).thenReturn(testProducts);
+        String url = "/products";
+
+        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        String actualResponse = mvcResult.getResponse().getContentAsString();
+        log.debug(actualResponse);
+        String expectedResponse = objectMapper.writeValueAsString(testProducts);
+        assertEquals(actualResponse, expectedResponse);
     }
 
     @Test
-    void create() {
-        log.info("##### Execute test: createProduct #####");
-        assertThat(controller).isNotNull();
-        ProductCategory category = productCategoryController.create("Testcategory");
-        Product product = controller.create("Testproduct", category, new BigDecimal(10.50), 5);
-        log.debug("Product: {}", product);
+    void getByIdOk() throws Exception {
+        // Positive test case for id that exists.
+        log.info(separator, "getById(1)");
+        String actualResponse;
+        String url = "/products/{id}";
+
+        Mockito.when(repo.findById(1)).thenReturn(java.util.Optional.of(testProduct1));
+        MvcResult mvcResultOk = mockMvc
+                .perform(get(url, "1").contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk()).andReturn();
+        actualResponse = mvcResultOk.getResponse().getContentAsString();
+        log.debug(actualResponse);
+        String expectedResponse = objectMapper.writeValueAsString(testProduct1);
+        assertEquals(actualResponse, expectedResponse);
     }
+
+    @Test
+    void getByIdFailed() throws Exception {
+        // Negative test case for id that not exists. In this case the controller throw a not found exception.
+        log.info(separator, "getById(4711) -- FAILED");
+        String url = "/products/{id}";
+
+        Mockito.when(repo.findById(4711)).thenThrow(ProductNotFoundException.class);
+        MvcResult mvcResultFailed = mockMvc
+                .perform(get(url, "4711")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andExpect(result -> assertTrue(result.getResolvedException() instanceof ProductNotFoundException))
+                .andReturn();
+        String actualResponse = mvcResultFailed.getResponse().getContentAsString();
+        log.debug(actualResponse);
+    }
+
 }

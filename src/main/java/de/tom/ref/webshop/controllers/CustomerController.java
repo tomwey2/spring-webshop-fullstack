@@ -26,15 +26,17 @@ public class CustomerController {
         return repository.findAll();
     }
 
-    @GetMapping("/customers/{id}")
+    @GetMapping("/customers/id/{id}")
     Customer getById(@PathVariable Integer id) {
-        return repository.findById(id)
+        return repository
+                .findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @GetMapping("/customers/{name}")
+    @GetMapping("/customers/email/{email}")
     Customer getByEmail(@PathVariable String email) {
-        return repository.findByEmail(email)
+        return repository
+                .findByEmail(email)
                 .orElseThrow(() -> new CustomerNotFoundException(email));
     }
 
