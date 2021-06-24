@@ -35,6 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CartControllerTest {
     Logger log = LogManager.getLogger(CartControllerTest.class);
     private String separator = "##### Execute test: {} #####";
+    private String requestPath = "/api/carts";
 
     private static List<Cart> testCarts;
     private static Cart testCart1;
@@ -67,7 +68,7 @@ class CartControllerTest {
     public void getAll() throws Exception {
         log.info(separator, "getAll()");
         Mockito.when(repo.findAll()).thenReturn(testCarts);
-        String url = "/carts";
+        String url = requestPath + "";
 
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
         String actualResponse = mvcResult.getResponse().getContentAsString();
@@ -81,7 +82,7 @@ class CartControllerTest {
         // Positive test case for id that exists.
         log.info(separator, "getById(1)");
         String actualResponse;
-        String url = "/carts/{id}";
+        String url = requestPath + "/{id}";
 
         Mockito.when(repo.findById(1)).thenReturn(java.util.Optional.of(testCart1));
         MvcResult mvcResultOk = mockMvc
@@ -102,7 +103,7 @@ class CartControllerTest {
         saveCart.setId(1);
 
         Mockito.when(repo.save(newCart)).thenReturn(saveCart);
-        String url = "/carts/save";
+        String url = requestPath + "/save";
         mockMvc.perform(
                 post(url)
                         .contentType(MediaType.APPLICATION_JSON_VALUE)

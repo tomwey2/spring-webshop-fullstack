@@ -49,7 +49,7 @@ function loadTestData() {
 }
 
 function loadProductsFromBackend() {
-    fetch(`${serverUrl}/products`)
+    fetch(`${serverUrl}/api/products`)
         .then(function (response) {
             return response.json();
         })
@@ -61,7 +61,7 @@ function loadProductsFromBackend() {
 
 function loadProductsOfCategoryFromBackend(id) {
     categoryId = Number(id);
-    fetch(`${serverUrl}/products?category_id=${categoryId}`)
+    fetch(`${serverUrl}/api/products?category_id=${categoryId}`)
         .then(function (response) {
             return response.json();
         })
@@ -90,7 +90,7 @@ function buildProducts(data) {
 }
 
 function loadProductCategoriesFromBackend() {
-    fetch(`${serverUrl}/product_categories`)
+    fetch(`${serverUrl}/api/product_categories`)
         .then(function (response) {
             return response.json();
         })

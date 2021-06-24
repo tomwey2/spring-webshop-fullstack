@@ -2,6 +2,7 @@ package de.tom.ref.webshop.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tom.ref.webshop.entities.Customer;
+import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.repositories.CustomerRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class CustomerControllerTest {
     private Logger log = LogManager.getLogger(CustomerControllerTest.class);
     private String separator = "##### Execute test: {} #####";
+    private String requestPath = "/api/customers";
+
     private static List<Customer> testCustomers;
     private static Customer testCustomer1;
 
@@ -51,7 +54,7 @@ class CustomerControllerTest {
     public void getAll() throws Exception {
         log.info(separator, "getAll");
         Mockito.when(repo.findAll()).thenReturn(testCustomers);
-        String url = "/customers";
+        String url = requestPath + "";
 
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
         String actualResponse = mvcResult.getResponse().getContentAsString();
@@ -65,7 +68,7 @@ class CustomerControllerTest {
         // Positive test case for id that exists.
         log.info(separator, "getById(1)");
         String actualResponse;
-        String url = "/customers/id/{id}";
+        String url = requestPath + "/{id}";
 
         Mockito.when(repo.findById(1)).thenReturn(java.util.Optional.of(testCustomer1));
         MvcResult mvcResultOk = mockMvc
@@ -81,7 +84,7 @@ class CustomerControllerTest {
     void getByIdFailed() throws Exception {
         // Negative test case for id that not exists. In this case the controller throw a not found exception.
         log.info(separator, "getById(4711) -- FAILED");
-        String url = "/customers/id/{id}";
+        String url = requestPath + "/{id}";
 
         Mockito.when(repo.findById(4711)).thenThrow(CustomerNotFoundException.class);
         MvcResult mvcResultFailed = mockMvc
@@ -98,7 +101,7 @@ class CustomerControllerTest {
     void getByEmail() throws Exception {
         log.info(separator, "getById(1)");
         String actualResponse;
-        String url = "/customers/email/{email}";
+        String url = requestPath + "/email/{email}";
 
         Mockito.when(repo.findByEmail("mustermann@test.com")).thenReturn(java.util.Optional.of(testCustomer1));
         MvcResult mvcResultOk = mockMvc

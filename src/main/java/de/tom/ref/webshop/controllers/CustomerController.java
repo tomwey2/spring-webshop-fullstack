@@ -1,6 +1,7 @@
 package de.tom.ref.webshop.controllers;
 
 import de.tom.ref.webshop.entities.Customer;
+import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.repositories.CustomerRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -11,29 +12,26 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@RequestMapping(path = "/api/customers")
 public class CustomerController {
     Logger log = LogManager.getLogger(CustomerController.class);
 
     @Autowired
     CustomerRepository repository;
 
-    @RequestMapping(
-            method = RequestMethod.GET,
-            path = "/customers",
-            produces = MediaType.APPLICATION_JSON_VALUE
-    )
+    @GetMapping("")
     public List<Customer> getAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/customers/id/{id}")
+    @GetMapping("/{id}")
     Customer getById(@PathVariable Integer id) {
         return repository
                 .findById(id)
                 .orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @GetMapping("/customers/email/{email}")
+    @GetMapping("/email/{email}")
     Customer getByEmail(@PathVariable String email) {
         return repository
                 .findByEmail(email)
@@ -42,7 +40,7 @@ public class CustomerController {
 
     @RequestMapping(
             method = RequestMethod.POST,
-            path = "/createCustomer",
+            path = "/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     Customer post(@RequestBody Customer newCustomer) {
@@ -54,7 +52,7 @@ public class CustomerController {
         return repository.save(customer);
     }
 
-    @PutMapping("/customers/{id}")
+    @PutMapping("/{id}")
     Customer put(@RequestBody Customer object, @PathVariable Integer id) {
         return repository.findById(id)
                 .map(customer -> {
@@ -65,7 +63,7 @@ public class CustomerController {
                 }).orElseThrow(() -> new CustomerNotFoundException(id));
     }
 
-    @DeleteMapping("/customers/{id}")
+    @DeleteMapping("/{id}")
     void deleteById(@PathVariable Integer id) {
         repository.deleteById(id);
     }

@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.errorhandling;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

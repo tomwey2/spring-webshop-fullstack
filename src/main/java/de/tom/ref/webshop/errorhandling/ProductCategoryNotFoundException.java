@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.errorhandling;
 
 public class ProductCategoryNotFoundException extends RuntimeException{
     public ProductCategoryNotFoundException(Integer id) {

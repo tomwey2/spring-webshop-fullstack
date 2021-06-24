@@ -28,6 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProductCategoryController.class)
 class ProductCategoryControllerTest {
     Logger log = LogManager.getLogger(ProductCategoryControllerTest.class);
+    private String separator = "##### Execute test: {} #####";
+    private String requestPath = "/api/product_categories";
 
     @Autowired
     private MockMvc mockMvc;
@@ -38,13 +40,13 @@ class ProductCategoryControllerTest {
 
     @Test
     void getAll() throws Exception {
-        log.info("##### Execute test: getAll #####");
+        log.info(separator, "getAll()");
+        String url = requestPath + "";
         List<ProductCategory> categories = new ArrayList<>();
         categories.add(new ProductCategory("test category 1"));
         categories.add(new ProductCategory("test category 2"));
         categories.add(new ProductCategory("test category 3"));
         Mockito.when(repo.findAll()).thenReturn(categories);
-        String url = "/product_categories";
 
         MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
         String actualResponse = mvcResult.getResponse().getContentAsString();
@@ -55,13 +57,13 @@ class ProductCategoryControllerTest {
 
     @Test
     void getById() throws Exception {
-        log.info("##### Execute test: getById #####");
+        log.info(separator, "getById(1)");
+        String url = requestPath + "/{id}";
         ProductCategory category = new ProductCategory("test category 1");
         category.setId(1);
         Mockito.when(repo.findById(1)).thenReturn(java.util.Optional.of(category));
-        String url = "/product_categories/1";
 
-        MvcResult mvcResult = mockMvc.perform(get(url)).andExpect(status().isOk()).andReturn();
+        MvcResult mvcResult = mockMvc.perform(get(url, "1")).andExpect(status().isOk()).andReturn();
         String actualResponse = mvcResult.getResponse().getContentAsString();
         log.debug(actualResponse);
         String expectedResponse = objectMapper.writeValueAsString(category);
