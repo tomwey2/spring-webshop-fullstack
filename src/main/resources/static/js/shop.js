@@ -1,5 +1,5 @@
 let sortDirection = false;
-let serverUrl = "http://tompi:8080/webshop";
+let serverUrl = "http://192.168.188.24:8080/webshop";
 
 let testProducts = [
     {"name": "Test Product 1", "unitsInStock": 30, "unitPrice": 10.50  },
