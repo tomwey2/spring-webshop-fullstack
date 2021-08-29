@@ -4,6 +4,7 @@ import de.tom.ref.webshop.entities.Product;
 import de.tom.ref.webshop.entities.ProductCategory;
 import de.tom.ref.webshop.errorhandling.ProductNotFoundException;
 import de.tom.ref.webshop.repositories.ProductRepository;
+import de.tom.ref.webshop.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,22 +17,28 @@ import java.util.stream.Collectors;
 public class ProductController {
     @Autowired
     ProductRepository repository;
+    @Autowired
+    ProductService service;
 
     @GetMapping("")
     public List<Product> getAll(@RequestParam(value = "category_id", defaultValue = "0") Integer categoryId) {
-        List<Product> products = repository.findAll();
-        if (categoryId != 0) {
-            products = products.stream()
-                    .filter(product -> product.getCategory().getId() == categoryId)
-                    .collect(Collectors.toList());
-        }
-        return products;
+        return service.getProducts(categoryId);
     }
 
     @GetMapping("/{id}")
     public Product getById(@PathVariable Integer id) {
         return repository.findById(id)
                 .orElseThrow(() -> new ProductNotFoundException(id));
+    }
+
+    @PostMapping("/add")
+    public void addProduct(@RequestBody Product product) {
+        service.addProduct(product);
+    }
+
+    @PostMapping("/del/{id}")
+    public void delById(@PathVariable Integer id) {
+        service.delProduct(id);
     }
 
     public Product create(String name, ProductCategory category, BigDecimal unitPrice, Integer unitsInStock) {
