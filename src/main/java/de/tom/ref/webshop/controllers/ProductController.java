@@ -10,15 +10,19 @@ import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/api/products")
 public class ProductController {
+    private final ProductRepository repository;
+    private final ProductService service;
+
     @Autowired
-    ProductRepository repository;
-    @Autowired
-    ProductService service;
+    public ProductController(ProductRepository repository,
+            ProductService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     @GetMapping("")
     public List<Product> getAll(@RequestParam(value = "category_id", defaultValue = "0") Integer categoryId) {
@@ -32,8 +36,9 @@ public class ProductController {
     }
 
     @PostMapping("/add")
-    public void addProduct(@RequestBody Product product) {
-        service.addProduct(product);
+    public void addProduct(@RequestParam(value = "category_id", defaultValue = "0") Integer categoryId,
+                           @RequestBody Product product) {
+        service.addProduct(categoryId, product);
     }
 
     @PostMapping("/del/{id}")

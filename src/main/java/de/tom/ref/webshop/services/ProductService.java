@@ -13,10 +13,13 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     private final ProductRepository productRepository;
+    private final ProductCategoryService productCategoryService;
 
     @Autowired
-    public ProductService(ProductRepository productRepository) {
+    public ProductService(ProductRepository productRepository,
+                          ProductCategoryService productCategoryService) {
         this.productRepository = productRepository;
+        this.productCategoryService = productCategoryService;
     }
 
     /**
@@ -36,16 +39,32 @@ public class ProductService {
     }
 
     /**
+     * Get the product with the given id.
+     *
+     * @param productId the id of the product in the database.
+     * @return the product object if exists otherwise throw an exception.
+     */
+    public Product getProduct(Integer productId) {
+        Optional<Product> product = productRepository.findById(productId);
+        if (product.isEmpty()) {
+            throw new IllegalStateException("Product with id=" + productId + " not found.");
+        }
+        return product.get();
+    }
+
+    /**
      * Add a new product into the repository. If there is already a product with the same name
      * then an exception is thrown.
+     *
+     * @param categoryId the id of the category in the database.
      * @param product The product that should to add.
-     * @return the products that was added.
+     * @return the products that was added if it not exists otherwise throw an exception.
      */
-    public Product addProduct(Product product) {
-        Optional<Product> productOptional = productRepository.findProductByName(product.getName());
-        if (productOptional.isPresent()) {
+    public Product addProduct(Integer categoryId, Product product) {
+        if (productRepository.findByName(product.getName()) != null) {
             throw new IllegalStateException("Product with name '" + product.getName() + "' exists.");
         }
+        product.setCategory(productCategoryService.getProductCategory(categoryId));
         return productRepository.save(product);
     }
 
