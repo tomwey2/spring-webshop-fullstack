@@ -1,10 +1,9 @@
 package de.tom.ref.webshop.controllers;
 
 import de.tom.ref.webshop.entities.ProductCategory;
-import de.tom.ref.webshop.errorhandling.ProductCategoryNotFoundException;
 import de.tom.ref.webshop.repositories.ProductCategoryRepository;
+import de.tom.ref.webshop.services.ProductCategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,28 +11,29 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/api/product_categories")
 public class ProductCategoryController {
-    @Autowired
     ProductCategoryRepository repository;
+    ProductCategoryService service;
+
+    @Autowired
+    public ProductCategoryController(ProductCategoryRepository repository,
+                                     ProductCategoryService service) {
+        this.repository = repository;
+        this.service = service;
+    }
 
     @GetMapping("")
     public List<ProductCategory> getAll() {
-        return repository.findAll();
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
     public ProductCategory getById(@PathVariable Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new ProductCategoryNotFoundException(id));
+        return service.getProductCategory(id);
     }
 
-    @RequestMapping(
-            method = RequestMethod.POST,
-            path = "/create",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
-            produces = MediaType.APPLICATION_JSON_VALUE)
+    @PostMapping("/add")
     public ProductCategory post(@RequestBody ProductCategory newCategory) {
-        ProductCategory category = new ProductCategory(newCategory.getName());
-        return repository.save(category);
+        return service.addProductCategory(newCategory);
     }
 
 }

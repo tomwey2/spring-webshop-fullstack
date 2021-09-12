@@ -5,7 +5,7 @@ import de.tom.ref.webshop.repositories.ProductCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
+import java.util.List;
 
 @Service
 public class ProductCategoryService {
@@ -17,17 +17,38 @@ public class ProductCategoryService {
     }
 
     /**
+     * Get all product categories.
+     *
+     * @return list of product categories.
+     */
+    public List<ProductCategory> getAll() {
+        return productCategoryRepository.findAll();
+    }
+
+    /**
      * Get the product category with the given id.
      *
      * @param categoryId the id of the product category in the database.
      * @return the product category object if exists otherwise throw an exception.
      */
     public ProductCategory getProductCategory(Integer categoryId) {
-        Optional<ProductCategory> category = productCategoryRepository.findById(categoryId);
-        if (category.isEmpty()) {
-            throw new IllegalStateException("Product category with id=" + categoryId + " not found.");
+        return productCategoryRepository
+                .findById(categoryId)
+                .orElseThrow(() -> new IllegalStateException("Product category with id=" + categoryId + " not found."));
+    }
+
+    /**
+     * Add a new product category into the database.
+     * The name of the new category must not be existed.
+     *
+     * @param productCategory the new category
+     * @return
+     */
+    public ProductCategory addProductCategory(ProductCategory productCategory) {
+        if (productCategoryRepository.findByName(productCategory.getName()) != null) {
+            throw new IllegalStateException("Product category with name '" + productCategory.getName() + "' exists.");
         }
-        return category.get();
+        return productCategoryRepository.save(productCategory);
     }
 
 }
