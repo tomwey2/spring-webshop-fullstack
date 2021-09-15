@@ -1,5 +1,6 @@
 let sortDirection = false;
-let serverUrl = "http://192.168.188.24:8080/webshop";
+//pi: let serverUrl = "http://192.168.188.24:8080/webshop";
+let serverUrl = "http://localhost:8080";
 
 let testProducts = [
     {"name": "Test Product 1", "unitsInStock": 30, "unitPrice": 10.50  },
