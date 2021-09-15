@@ -1,5 +1,4 @@
 package de.tom.ref.webshop.controllers;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.tom.ref.webshop.entities.Product;
 import de.tom.ref.webshop.errorhandling.ProductNotFoundException;
@@ -29,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(ProductController.class)
 @Slf4j
 class ProductControllerTest {
+/*
     private String separator = "##### Execute test: {} #####";
     private String requestPath = "/api/products";
 
@@ -103,5 +103,5 @@ class ProductControllerTest {
         String actualResponse = mvcResultFailed.getResponse().getContentAsString();
         log.debug(actualResponse);
     }
-
+*/
 }

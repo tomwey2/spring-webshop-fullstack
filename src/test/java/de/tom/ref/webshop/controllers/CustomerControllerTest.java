@@ -27,6 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CustomerController.class)
 class CustomerControllerTest {
     private Logger log = LogManager.getLogger(CustomerControllerTest.class);
+/*
     private String separator = "##### Execute test: {} #####";
     private String requestPath = "/api/customers";
 
@@ -112,5 +113,5 @@ class CustomerControllerTest {
         String expectedResponse = objectMapper.writeValueAsString(testCustomer1);
         assertEquals(actualResponse, expectedResponse);
     }
-
+*/
 }

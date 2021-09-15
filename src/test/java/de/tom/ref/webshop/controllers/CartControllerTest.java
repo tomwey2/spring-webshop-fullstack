@@ -34,6 +34,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @WebMvcTest(CartController.class)
 class CartControllerTest {
     Logger log = LogManager.getLogger(CartControllerTest.class);
+/*
     private String separator = "##### Execute test: {} #####";
     private String requestPath = "/api/carts";
 
@@ -114,4 +115,5 @@ class CartControllerTest {
                 .andExpect(content().string("1"));
 
     }
+*/
 }
