@@ -1,13 +1,8 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.entities.carts.CartController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(CartController.class)
 class CartControllerTest {

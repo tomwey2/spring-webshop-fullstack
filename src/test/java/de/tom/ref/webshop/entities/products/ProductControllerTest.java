@@ -1,5 +1,4 @@
-package de.tom.ref.webshop.controllers;
-import de.tom.ref.webshop.entities.products.ProductController;
+package de.tom.ref.webshop.entities.products;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 

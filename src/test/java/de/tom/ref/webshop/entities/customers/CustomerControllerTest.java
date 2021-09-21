@@ -1,6 +1,5 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.entities.customers;
 
-import de.tom.ref.webshop.entities.customers.CustomerController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
