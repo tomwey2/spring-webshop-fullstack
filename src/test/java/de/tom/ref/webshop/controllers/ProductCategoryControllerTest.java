@@ -1,5 +1,6 @@
 package de.tom.ref.webshop.controllers;
 
+import de.tom.ref.webshop.products.ProductCategoryController;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 

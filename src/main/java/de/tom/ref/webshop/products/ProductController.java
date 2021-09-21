@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.products;
 
 import de.tom.ref.webshop.products.Product;
 import de.tom.ref.webshop.products.ProductCategory;
