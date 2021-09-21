@@ -1,6 +1,6 @@
-package de.tom.ref.webshop.repositories;
+package de.tom.ref.webshop.carts;
 
-import de.tom.ref.webshop.entities.Cart;
+import de.tom.ref.webshop.carts.Cart;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

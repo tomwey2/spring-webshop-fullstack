@@ -1,10 +1,10 @@
-package de.tom.ref.webshop.services;
+package de.tom.ref.webshop.carts;
 
-import de.tom.ref.webshop.entities.Cart;
-import de.tom.ref.webshop.entities.CartContent;
+import de.tom.ref.webshop.carts.Cart;
+import de.tom.ref.webshop.carts.CartContent;
 import de.tom.ref.webshop.customers.Customer;
-import de.tom.ref.webshop.repositories.CartContentRepository;
-import de.tom.ref.webshop.repositories.CartRepository;
+import de.tom.ref.webshop.carts.CartContentRepository;
+import de.tom.ref.webshop.carts.CartRepository;
 import de.tom.ref.webshop.customers.CustomerRepository;
 import org.springframework.stereotype.Service;
 

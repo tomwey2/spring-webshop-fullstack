@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.entities;
+package de.tom.ref.webshop.carts;
 
 import de.tom.ref.webshop.customers.Customer;
 

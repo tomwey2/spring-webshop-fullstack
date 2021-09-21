@@ -1,11 +1,8 @@
 package de.tom.ref.webshop.services;
 
-import de.tom.ref.webshop.entities.Cart;
-import de.tom.ref.webshop.entities.CartContent;
+import de.tom.ref.webshop.carts.*;
 import de.tom.ref.webshop.customers.Customer;
 import de.tom.ref.webshop.enums.UserRole;
-import de.tom.ref.webshop.repositories.CartContentRepository;
-import de.tom.ref.webshop.repositories.CartRepository;
 import de.tom.ref.webshop.customers.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

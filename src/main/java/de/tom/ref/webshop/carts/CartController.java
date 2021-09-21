@@ -1,9 +1,7 @@
-package de.tom.ref.webshop.controllers;
+package de.tom.ref.webshop.carts;
 
-import de.tom.ref.webshop.entities.Cart;
 import de.tom.ref.webshop.products.Product;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
-import de.tom.ref.webshop.repositories.CartRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
