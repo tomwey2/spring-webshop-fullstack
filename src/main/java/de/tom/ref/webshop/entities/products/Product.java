@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.products;
+package de.tom.ref.webshop.entities.products;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

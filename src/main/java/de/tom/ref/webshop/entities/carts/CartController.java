@@ -1,6 +1,6 @@
-package de.tom.ref.webshop.carts;
+package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.products.Product;
+import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;

@@ -1,6 +1,5 @@
-package de.tom.ref.webshop.customers;
+package de.tom.ref.webshop.entities.customers;
 
-import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;

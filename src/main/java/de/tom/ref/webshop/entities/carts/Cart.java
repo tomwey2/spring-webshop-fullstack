@@ -1,6 +1,6 @@
-package de.tom.ref.webshop.carts;
+package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.customers.Customer;
+import de.tom.ref.webshop.entities.customers.Customer;
 
 import javax.persistence.*;
 import java.util.Date;

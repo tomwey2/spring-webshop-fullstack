@@ -1,10 +1,6 @@
-package de.tom.ref.webshop.products;
+package de.tom.ref.webshop.entities.products;
 
-import de.tom.ref.webshop.products.Product;
-import de.tom.ref.webshop.products.ProductCategory;
 import de.tom.ref.webshop.errorhandling.ProductNotFoundException;
-import de.tom.ref.webshop.products.ProductRepository;
-import de.tom.ref.webshop.products.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

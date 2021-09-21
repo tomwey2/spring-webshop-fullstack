@@ -1,9 +1,9 @@
 package de.tom.ref.webshop.services;
 
-import de.tom.ref.webshop.carts.*;
-import de.tom.ref.webshop.customers.Customer;
+import de.tom.ref.webshop.entities.carts.*;
+import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.enums.UserRole;
-import de.tom.ref.webshop.customers.CustomerRepository;
+import de.tom.ref.webshop.entities.customers.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

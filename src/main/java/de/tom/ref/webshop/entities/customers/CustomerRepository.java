@@ -1,6 +1,5 @@
-package de.tom.ref.webshop.customers;
+package de.tom.ref.webshop.entities.customers;
 
-import de.tom.ref.webshop.customers.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.query.Param;
 

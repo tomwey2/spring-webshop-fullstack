@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.carts;
+package de.tom.ref.webshop.entities.carts;
 
 import javax.persistence.*;
 

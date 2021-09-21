@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.customers;
+package de.tom.ref.webshop.entities.customers;
 
 import de.tom.ref.webshop.enums.UserRole;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;

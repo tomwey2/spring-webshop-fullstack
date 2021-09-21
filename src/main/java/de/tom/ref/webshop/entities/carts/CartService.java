@@ -1,11 +1,7 @@
-package de.tom.ref.webshop.carts;
+package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.carts.Cart;
-import de.tom.ref.webshop.carts.CartContent;
-import de.tom.ref.webshop.customers.Customer;
-import de.tom.ref.webshop.carts.CartContentRepository;
-import de.tom.ref.webshop.carts.CartRepository;
-import de.tom.ref.webshop.customers.CustomerRepository;
+import de.tom.ref.webshop.entities.customers.Customer;
+import de.tom.ref.webshop.entities.customers.CustomerRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
