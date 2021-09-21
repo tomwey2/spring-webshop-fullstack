@@ -1,7 +1,6 @@
 package de.tom.ref.webshop.controllers;
 
 import de.tom.ref.webshop.entities.Cart;
-import de.tom.ref.webshop.entities.Customer;
 import de.tom.ref.webshop.entities.Product;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.repositories.CartRepository;

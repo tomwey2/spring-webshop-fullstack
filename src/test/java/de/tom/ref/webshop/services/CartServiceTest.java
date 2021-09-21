@@ -2,11 +2,11 @@ package de.tom.ref.webshop.services;
 
 import de.tom.ref.webshop.entities.Cart;
 import de.tom.ref.webshop.entities.CartContent;
-import de.tom.ref.webshop.entities.Customer;
+import de.tom.ref.webshop.customers.Customer;
+import de.tom.ref.webshop.enums.UserRole;
 import de.tom.ref.webshop.repositories.CartContentRepository;
 import de.tom.ref.webshop.repositories.CartRepository;
-import de.tom.ref.webshop.repositories.CustomerRepository;
-import org.junit.jupiter.api.BeforeEach;
+import de.tom.ref.webshop.customers.CustomerRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -55,8 +55,12 @@ class CartServiceTest {
 
     @Test
     void createCartForCustomer() {
-        Customer testCustomer = new Customer("Max", "Mustermann", "mustermann@gmail.com", "",
-                "", "", "", "", "");
+        Customer testCustomer = new Customer(
+                null, "Max", "Mustermann",
+                "mustermann@gmail.com", "",
+                "", "", "", "", "", true,
+                null, null,
+                true, false, UserRole.ROLE_USER);
         testCustomer.setId(1);
         Cart testCart = new Cart(testCustomer);
         Mockito.when(customerRepo.findById(1)).thenReturn(Optional.of(testCustomer));

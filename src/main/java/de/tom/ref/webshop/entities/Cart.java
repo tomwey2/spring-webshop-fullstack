@@ -1,6 +1,6 @@
 package de.tom.ref.webshop.entities;
 
-import com.sun.istack.NotNull;
+import de.tom.ref.webshop.customers.Customer;
 
 import javax.persistence.*;
 import java.util.Date;
