@@ -1,7 +1,7 @@
-package de.tom.ref.webshop.services;
+package de.tom.ref.webshop.products;
 
-import de.tom.ref.webshop.entities.ProductCategory;
-import de.tom.ref.webshop.repositories.ProductCategoryRepository;
+import de.tom.ref.webshop.products.ProductCategory;
+import de.tom.ref.webshop.products.ProductCategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

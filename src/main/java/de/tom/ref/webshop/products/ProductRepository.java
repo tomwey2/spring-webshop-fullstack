@@ -1,6 +1,6 @@
-package de.tom.ref.webshop.repositories;
+package de.tom.ref.webshop.products;
 
-import de.tom.ref.webshop.entities.Product;
+import de.tom.ref.webshop.products.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

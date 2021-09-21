@@ -1,9 +1,7 @@
-package de.tom.ref.webshop.entities;
+package de.tom.ref.webshop.products;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
-import java.util.Set;
 
 @Entity
 @Table(name="product_categories")

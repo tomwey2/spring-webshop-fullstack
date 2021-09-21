@@ -1,38 +1,13 @@
 package de.tom.ref.webshop.controllers;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import de.tom.ref.webshop.WebshopApplication;
-import de.tom.ref.webshop.entities.Cart;
-import de.tom.ref.webshop.entities.ProductCategory;
-import de.tom.ref.webshop.repositories.CartRepository;
-import de.tom.ref.webshop.repositories.ProductCategoryRepository;
-
-import de.tom.ref.webshop.repositories.ProductRepository;
-import de.tom.ref.webshop.services.ProductCategoryService;
-import de.tom.ref.webshop.services.ProductService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(ProductCategoryController.class)
 class ProductCategoryControllerTest {

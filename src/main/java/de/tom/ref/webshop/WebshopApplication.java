@@ -1,9 +1,9 @@
 package de.tom.ref.webshop;
 
-import de.tom.ref.webshop.entities.Product;
-import de.tom.ref.webshop.entities.ProductCategory;
-import de.tom.ref.webshop.repositories.ProductCategoryRepository;
-import de.tom.ref.webshop.repositories.ProductRepository;
+import de.tom.ref.webshop.products.Product;
+import de.tom.ref.webshop.products.ProductCategory;
+import de.tom.ref.webshop.products.ProductCategoryRepository;
+import de.tom.ref.webshop.products.ProductRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

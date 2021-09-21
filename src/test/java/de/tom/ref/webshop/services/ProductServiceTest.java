@@ -1,10 +1,7 @@
 package de.tom.ref.webshop.services;
 
 import de.tom.ref.webshop.WebshopApplication;
-import de.tom.ref.webshop.entities.Product;
-import de.tom.ref.webshop.entities.ProductCategory;
-import de.tom.ref.webshop.repositories.ProductCategoryRepository;
-import de.tom.ref.webshop.repositories.ProductRepository;
+import de.tom.ref.webshop.products.*;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
