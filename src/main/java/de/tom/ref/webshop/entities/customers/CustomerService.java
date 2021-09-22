@@ -1,5 +1,6 @@
 package de.tom.ref.webshop.entities.customers;
 
+import de.tom.ref.webshop.Constants;
 import de.tom.ref.webshop.enums.UserRole;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.errorhandling.NotFoundException;
@@ -29,7 +30,6 @@ import java.util.Optional;
 @Transactional
 @Slf4j
 public class CustomerService implements UserDetailsService {
-    private final static String USER_NOT_FOUND = "User not found in the database: %s";
 
     private final CustomerRepository customerRepository;
     private final BCryptPasswordEncoder passwordEncoder;
@@ -39,7 +39,7 @@ public class CustomerService implements UserDetailsService {
         return customerRepository.findByEmail(username)
                 .orElseThrow( () ->
                         new NotFoundException(
-                                String.format(USER_NOT_FOUND, username))
+                                String.format(Constants.USER_NOT_FOUND, username))
                 );
     }
 
@@ -108,7 +108,7 @@ public class CustomerService implements UserDetailsService {
                     getAuthorities(customer.get()));
         } else {
             throw new UsernameNotFoundException(
-                    String.format(USER_NOT_FOUND, username));
+                    String.format(Constants.USER_NOT_FOUND, username));
         }
     }
 

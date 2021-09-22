@@ -1,9 +1,17 @@
 package de.tom.ref.webshop.entities.carts;
 
+import de.tom.ref.webshop.entities.products.Product;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
 @Entity
 @Table(name="cart_content")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class CartContent {
 
     @Id
@@ -11,66 +19,21 @@ public class CartContent {
     @Column(name = "content_id")
     private Integer id;
 
-    //@ManyToOne
-    //@JoinColumn(name="cart_id", nullable=false)
-    @Column(name = "cart_id")
-    private Integer cartId;
+    @ManyToOne
+    @JoinColumn(name="cart_id", nullable=false)
+    private Cart cart;
 
-    //@ManyToOne
-    //@JoinColumn(name="product_id", nullable=false)
-    @Column(name = "product_id")
-    private Integer productId;
+    @ManyToOne
+    @JoinColumn(name="product_id", nullable=false)
+    private Product product;
 
     @Column(name = "quantity")
     private Integer quantity;
 
-    public CartContent(Integer cartId, Integer productId, Integer quantity) {
-        this.cartId = cartId;
-        this.productId = productId;
+    public CartContent(Cart cart, Product product, Integer quantity) {
+        this.cart = cart;
+        this.product = product;
         this.quantity = quantity;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public Integer getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(Integer cartId) {
-        this.cartId = cartId;
-    }
-
-    public Integer getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Integer productId) {
-        this.productId = productId;
-    }
-
-    public Integer getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(Integer quantity) {
-        this.quantity = quantity;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (obj == null) {
-            return false;
-        }
-        if (obj.getClass() != this.getClass()) {
-            return false;
-        }
-        final CartContent other = (CartContent) obj;
-        return (other.getCartId() == this.getCartId()) && (other.getProductId() == this.getProductId());
-    }
 }

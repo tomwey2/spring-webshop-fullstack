@@ -34,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/register", "/register_process", "/register_confirm", "/filter_products",
                         "/api/registration/**",
                             "/api/products/**", "/api/product_categories/**").permitAll()
+                    .antMatchers("/cart").hasRole("USER")
                     .antMatchers("/api/users/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

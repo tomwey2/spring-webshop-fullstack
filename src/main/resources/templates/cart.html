@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Shopping Cart</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
+</head>
+<style>
+    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
+    .w3-sidebar {z-index: 3;width: 250px;top: 40px;bottom: 50px;height: inherit;}
+    .fill100 {height: 100%;}
+</style>
+
+<body>
+<!-- This is the header in case of a large or medium display -->
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
+    <div class="w3-bar-item">
+        <a th:href="@{/}"  class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
+        <div class="w3-right w3-margin-right">
+            <div th:if="${#strings.isEmpty(user.name)}">
+                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                    <i class="fa fa-shopping-cart "></i>Cart</a>
+            </div>
+            <span th:text="${cartContentSize}"/>
+            <div th:if="${#strings.isEmpty(user.name)}">
+                <a th:href="@{/login}" class="w3-button w3-hover-white">
+                    <i class="fa fa-user "></i>Sign in</a>
+            </div>
+            <div th:if="${not #strings.isEmpty(user.name)}">
+                <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                    <i class="fa fa-user "></i>Sign out</a>
+                <span th:text="${user?.email}"/>
+            </div>
+        </div>
+    </div>
+</header>
+
+<section class="w3-main w3-container w3-display-container w3-section w3-center"
+         style="margin-left:280px; margin-top: 50px;">
+    <div class="w3-responsive">
+    </div>
+</section>
+
+<footer class="w3-container w3-bottom w3-white">
+    <div class="w3-bar">
+        <a href="./info.html" class="w3-button w3-left-align w3-hover-white">More Information</a>
+        <a href="https://github.com/tomwey2/webshop" class="w3-button w3-right w3-hover-white">Sources at github.com
+            <i class="fa fa-github"></i></a>
+    </div>
+</footer>
+
+</body>
+</html>

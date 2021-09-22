@@ -1,5 +1,7 @@
 package de.tom.ref.webshop.controllers;
 
+import de.tom.ref.webshop.entities.carts.CartService;
+import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
 import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductCategory;
@@ -22,14 +24,18 @@ public class WebshopController {
     private final CustomerService customerService;
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
+    private final CartService cartService;
 
     @RequestMapping("/")
     public String index(Model model) {
+        Customer customer = customerService.getSignInCustomer();
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(0);
-        model.addAttribute("user", customerService.getSignInCustomer());
+        int cartContentSize = cartService.getAmountOfProductsInCart(customer.getEmail());
+        model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
+        model.addAttribute("cartContentSize", cartContentSize);
         return "index";
     }
 
@@ -44,11 +50,10 @@ public class WebshopController {
         return "index";
     }
 
-    /*
-    @GetMapping("/")
-    public String getHomePage() {
-        return "index";
+    @GetMapping("/cart")
+    public String getCart(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        model.addAttribute("user", customerService.getSignInCustomer());
+        return "cart";
     }
-
-     */
 }

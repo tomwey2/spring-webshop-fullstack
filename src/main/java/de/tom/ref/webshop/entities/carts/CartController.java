@@ -1,63 +1,38 @@
 package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.entities.products.Product;
-import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/carts")
+@AllArgsConstructor
+@Slf4j
 public class CartController {
-    Logger log = LogManager.getLogger(CartController.class);
-
-    @Autowired
-    CartRepository repository;
+    private final CartService cartService;
 
     @GetMapping("")
     public List<Cart> getAll() {
-        return repository.findAll();
+        return cartService.getAll();
     }
 
-    @GetMapping("/{id}")
-    Cart getById(@PathVariable Integer id) {
-        return repository.findById(id)
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+    @GetMapping("/{username}")
+    public Cart getCartByUsername(@PathVariable String username) {
+        log.info("Get cart of user={}", username);
+        return cartService.getCartOfCustomer(username);
     }
 
-    @GetMapping("/customer/{customer_id}")
-    Cart getByCustomerId(@PathVariable Integer customerId) {
-        return repository.findByCustomerId(customerId)
-                .orElseThrow(() -> new CustomerNotFoundException(customerId));
-    }
-
-    @PostMapping("/save")
-    String save(@RequestBody Cart newCart) {
-        log.debug("Call POST /carts/save {}", newCart);
-        //Cart cart = create(newCart.getCustomer());
-        Cart savedCart = repository.save(newCart);
-        return String.valueOf(savedCart.getId());
-    }
-
-    @PutMapping("/{id}")
-    Cart put(@RequestBody Product product, @PathVariable Integer id) {
-        return repository.findById(id)
-                /*
-                .map(cart -> {
-                    customer.setFirstName(object.getFirstName());
-                    customer.setLastName(object.getLastName());
-                    // ... TODO
-                    return repository.save(customer);
-                })
-                 */
-                .orElseThrow(() -> new CustomerNotFoundException(id));
+    @GetMapping("/{username}/size")
+    public int getCartSize(@PathVariable String username) {
+        log.info("Get amount of content in cart of user={}", username);
+        return cartService.getAmountOfProductsInCart(username);
     }
 
     @DeleteMapping("/{id}")
-    void deleteById(@PathVariable Integer id) {
-        repository.deleteById(id);
+    public void deleteById(@PathVariable Integer id) {
+        log.info("Delete cart id={}", id);
+        cartService.deleteById(id);
     }
 }
