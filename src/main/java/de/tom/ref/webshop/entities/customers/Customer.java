@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -21,17 +22,62 @@ public class Customer {
     @Column(name = "customer_id")
     private Integer id;
 
-    @Column(name = "first_name", length = 50)
-    private String firstName;
-
-    @Column(name = "last_name", length = 50)
-    private String lastName;
+    @Column(name = "name", length = 50)
+    private String name;
 
     @Column(name = "email", length = 50)
     private String email;
 
     @Column(name = "password", length = 50)
     private String password;
+
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean enabled = false;
+
+    @Column(nullable = false)
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean locked = false;
+
+    @Enumerated(EnumType.STRING)
+    private UserRole userRole;
+
+    @Column(name = "create_date")
+    private LocalDateTime createDate;
+
+    @Column(name = "last_update")
+    private LocalDateTime updateDate;
+
+    // this information is not used
+    public boolean getAccountExpired() { return false; }
+    public boolean getCredentialsExpired() { return false; }
+
+    public Customer(String name, String email, String password, UserRole userRole) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.userRole = userRole;
+        this.enabled = false;
+        this.locked = false;
+        this.createDate = LocalDateTime.now();
+    }
+
+    public Customer(String name, String email, String password, UserRole userRole, Boolean enabled, Boolean locked) {
+        this.name = name;
+        this.email = email;
+        this.password = password;
+        this.enabled = enabled;
+        this.locked = locked;
+        this.userRole = userRole;
+    }
+
+    // additional fields for future:
+    /*
+    @Column(name = "first_name", length = 50)
+    private String firstName;
+
+    @Column(name = "last_name", length = 50)
+    private String lastName;
 
     @Column(name = "address_line1", length = 50)
     private String addressLine1;
@@ -47,26 +93,6 @@ public class Customer {
 
     @Column(name = "country", length = 50)
     private String country;
-
-    @Column(name = "active")
-    private Boolean active = Boolean.TRUE;
-
-    @Column(name = "create_date")
-    private Date createDate;
-
-    @Column(name = "last_update")
-    private Date updateDate;
-
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean enabled = false;
-    @Column(nullable = false)
-    @Type(type = "org.hibernate.type.NumericBooleanType")
-    private Boolean locked = false;
-    @Enumerated(EnumType.STRING)
-    private UserRole userRole;
-
-    public boolean getAccountExpired() { return false; }
-    public boolean getCredentialsExpired() { return false; }
+    */
 
 }

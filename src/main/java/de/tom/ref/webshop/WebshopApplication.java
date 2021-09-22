@@ -1,9 +1,12 @@
 package de.tom.ref.webshop;
 
+import de.tom.ref.webshop.entities.customers.Customer;
+import de.tom.ref.webshop.entities.customers.CustomerRepository;
 import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductCategory;
 import de.tom.ref.webshop.entities.products.ProductCategoryRepository;
 import de.tom.ref.webshop.entities.products.ProductRepository;
+import de.tom.ref.webshop.enums.UserRole;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -21,14 +24,28 @@ public class WebshopApplication {
 	}
 
 	@Bean
-	CommandLineRunner commandLineRunner(ProductRepository productRepository, ProductCategoryRepository productCategoryRepository) {
+	CommandLineRunner commandLineRunner(CustomerRepository customerRepository,
+										ProductRepository productRepository,
+										ProductCategoryRepository productCategoryRepository) {
 		return args -> {
 			List<ProductCategory> productCategories = initProductCategories();
 			List<Product> products = initProducts(productCategories);
 
+			customerRepository.saveAll(initCustomers());
 			productCategoryRepository.saveAll(productCategories);
 			productRepository.saveAll(products);
 		};
+	}
+
+	public static List<Customer> initCustomers() {
+		List<Customer> customers = new ArrayList<>();
+		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.de", "1234",
+				UserRole.ROLE_ADMIN, true, false));
+		customers.add(new Customer("Will Smith", "will@test.de", "1234",
+				UserRole.ROLE_USER, true, false));
+		customers.add(new Customer("Jim Carry", "jim@test.de", "1234",
+				UserRole.ROLE_USER, true, false));
+		return customers;
 	}
 
 	public static List<ProductCategory> initProductCategories() {

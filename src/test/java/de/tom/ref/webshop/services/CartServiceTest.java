@@ -53,11 +53,9 @@ class CartServiceTest {
     @Test
     void createCartForCustomer() {
         Customer testCustomer = new Customer(
-                null, "Max", "Mustermann",
-                "mustermann@gmail.com", "",
-                "", "", "", "", "", true,
-                null, null,
-                true, false, UserRole.ROLE_USER);
+                null, "Max Mustermann", "mustermann@gmail.com", "1234",
+                true, false, UserRole.ROLE_USER,
+                null, null);
         testCustomer.setId(1);
         Cart testCart = new Cart(testCustomer);
         Mockito.when(customerRepo.findById(1)).thenReturn(Optional.of(testCustomer));

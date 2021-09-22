@@ -37,8 +37,8 @@ public class CustomerController {
     @PutMapping("/{id}")
     public Customer put(@RequestBody Customer object, @PathVariable Integer id) {
         Customer customer = customerService.getById(id);
-        customer.setFirstName(object.getFirstName());
-        customer.setLastName(object.getLastName());
+        customer.setName(object.getName());
+        customer.setEmail(object.getEmail());
         // ... TODO
         return customerService.save(customer);
     }
