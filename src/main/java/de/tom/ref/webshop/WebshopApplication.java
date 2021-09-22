@@ -7,17 +7,21 @@ import de.tom.ref.webshop.entities.products.ProductCategory;
 import de.tom.ref.webshop.entities.products.ProductCategoryRepository;
 import de.tom.ref.webshop.entities.products.ProductRepository;
 import de.tom.ref.webshop.enums.UserRole;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@AllArgsConstructor
 public class WebshopApplication {
+	private final BCryptPasswordEncoder passwordEncoder;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebshopApplication.class, args);
@@ -30,20 +34,21 @@ public class WebshopApplication {
 		return args -> {
 			List<ProductCategory> productCategories = initProductCategories();
 			List<Product> products = initProducts(productCategories);
+			String encodedPassword = passwordEncoder.encode("1234");
 
-			customerRepository.saveAll(initCustomers());
+			customerRepository.saveAll(initCustomers(encodedPassword));
 			productCategoryRepository.saveAll(productCategories);
 			productRepository.saveAll(products);
 		};
 	}
 
-	public static List<Customer> initCustomers() {
+	public static List<Customer> initCustomers(String encodedPassword) {
 		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.de", "1234",
+		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.de", encodedPassword,
 				UserRole.ROLE_ADMIN, true, false));
-		customers.add(new Customer("Will Smith", "will@test.de", "1234",
+		customers.add(new Customer("Will Smith", "will@test.de", encodedPassword,
 				UserRole.ROLE_USER, true, false));
-		customers.add(new Customer("Jim Carry", "jim@test.de", "1234",
+		customers.add(new Customer("Jim Carry", "jim@test.de", encodedPassword,
 				UserRole.ROLE_USER, true, false));
 		return customers;
 	}

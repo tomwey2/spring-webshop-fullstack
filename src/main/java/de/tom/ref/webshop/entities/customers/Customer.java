@@ -28,7 +28,6 @@ public class Customer {
     @Column(name = "email", length = 50)
     private String email;
 
-    @Column(name = "password", length = 50)
     private String password;
 
     @Column(nullable = false)
