@@ -7,3 +7,12 @@ document.getElementById("parent-list").addEventListener("click",function(e) {
         alert(e.target.id + " was clicked");
     }
 });
+
+// Listener
+document.getElementById("loginSmall").addEventListener("click", login);
+document.getElementById("loginLarge").addEventListener("click", login);
+
+function dologin() {
+    console.log("test");
+    alert("Hello World!");
+}

@@ -1,0 +1,60 @@
+# ===============================
+# = DATA SOURCE
+# ===============================
+# Set here configurations for the database connection
+spring:
+  datasource:
+    url: jdbc:mariadb://localhost:3306/webshop
+    username: user
+    password: user
+    driver-class-name: org.mariadb.jdbc.Driver
+# Keep the connection alive if idle for a long time (needed in production)
+    testWhileIdle: true
+    validationQuery: SELECT 1
+# ===============================
+# = JPA / HIBERNATE
+# ===============================
+# Show or not log for each sql query
+  jpa:
+    show-sql: false
+# Hibernate ddl auto (create, create-drop, update): with "create-drop" the database
+# schema will be automatically created afresh for every start of application
+    hibernate:
+      ddl-auto: create-drop
+##pi: ddl-auto: update
+# Naming strategy
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
+        physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
+# Allows Hibernate to generate SQL optimized for a particular DBMS
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+# Show the database calls in the console
+##spring.jpa.properties.hibernate.format_sql=true
+# ===============================
+# = MAIL
+# ===============================
+  mail:
+    host: localhost
+    port: 1025
+    username: hello
+    password: hello
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+# Add error message to the server response
+server:
+  error:
+    include-message: always
+
