@@ -12,7 +12,7 @@
     <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
 <style>
     html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
-    .w3-sidebar {z-index: 3;width: 250px;top: 40px;bottom: 50px;height: inherit;}
+    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
     .fill100 {height: 100%;}
 </style>
 
@@ -20,20 +20,27 @@
 
 <!-- This is the header in case of a large or medium display -->
 <header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
-    <div class="w3-bar-item">
-        <a th:href="@{/}" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
-        <div class="w3-right w3-margin-right">
-            <a th:href="@{/cart}" class="w3-button w3-hover-white">
-                <i class="fa fa-shopping-cart "></i>Cart</a>
-            <span th:text="${cartContentSize}"/>
-            <div th:if="${#strings.isEmpty(user.name)}">
-                <a th:href="@{/login}" class="w3-button w3-hover-white">
-                    <i class="fa fa-user "></i>Sign in</a>
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
             </div>
-            <div th:if="${not #strings.isEmpty(user.name)}">
-                <a th:href="@{/logout}" class="w3-button w3-hover-white">
-                    <i class="fa fa-user "></i>Sign out</a>
-                <span th:text="${user?.email}"/>
+        </div>
+        <div class="w3-right">
+            <div class="w3-bar-item">
+                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
+            </div>
+            <div class="w3-bar-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign in</a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
+                    </a>
+                </div>
             </div>
         </div>
     </div>
@@ -44,7 +51,7 @@
         <i class="fa fa-bars"></i></a>
     <a href="./index.html" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
     <div class="w3-right w3-margin-right">
-        <button class="w3-button w3-hover-white" id="cartLarge">
+        <button class="w3-button w3-hover-white" id="cartSmall">
             <i class="fa fa-shopping-cart "></i>
         </button>
         <div th:if="${#strings.isEmpty(user.name)}">
@@ -81,9 +88,9 @@
 </aside>
 
 <section class="w3-main w3-container w3-display-container w3-section w3-center"
-         style="margin-left:280px; margin-top: 50px;">
+         style="margin-left:280px; margin-top: 80px;">
     <div class="w3-responsive">
-        <table class="w3-table w3-bordered" style="margin-top: 25px;">
+        <table class="w3-table w3-bordered" style="margin-top: 50px;">
             <thead>
             <tr>
                 <th>Product</th>
