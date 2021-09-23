@@ -1,5 +1,7 @@
 package de.tom.ref.webshop.controllers;
 
+import de.tom.ref.webshop.entities.carts.Cart;
+import de.tom.ref.webshop.entities.carts.CartContent;
 import de.tom.ref.webshop.entities.carts.CartService;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
@@ -53,7 +55,30 @@ public class WebshopController {
     @GetMapping("/cart")
     public String getCart(Model model) {
         Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        List<CartContent> cartContents = cartService.getCartContent(cart);
+
         model.addAttribute("user", customerService.getSignInCustomer());
+        model.addAttribute("cart", cart);
+        model.addAttribute("cartContents", cartContents);
         return "cart";
+    }
+
+    @PostMapping("/product_to_cart")
+    public String addProductToCart(@RequestParam(value = "productId") Integer productId, Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        Product product = productService.getProduct(productId);
+        cartService.addProductToCart(cart, product);
+
+        List<ProductCategory> productCategories = productCategoryService.getAll();
+        List<Product> products = productService.getProducts(0);
+        int cartContentSize = cartService.getAmountOfProductsInCart(customer.getEmail());
+
+        model.addAttribute("user", customer);
+        model.addAttribute("products", products);
+        model.addAttribute("productCategories", productCategories);
+        model.addAttribute("cartContentSize", cartContentSize);
+        return "index";
     }
 }

@@ -1,49 +1,131 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Shopping Cart</title>
+    <title>Sample Webshop - Home (Thymeleaf)</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
+    <script src="js/shop.js" defer type="text/javascript"></script>
 </head>
+
 <style>
     html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
-    .w3-sidebar {z-index: 3;width: 250px;top: 40px;bottom: 50px;height: inherit;}
+    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
     .fill100 {height: 100%;}
 </style>
 
 <body>
+
 <!-- This is the header in case of a large or medium display -->
 <header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
-    <div class="w3-bar-item">
-        <a th:href="@{/}"  class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
-        <div class="w3-right w3-margin-right">
-            <div th:if="${#strings.isEmpty(user.name)}">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
+            </div>
+        </div>
+        <div class="w3-right">
+            <div class="w3-bar-item">
                 <a th:href="@{/cart}" class="w3-button w3-hover-white">
-                    <i class="fa fa-shopping-cart "></i>Cart</a>
+                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
             </div>
-            <span th:text="${cartContentSize}"/>
-            <div th:if="${#strings.isEmpty(user.name)}">
-                <a th:href="@{/login}" class="w3-button w3-hover-white">
-                    <i class="fa fa-user "></i>Sign in</a>
+            <div class="w3-bar-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign in</a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
+                    </a>
+                </div>
             </div>
-            <div th:if="${not #strings.isEmpty(user.name)}">
-                <a th:href="@{/logout}" class="w3-button w3-hover-white">
-                    <i class="fa fa-user "></i>Sign out</a>
-                <span th:text="${user?.email}"/>
+        </div>
+    </div>
+</header>
+<!-- This is the header in case of a small display -->
+<header class="w3-hide-large w3-top w3-black">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
+            </div>
+        </div>
+        <div class="w3-right">
+            <div class="w3-bar-item">
+                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                    <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
+            </div>
+            <div class="w3-bar-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i></a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
+                    </a>
+                </div>
             </div>
         </div>
     </div>
 </header>
 
+<aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
+    <div class="w3-container w3-display-container w3-padding-16">
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
+    </div>
+    <div class="w3-container w3-center">
+        <p>Please select one of the following categories:</p>
+    </div>
+    <ul class="w3-ul w3-center w3-hoverable" id="productCategories">
+        <li id="0">
+            <form th:action="@{/filter_products(id=${0})}" method="post">
+                <button type="submit" class="w3-button">Show all</button>
+            </form>
+        </li>
+        <li th:each="category : ${productCategories}" th:id="${category.id}">
+            <form th:action="@{/filter_products(id=${category.id})}" method="post">
+                <button type="submit" th:text="${category.name}" class="w3-button"/>
+            </form>
+        </li>
+    </ul>
+</aside>
+
 <section class="w3-main w3-container w3-display-container w3-section w3-center"
          style="margin-left:280px; margin-top: 50px;">
     <div class="w3-responsive">
+        <table class="w3-table w3-bordered" style="margin-top: 50px;">
+            <thead>
+            <tr>
+                <th>Product</th>
+                <th class="w3-right-align">Price (p. Unit)</th>
+                <th class="w3-right-align">Quantity</th>
+                <th class="w3-right-align">Price</th>
+            </tr>
+            </thead>
+            <tbody id="products">
+            <tr th:if="${cartContents.isEmpty}">
+                <td colspan="4">No products available</td>
+            </tr>
+            <tr th:each="cartContent : ${cartContents}">
+                <td><span th:text="${cartContent.product.name}"/></td>
+                <td style="text-align: right;"><span th:text="${cartContent.product.unitPrice}"/></td>
+                <td style="text-align: center;"><span th:text="${cartContent.quantity}"/></td>
+                <td style="text-align: right;"><span th:text="${cartContent.product.unitPrice}"/></td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </section>
 

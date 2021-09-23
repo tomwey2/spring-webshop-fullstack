@@ -3,6 +3,7 @@ package de.tom.ref.webshop.entities.carts;
 import de.tom.ref.webshop.Constants;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerRepository;
+import de.tom.ref.webshop.entities.customers.CustomerService;
 import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductService;
 import de.tom.ref.webshop.errorhandling.NotFoundException;
@@ -24,9 +25,9 @@ import java.util.Optional;
 @Slf4j
 public class CartService {
     private final CartContentRepository cartContentRepo;
-    private final CustomerRepository customerRepository;
     private final CartRepository cartRepository;
     private final ProductService productService;
+    private final CustomerService customerService;
 
     public List<Cart> getAll() {
         return cartRepository.findAll();
@@ -35,26 +36,24 @@ public class CartService {
         cartRepository.deleteById(id);
     }
 
-    public Cart getCartOfCustomer(String username) {
-        Optional<Customer> customer = customerRepository.findByEmail(username);
-        if (customer.isPresent()) {
-            return cartRepository
-                    .findByCustomerId(customer.get().getId())
-                    .orElse(addNewCart(customer.get()));
+    public Cart getCartOfCustomer(Customer customer) {
+        log.info("Get cart of user {} (id={})", customer.getEmail(), customer.getId());
+        Optional<Cart> cart = cartRepository.findByCustomerId(customer.getId());
+        if (cart.isPresent()) {
+            log.info("Cart found id={}", cart.get().getId());
+            return cart.get();
         } else {
-            throw new UsernameNotFoundException(
-                    String.format(Constants.USER_NOT_FOUND, username));
+            return addNewCart(customer);
         }
     }
 
     public Cart addNewCart(Customer customer) {
+        log.info("Add new cart for user {}", customer.getEmail());
         Cart cart = new Cart(customer);
         return cartRepository.save(cart);
     }
 
-    public CartContent addProductToCart(String username, Integer productId) {
-        Cart cart = getCartOfCustomer(username);
-        Product product = productService.getProduct(productId);
+    public CartContent addProductToCart(Cart cart, Product product) {
         CartContent content = new CartContent(cart, product, 1);
         return cartContentRepo.save(content);
     }
@@ -66,7 +65,8 @@ public class CartService {
     public int getAmountOfProductsInCart(String username) {
         int result = 0;
         if (!StringUtils.isEmpty(username)) {
-            Cart cart = getCartOfCustomer(username);
+            Customer customer = customerService.getCustomer(username);
+            Cart cart = getCartOfCustomer(customer);
             List<CartContent> contents = cartContentRepo.findByCartId(cart.getId());
             result = contents.size();
         }

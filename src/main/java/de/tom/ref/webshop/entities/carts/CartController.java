@@ -1,10 +1,13 @@
 package de.tom.ref.webshop.entities.carts;
 
+import de.tom.ref.webshop.entities.customers.Customer;
+import de.tom.ref.webshop.entities.customers.CustomerService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/carts")
@@ -12,6 +15,7 @@ import java.util.List;
 @Slf4j
 public class CartController {
     private final CartService cartService;
+    private final CustomerService customerService;
 
     @GetMapping("")
     public List<Cart> getAll() {
@@ -21,7 +25,8 @@ public class CartController {
     @GetMapping("/{username}")
     public Cart getCartByUsername(@PathVariable String username) {
         log.info("Get cart of user={}", username);
-        return cartService.getCartOfCustomer(username);
+        Customer customer = customerService.getCustomer(username);
+        return cartService.getCartOfCustomer(customer);
     }
 
     @GetMapping("/{username}/size")
