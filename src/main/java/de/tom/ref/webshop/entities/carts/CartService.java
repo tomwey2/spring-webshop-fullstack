@@ -1,14 +1,11 @@
 package de.tom.ref.webshop.entities.carts;
 
-import de.tom.ref.webshop.Constants;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
 import de.tom.ref.webshop.entities.products.Product;
-import de.tom.ref.webshop.entities.products.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -118,7 +115,7 @@ public class CartService {
      * @param cart
      * @return
      */
-    public BigDecimal calculateSubtotalPrice(Cart cart) {
+    public BigDecimal calculateSubtotalSum(Cart cart) {
         List<CartContent> cartContents = cartContentRepository.findByCartId(cart.getId());
         BigDecimal sum = BigDecimal.ZERO;
         for (CartContent cartContent : cartContents) {
@@ -126,4 +123,16 @@ public class CartService {
         }
         return sum;
     }
+
+    public BigDecimal calculateShippingCosts(Cart cart) {
+        return new BigDecimal("6.50");
+    }
+    public BigDecimal calculateTotalSum(Cart cart) {
+        BigDecimal subTotalSum = calculateSubtotalSum(cart);
+        BigDecimal shippingCosts = calculateShippingCosts(cart);
+        return subTotalSum.add(shippingCosts);
+    }
+
+
+
 }

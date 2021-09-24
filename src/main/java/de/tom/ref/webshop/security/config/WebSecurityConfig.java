@@ -39,10 +39,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                     .antMatchers(
                         "/", "/index", "/info.html",
-                            "/register", "/register_process", "/register_confirm", "/filter_products",
+                            "/register", "/register_process", "/register_confirm", "/filter",
                             "/api/registration/**",
                             "/api/products/**", "/api/product_categories/**").permitAll()
-                    .antMatchers("/cart", "/cartContent").hasRole("USER")
+                    .antMatchers("/cart", "/cartContent", "/order").hasRole("USER")
                     .antMatchers("/api/users/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()

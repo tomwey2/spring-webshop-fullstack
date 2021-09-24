@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Sample Webshop - Home (Thymeleaf)</title>
+    <title>Sample Webshop - proceed to checkout</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
@@ -87,25 +87,22 @@
         <div class="w3-container" style="margin-top: 50px;">
             <div class="w3-container">
                 <div class="w3-panel w3-border-bottom">
-                    <h2>Shopping Cart</h2>
+                    <h2>Checkout</h2>
                 </div>
                 <h4>
                 <p>Subtotal (<span th:text="${cartContentSize}"/> items):
-                <span th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')}"/> Euro</p>
+                <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')}"/> Euro</p>
                 </h4>
-                <a th:href="@{/order}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Proceed to checkout</a>
             </div>
         </div>
 
-        <table class="w3-table w3-bordered" style="width=70%; margin-top: 50px;">
+        <table class="w3-table w3-bordered" style="width=70%; margin-top: 25px;">
             <thead>
             <tr>
                 <th>Product</th>
                 <th class="w3-right-align">Price (p. Unit)</th>
                 <th class="w3-center">Quantity</th>
                 <th class="w3-right-align">Price</th>
-                <th/>
             </tr>
             </thead>
             <tbody id="products">
@@ -118,39 +115,51 @@
                 <td style="text-align: right; vertical-align: middle;">
                     <span th:text="${cartContent.product.unitPrice}"/> €</td>
                 <td style="text-align: center; vertical-align: middle;">
-                    <div class="w3-bar">
-                        <div class="w3-bar-item w3-padding-small">
-                            <a th:href="@{/cartContent(id=${cartContent.id}, change=-1)}">
-                                <i class="fa fa-minus-square-o"></i>
-                            </a>
-                        </div>
-                        <div class="w3-bar-item w3-padding-small">
-                            <span th:text="${cartContent.quantity}"/>
-                        </div>
-                        <div class="w3-bar-item w3-padding-small">
-                            <a th:href="@{/cartContent(id=${cartContent.id}, change=1)}">
-                                <i class="fa fa-plus-square-o"></i>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!--ok:
-                    <select th:value="${cartContent.quantity}">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <input type="number" th:value="${cartContent.quantity}" step="1"/>
-                    -->
+                    <span th:text="${cartContent.quantity}"/>
                 </td>
                 <td style="text-align: right; vertical-align: middle;">
                     <span th:text="${cartContent.price}"/> €</td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <a href="">Delete</a></td>
             </tr>
             </tbody>
         </table>
+        <table class="w3-table w3-bordered" style="width=70%;">
+            <tbody>
+            <tr>
+                <td><b>Subtotal</b></td>
+                <td class="w3-right-align"/>
+                <td class="w3-center"/>
+                <td class="w3-right-align"><b><span th:text="${subTotalSum}"/></b></td>
+            </tr>
+            <tr>
+                <td><b>Shipping Costs</b></td>
+                <td class="w3-right-align"/>
+                <td class="w3-center"/>
+                <td class="w3-right-align"><b><span th:text="${shippingCosts}"/></b></td>
+            </tr>
+            <tr>
+                <td class="w3-large"><b>Total to pay</b></td>
+                <td class="w3-right-align w3-large"/>
+                <td class="w3-center w3-large"/>
+                <td class="w3-right-align w3-large"><b><span th:text="${totalSum}"/></b></td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="w3-container w3-bar">
+            <div class="w3-left">
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                    Cancel</a>
+            </div>
+            </div>
+            <div class="w3-right">
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                    Order and Checkout</a>
+            </div>
+            </div>
+        </div>
+
     </div>
 </section>
 

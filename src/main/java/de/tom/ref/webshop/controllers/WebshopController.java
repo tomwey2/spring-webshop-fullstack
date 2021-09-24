@@ -30,25 +30,31 @@ public class WebshopController {
     private final CartService cartService;
 
     @RequestMapping("/")
-    public String index(Model model) {
+    public String index(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
+                        Model model) {
         Customer customer = customerService.getSignInCustomer();
         List<ProductCategory> productCategories = productCategoryService.getAll();
-        List<Product> products = productService.getProducts(0);
+        List<Product> products = productService.getProducts(productCategoryId);
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
+        model.addAttribute("productCategoryId", productCategoryId);
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "index";
     }
 
-    @PostMapping("/filter_products")
-    public String filterProducts(@RequestParam(value = "id") Integer id, Model model) {
-        log.info("Filter products with category={}", id);
-        List<Product> products = productService.getProducts(id);
+    @RequestMapping("/filter")
+    public String filter(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
+                        Model model) {
+        Customer customer = customerService.getSignInCustomer();
         List<ProductCategory> productCategories = productCategoryService.getAll();
-        model.addAttribute("user", customerService.getSignInCustomer());
+        List<Product> products = productService.getProducts(productCategoryId);
+        model.addAttribute("user", customer);
         model.addAttribute("products", products);
+        model.addAttribute("productCategoryId", productCategoryId);
         model.addAttribute("productCategories", productCategories);
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        //return "redirect:/?id=" + String.valueOf(productCategoryId);
         return "index";
     }
 
@@ -66,7 +72,7 @@ public class WebshopController {
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
-        return "index";
+        return "redirect:/";
     }
 
     @GetMapping("/cart")
@@ -78,7 +84,7 @@ public class WebshopController {
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents",  cartContents);
-        model.addAttribute("totalSum", cartService.calculateSubtotalPrice(cart));;
+        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
         model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "cart";
     }
@@ -105,9 +111,26 @@ public class WebshopController {
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents", cartContents);
-        model.addAttribute("totalSum", cartService.calculateSubtotalPrice(cart));;
+        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
         model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "redirect:/cart";
     }
+
+    @GetMapping("/order")
+    public String getOrder(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
+
+        model.addAttribute("user", customer);
+        model.addAttribute("cart", cart);
+        model.addAttribute("cartContents",  cartContents);
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
+        model.addAttribute("shippingCosts", cartService.calculateShippingCosts(cart));;
+        model.addAttribute("totalSum", cartService.calculateTotalSum(cart));;
+        return "order";
+    }
+
 
 }

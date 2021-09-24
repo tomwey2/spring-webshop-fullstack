@@ -90,12 +90,12 @@
     </div>
     <ul class="w3-ul w3-center w3-hoverable" id="productCategories">
         <li id="0">
-            <form th:action="@{/filter_products(id=${0})}" method="post">
+            <form th:action="@{/filter(id=${0})}" method="post">
                 <button type="submit" class="w3-button">Show all</button>
             </form>
         </li>
         <li th:each="category : ${productCategories}" th:id="${category.id}">
-            <form th:action="@{/filter_products(id=${category.id})}" method="post">
+            <form th:action="@{/filter(id=${category.id})}" method="post">
                 <button type="submit" th:text="${category.name}" class="w3-button"/>
             </form>
         </li>
