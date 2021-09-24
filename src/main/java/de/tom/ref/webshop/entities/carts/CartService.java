@@ -71,7 +71,7 @@ public class CartService {
      */
     public CartContent addProductToCart(Cart cart, Product product) {
         log.info("Add product {} (id={}) to the cart id={}", product.getName(), product.getId(), cart.getId());
-        CartContent cartContent = cartContentRepository.findByProductId(product.getId());
+        CartContent cartContent = cartContentRepository.findByProductAndCartId(cart.getId(), product.getId());
         if (cartContent != null) {
             log.info("Product id={} already in cart id={}", product.getId(), cart.getId());
             return cartContent;
