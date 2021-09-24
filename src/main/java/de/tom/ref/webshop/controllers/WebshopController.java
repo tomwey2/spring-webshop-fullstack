@@ -132,5 +132,10 @@ public class WebshopController {
         return "order";
     }
 
-
+    @GetMapping("/info")
+    public String getInfo(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        model.addAttribute("user", customer);
+        return "info";
+    }
 }

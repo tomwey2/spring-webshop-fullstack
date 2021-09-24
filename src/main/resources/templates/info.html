@@ -1,75 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Sample Webshop - Information</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="js/shop.js" defer></script>
-    <script src="js/login.js" defer></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
+    <script src="js/shop.js" defer type="text/javascript"></script>
 </head>
+
 <style>
-    html,
-    body,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        font-family: "Roboto", sans-serif;
-    }
-
-    .w3-sidebar {
-        z-index: 3;
-        width: 250px;
-        top: 40px;
-        bottom: 50px;
-        height: inherit;
-    }
-
-    .fill100 {
-        height: 100%;
-    }
+    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
+    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
+    .fill100 {height: 100%;}
 </style>
 
 <body>
 
-    <!-- This is the header in case of a small or medium display -->
-    <header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
-        <div class="w3-bar-item">
-            <a href="./index.html" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
-            <div class="w3-right w3-margin-right">
-                <button class="w3-button" id="loadTestDataSmall">Test data</button>
-                <button class="w3-button w3-hide-small w3-hover-white" id="cartSmall">
-                    <i class="fa fa-shopping-cart w3-margin-right"></i>Cart
-                </button>
-                <button class="w3-button w3-hide-small w3-hover-white" id="loginSmall">
-                    <i class="fa fa-user w3-margin-right"></i>Login
-                </button>
+<!-- This is the header in case of a large or medium display -->
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
             </div>
         </div>
-    </header>
-    <!-- This is the header in case of a large display -->
-    <header class="w3-bar w3-hide-large w3-top w3-black">
-        <a href="javascript:void(0)" class="w3-bar-item w3-button w3-left-align" onclick="w3_open()">
-            <i class="fa fa-bars"></i></a>
-        <a href="./index.html" class="w3-bar-item w3-button w3-wide"><b>MANDARINE</b> shop</a>
-        <div class="w3-right w3-margin-right">
-            <button class="w3-button" id="loadTestDataLarge">Test data</button>
-            <button class="w3-button w3-hover-white" id="cartLarge">
-                <i class="fa fa-shopping-cart "></i>
-            </button>
-            <button class="w3-button w3-hover-white" id="loginLarge">
-                <i class="fa fa-user "></i>
-            </button>
+        <div class="w3-right">
+            <div class="w3-bar-item">
+                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
+            </div>
+            <div class="w3-bar-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign in</a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
+                    </a>
+                </div>
+            </div>
         </div>
-    </header>
+    </div>
+</header>
+<!-- This is the header in case of a small display -->
+<header class="w3-hide-large w3-top w3-black">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div class="w3-bar-item">
+                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
+            </div>
+        </div>
+        <div class="w3-right">
+            <div class="w3-bar-item">
+                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                    <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
+            </div>
+            <div class="w3-bar-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i></a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                        <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
 
-    <aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
+<aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
         <div class="w3-container w3-display-container w3-padding-16">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
         </div>
@@ -85,7 +97,7 @@
 
     </aside>
 
-    <div class="w3-main" style="margin-left:250px">
+    <div class="w3-main" style="margin-left:250px; margin-top: 50px;">
         <section class="w3-container w3-section">
         </section>
 
@@ -136,7 +148,7 @@
 
     <footer class="w3-container w3-bottom w3-white">
         <div class="w3-bar">
-            <a href="./info.html" class="w3-button w3-left-align w3-hover-white">More Information</a>
+            <a th:href="@{/info}" class="w3-button w3-left-align w3-hover-white">More Information</a>
             <a href="https://github.com/tomwey2/webshop" class="w3-button w3-right w3-hover-white">Sources at github.com
                 <i class="fa fa-github"></i></a>
         </div>
