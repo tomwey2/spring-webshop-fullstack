@@ -22,7 +22,7 @@
 <body>
 
 <!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-blue">
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
     <div class="w3-bar">
         <div class="w3-left">
             <div class="w3-bar-item">
@@ -119,11 +119,11 @@
             </tr>
             <tr th:each="product : ${products}">
                 <td><span th:text="${product.name}"/></td>
-                <td style="text-align: center;"><span th:text="${product.unitsInStock}"/></td>
-                <td style="text-align: right;"><span th:text="${product.unitPrice}"/></td>
-                <td style="text-align: center;">
+                <td style="text-align: center; vertical-align: middle;"><span th:text="${product.unitsInStock}"/></td>
+                <td style="text-align: right; vertical-align: middle;"><span th:text="${product.unitPrice}"/> €</td>
+                <td style="text-align: center; vertical-align: middle;">
                     <form th:action="@{/product_to_cart(productId=${product.id})}" method="post">
-                        <button class="w3-button">add to cart</button>
+                        <button class="w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
                     </form>
                 </td>
             </tr>

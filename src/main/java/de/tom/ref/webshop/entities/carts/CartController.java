@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path = "/api/carts")
@@ -19,7 +18,7 @@ public class CartController {
 
     @GetMapping("")
     public List<Cart> getAll() {
-        return cartService.getAll();
+        return cartService.getAllCarts();
     }
 
     @GetMapping("/{username}")
@@ -32,12 +31,14 @@ public class CartController {
     @GetMapping("/{username}/size")
     public int getCartSize(@PathVariable String username) {
         log.info("Get amount of content in cart of user={}", username);
-        return cartService.getAmountOfProductsInCart(username);
+        Customer customer = customerService.getCustomer(username);
+        return cartService.getAmountOfProductsInCart(customer);
     }
 
     @DeleteMapping("/{id}")
     public void deleteById(@PathVariable Integer id) {
         log.info("Delete cart id={}", id);
-        cartService.deleteById(id);
+        cartService.deleteCartById(id);
     }
+
 }

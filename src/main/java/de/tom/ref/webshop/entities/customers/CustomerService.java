@@ -1,6 +1,7 @@
 package de.tom.ref.webshop.entities.customers;
 
 import de.tom.ref.webshop.Constants;
+import de.tom.ref.webshop.entities.carts.CartContent;
 import de.tom.ref.webshop.enums.UserRole;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.errorhandling.NotFoundException;

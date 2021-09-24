@@ -16,6 +16,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -33,11 +34,10 @@ public class WebshopController {
         Customer customer = customerService.getSignInCustomer();
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(0);
-        int cartContentSize = cartService.getAmountOfProductsInCart(customer.getEmail());
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
-        model.addAttribute("cartContentSize", cartContentSize);
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "index";
     }
 
@@ -52,18 +52,6 @@ public class WebshopController {
         return "index";
     }
 
-    @GetMapping("/cart")
-    public String getCart(Model model) {
-        Customer customer = customerService.getSignInCustomer();
-        Cart cart = cartService.getCartOfCustomer(customer);
-        List<CartContent> cartContents = cartService.getCartContent(cart);
-
-        model.addAttribute("user", customerService.getSignInCustomer());
-        model.addAttribute("cart", cart);
-        model.addAttribute("cartContents", cartContents);
-        return "cart";
-    }
-
     @PostMapping("/product_to_cart")
     public String addProductToCart(@RequestParam(value = "productId") Integer productId, Model model) {
         Customer customer = customerService.getSignInCustomer();
@@ -73,12 +61,53 @@ public class WebshopController {
 
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(0);
-        int cartContentSize = cartService.getAmountOfProductsInCart(customer.getEmail());
 
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
-        model.addAttribute("cartContentSize", cartContentSize);
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "index";
     }
+
+    @GetMapping("/cart")
+    public String getCart(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
+
+        model.addAttribute("user", customer);
+        model.addAttribute("cart", cart);
+        model.addAttribute("cartContents",  cartContents);
+        model.addAttribute("totalSum", cartService.calculateSubtotalPrice(cart));;
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        return "cart";
+    }
+
+    @GetMapping(value = "/cartContent")
+    public String changeQuantity(
+            @RequestParam(value = "id") Integer cartContentId,
+            @RequestParam(value = "change") Integer changeValue,
+            Model model) {
+        log.info("Change cart quantity id={} change={}", cartContentId, changeValue);
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+
+        // change quantity
+        CartContent cartContent = cartService.getCartContentById(cart, cartContentId);
+        if ((cartContent.getQuantity() > 1 || changeValue > 0)
+        && (cartContent.getQuantity()<cartContent.getProduct().getUnitsInStock() || changeValue < 0)) {
+            cartContent.setQuantity(cartContent.getQuantity() + changeValue);
+            cartContent.setPrice(cartContent.getProduct().getUnitPrice().multiply(new BigDecimal(cartContent.getQuantity())));
+            cartContent = cartService.saveCartContent(cartContent);
+        }
+
+        List<CartContent> cartContents = cartService.getCartContents(cart);
+        model.addAttribute("user", customer);
+        model.addAttribute("cart", cart);
+        model.addAttribute("cartContents", cartContents);
+        model.addAttribute("totalSum", cartService.calculateSubtotalPrice(cart));;
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        return "redirect:/cart";
+    }
+
 }

@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name="cart_content")
@@ -30,10 +31,14 @@ public class CartContent {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "price", scale = 2)
+    private BigDecimal price = BigDecimal.ZERO;
+
     public CartContent(Cart cart, Product product, Integer quantity) {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
+        this.price = product.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
 }

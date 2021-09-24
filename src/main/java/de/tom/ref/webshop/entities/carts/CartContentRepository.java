@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface CartContentRepository extends JpaRepository<CartContent, Integer> {
     List<CartContent> findByCartId(@Param("cart_id") Integer cartId);
+    CartContent findByProductId(@Param("product_id") Integer productId);
 }
 

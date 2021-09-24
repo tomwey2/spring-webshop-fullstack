@@ -38,11 +38,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers(
-                        "/", "/index", "/js/shop.js", "/info.html",
-                        "/register", "/register_process", "/register_confirm", "/filter_products",
-                        "/api/registration/**",
+                        "/", "/index", "/info.html",
+                            "/register", "/register_process", "/register_confirm", "/filter_products",
+                            "/api/registration/**",
                             "/api/products/**", "/api/product_categories/**").permitAll()
-                    .antMatchers("/cart").hasRole("USER")
+                    .antMatchers("/cart", "/cartContent").hasRole("USER")
                     .antMatchers("/api/users/**").hasRole("ADMIN")
                 .anyRequest()
                 .authenticated()
