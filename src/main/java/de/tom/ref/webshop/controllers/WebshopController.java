@@ -17,7 +17,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -85,10 +84,9 @@ public class WebshopController {
                                         Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        CartContent cartContent = cartContentService.getCartContentById(cart, cartContentId);
-        cartContentService.deleteProductFromCart(cart, cartContent);
+        cartService.deleteProductFromCart(cart, cartContentId);
 
-        List<CartContent> cartContents = cartContentService.getCartContents(cart);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
@@ -102,7 +100,7 @@ public class WebshopController {
     public String getCart(Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        List<CartContent> cartContents = cartContentService.getCartContents(cart);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
@@ -122,15 +120,9 @@ public class WebshopController {
         Cart cart = cartService.getCartOfCustomer(customer);
 
         // change quantity
-        CartContent cartContent = cartContentService.getCartContentById(cart, cartContentId);
-        if (changeValue > 0) {
-            cartContentService.increaseQuantity(cartContent, changeValue);
-        }
-        if (changeValue < 0) {
-            cartContentService.decreaseQuantity(cartContent, -changeValue);
-        }
+        cartService.changeQuantityOfCartContent(cart, cartContentId, changeValue);
 
-        List<CartContent> cartContents = cartContentService.getCartContents(cart);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents", cartContents);
@@ -143,7 +135,7 @@ public class WebshopController {
     public String getOrder(Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        List<CartContent> cartContents = cartContentService.getCartContents(cart);
+        List<CartContent> cartContents = cartService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);

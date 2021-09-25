@@ -2,7 +2,6 @@ package de.tom.ref.webshop.entities.carts;
 
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
-import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -10,7 +9,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,6 +18,8 @@ import java.util.Optional;
 @Slf4j
 public class CartService {
     private final CartRepository cartRepository;
+    private final CartContentRepository cartContentRepository;
+    private final CartContentService cartContentService;
     private final CustomerService customerService;
     private final ProductService productService;
 
@@ -32,7 +32,7 @@ public class CartService {
 
     /**
      * Get the shopping cart of a customer. If it not exists then create it.
-     * @param customer
+     * @param customer the logged-in user
      * @return the cart of the customer.
      */
     public Cart getCartOfCustomer(Customer customer) {
@@ -52,6 +52,36 @@ public class CartService {
         log.info("Add new cart for user {} (id={})", customer.getEmail(), customer.getId());
         Cart cart = new Cart(customer);
         return cartRepository.save(cart);
+    }
+
+    /**
+     * Get the content of a shopping cart.
+     * @param cart the cart of the logged-in user.
+     * @return all cart contents of the cart.
+     */
+    public List<CartContent> getCartContents(Cart cart) {
+        return cartContentRepository.findByCartId(cart.getId());
+    }
+
+    private CartContent getCartContentById(Cart cart, Integer cartContentId) {
+        List<CartContent> cartContents = getCartContents(cart);
+        return cartContents.stream()
+                .filter(cartContent -> cartContent.getId() == cartContentId)
+                .findFirst()
+                .orElseThrow(IllegalStateException::new);
+    }
+
+    public CartContent changeQuantityOfCartContent(Cart cart, Integer cartContentId, int value) {
+        CartContent cartContent = getCartContentById(cart, cartContentId);
+        return value > 0 ?
+            cartContentService.increaseQuantity(cartContent, value)
+            :
+            cartContentService.decreaseQuantity(cartContent, Math.abs(value));
+    }
+
+    public void deleteProductFromCart(Cart cart, Integer cartContentId) {
+        CartContent cartContent = getCartContentById(cart, cartContentId);
+        cartContentService.deleteProductFromCart(cartContent);
     }
 
 }
