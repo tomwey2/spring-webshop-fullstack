@@ -34,6 +34,11 @@ public class WebshopController {
     private final OrderService orderService;
 
     @RequestMapping("/")
+    public String index(Model model) {
+        return "index";
+    }
+
+    @RequestMapping("/shop")
     public String index(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
                         Model model) {
         Customer customer = customerService.getSignInCustomer();
@@ -46,12 +51,13 @@ public class WebshopController {
         model.addAttribute("productCategoryId", productCategoryId);
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
-        return "index";
+        return "shop";
     }
 
     @RequestMapping("/filter")
     public String filter(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
                         Model model) {
+        /*
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
         List<ProductCategory> productCategories = productCategoryService.getAll();
@@ -62,7 +68,9 @@ public class WebshopController {
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         //return "redirect:/?id=" + String.valueOf(productCategoryId);
-        return "index";
+        return "shop";
+        */
+        return "redirect:/shop?id=" + String.valueOf(productCategoryId);
     }
 
     @PostMapping("/add_product_to_cart")
@@ -79,7 +87,7 @@ public class WebshopController {
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
-        return "redirect:/";
+        return "redirect:/shop";
     }
 
     @PostMapping("/delete_product_from_cart")
@@ -182,7 +190,7 @@ public class WebshopController {
         model.addAttribute("productCategoryId", 0);
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
-        return "redirect:/";
+        return "redirect:/shop";
     }
 
 

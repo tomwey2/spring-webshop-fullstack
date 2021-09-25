@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
-    <script src="js/shop.js" defer type="text/javascript"></script>
+    <script src="js/app.js" defer type="text/javascript"></script>
 </head>
 
 <style>
@@ -26,21 +26,21 @@
     <div class="w3-bar">
         <div class="w3-left">
             <div class="w3-bar-item">
-                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
             </div>
         </div>
         <div class="w3-right">
             <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
                     <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
             </div>
             <div class="w3-bar-item">
                 <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
                         <i class="fa fa-user"></i> Sign in</a>
                 </div>
                 <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
                         <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
                     </a>
                 </div>
@@ -58,21 +58,21 @@
                 </a>
             </div>
             <div class="w3-bar-item">
-                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
             </div>
         </div>
         <div class="w3-right">
             <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-white">
+                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
                     <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
             </div>
             <div class="w3-bar-item">
                 <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-white">
+                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
                         <i class="fa fa-user"></i></a>
                 </div>
                 <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
+                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
                         <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
                     </a>
                 </div>
@@ -97,13 +97,14 @@
                     <p>You are welcome to send me any comments. You find the contact information at the information
                         page (link at bottom left of this side).</p>
                     <p>Thank you for your interest!</p>
-                    <a th:href="@{/}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                    <a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
                         Back to the shop</a>
                 </div>
             </div>
         </div>
     </div>
 </section>
+<section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
 
 <footer class="w3-container w3-bottom w3-white">
     <div class="w3-bar">

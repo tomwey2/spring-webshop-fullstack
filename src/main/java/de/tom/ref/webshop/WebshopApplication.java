@@ -35,20 +35,23 @@ public class WebshopApplication {
 			List<ProductCategory> productCategories = initProductCategories();
 			List<Product> products = initProducts(productCategories);
 			String encodedPassword = passwordEncoder.encode("1234");
+			String encodedPasswordDemoUser = passwordEncoder.encode("password");
 
-			customerRepository.saveAll(initCustomers(encodedPassword));
+			customerRepository.saveAll(initCustomers(encodedPassword, encodedPasswordDemoUser));
 			productCategoryRepository.saveAll(productCategories);
 			productRepository.saveAll(products);
 		};
 	}
 
-	public static List<Customer> initCustomers(String encodedPassword) {
+	public static List<Customer> initCustomers(String encodedPassword, String encodedPasswordDemoUser) {
 		List<Customer> customers = new ArrayList<>();
 		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.de", encodedPassword,
 				UserRole.ROLE_ADMIN, true, false));
-		customers.add(new Customer("Will Smith", "will@test.de", encodedPassword,
-				UserRole.ROLE_USER, true, false));
 		customers.add(new Customer("Jim Carry", "jim@test.de", encodedPassword,
+				UserRole.ROLE_USER, true, false));
+		customers.add(new Customer("John Doe", "john.doe@test.com", encodedPasswordDemoUser,
+				UserRole.ROLE_USER, true, false));
+		customers.add(new Customer("Jane Doe", "jane.doe@test.com", encodedPasswordDemoUser,
 				UserRole.ROLE_USER, true, false));
 		return customers;
 	}
@@ -65,10 +68,14 @@ public class WebshopApplication {
 	public static List<Product> initProducts(List<ProductCategory> productCategories) {
 		List<Product> products = new ArrayList<>();
 		products.add(new Product("Raspberry Pi 3 Model B+", productCategories.get(0), new BigDecimal("38.50"), 10));
+		products.add(new Product("Raspberry Pi 4 Model B", productCategories.get(0), new BigDecimal("45.50"), 3));
 		products.add(new Product("Raspberry Pi  power adapter", productCategories.get(0), new BigDecimal("6.40"), 10));
+		products.add(new Product("Raspberry Pi  Case", productCategories.get(0), new BigDecimal("5.50"), 12));
 		products.add(new Product("Arduino UNO", productCategories.get(1), new BigDecimal("23.20"), 5));
 		products.add(new Product("Arduino Nano", productCategories.get(1), new BigDecimal("25.50"), 5));
-		products.add(new Product("Arduino Sensor Kit", productCategories.get(1), new BigDecimal("27.26"), 5));
+		products.add(new Product("Arduino Sensor Kit", productCategories.get(1), new BigDecimal("27.25"), 5));
+		products.add(new Product("USB 3.0 Cable", productCategories.get(2), new BigDecimal("8.25"), 15));
+		products.add(new Product("HDMI Cable", productCategories.get(2), new BigDecimal("10.25"), 15));
 		return products;
 	}
 }

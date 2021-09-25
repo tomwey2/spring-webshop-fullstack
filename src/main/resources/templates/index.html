@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Sample Webshop - Home (Thymeleaf)</title>
+    <title>Sample Webshop - Home</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
     <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
-    <script src="js/shop.js" defer type="text/javascript"></script>
+    <script src="js/app.js" defer type="text/javascript"></script>
 </head>
 
 <style>
@@ -26,24 +26,7 @@
     <div class="w3-bar">
         <div class="w3-left">
             <div class="w3-bar-item">
-                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
-            </div>
-        </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-white">
-                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-white">
-                        <i class="fa fa-user"></i> Sign in</a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
-                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
             </div>
         </div>
     </div>
@@ -53,91 +36,46 @@
     <div class="w3-bar">
         <div class="w3-left">
             <div class="w3-bar-item">
-               <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-                   <i class="fa fa-bars"></i>
-               </a>
+                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+                    <i class="fa fa-bars"></i>
+                </a>
             </div>
             <div class="w3-bar-item">
-                <a th:href="@{/}" class="w3-button"><b>MANDARINE</b> shop</a>
-            </div>
-        </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-white">
-                    <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-white">
-                        <i class="fa fa-user"></i></a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-white">
-                        <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
             </div>
         </div>
     </div>
 </header>
 
-<aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
-    <div class="w3-container w3-display-container w3-padding-16">
-        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-    </div>
-    <div class="w3-container w3-center">
-        <p>Please select one of the following categories:</p>
-    </div>
-    <ul class="w3-ul w3-center w3-hoverable" id="productCategories">
-        <li id="0">
-            <form th:action="@{/filter(id=${0})}" method="post">
-                <button type="submit" class="w3-button">Show all</button>
-            </form>
-        </li>
-        <li th:each="category : ${productCategories}" th:id="${category.id}">
-            <form th:action="@{/filter(id=${category.id})}" method="post">
-                <button type="submit" th:text="${category.name}" class="w3-button"/>
-            </form>
-        </li>
-    </ul>
-</aside>
-
-<section class="w3-main w3-container w3-display-container w3-section w3-center"
-         style="margin-left:280px; margin-top: 80px;">
-    <div class="w3-responsive">
-        <table class="w3-table w3-bordered" style="margin-top: 50px;">
-            <thead>
-            <tr>
-                <th>Product</th>
-                <th class="w3-center">Stock</th>
-                <th class="w3-right-align">Price</th>
-            </tr>
-            </thead>
-            <tbody id="products">
-            <tr th:if="${products.isEmpty}">
-                <td colspan="4">No products available</td>
-            </tr>
-            <tr th:each="product : ${products}">
-                <td><span th:text="${product.name}"/></td>
-                <td style="text-align: center; vertical-align: middle;"><span th:text="${product.unitsInStock}"/></td>
-                <td style="text-align: right; vertical-align: middle;"><span th:text="${product.unitPrice}"/> €</td>
-
-                <td style="text-align: center; vertical-align: middle;">
-                    <div th:if="${product.unitsInStock} == 0">
-                        <button class="w3-disabled w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
-                    </div>
-                    <div th:unless="${product.unitsInStock} == 0">
-                        <form th:action="@{/add_product_to_cart(productId=${product.id})}" method="post">
-                            <button class="w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
-                        </form>
-                    </div>
-
-                </td>
-            </tr>
-            </tbody>
-        </table>
+<section class="w3-main w3-container w3-section" style="margin-left:250px; margin-top: 50px;">
+    <div class="w3-responsive w3-threequarter">
+        <div class="w3-container" style="margin-top: 50px;">
+            <div class="w3-container">
+                <div class="w3-panel ">
+                    <h2>Welcome</h2>
+                    <p>This is my reference implementation of a little webshop in order to
+                    demonstrate how spring boot works.</p>
+                    <p>Feel free to test my implementation. You can authorize as follows:</p>
+                    <ul>
+                        <li>with your own account: please register, fill the form with
+                        your email address and a password. After an order you get a confirmation email
+                        in order to show this functionality. If you log out then your account
+                        will be deleted again.</li>
+                        <li>with one of the fixed implemented demo accounts: please sign in either as
+                            'john.doe@test.com' or 'jane.doe@test.com'. The password is 'password'.
+                        In this case, the system does not send an email when finishing the order.</li>
+                    </ul>
+                    <p>You are welcome to send me any comments. You find the contact information at the information
+                        page (link at bottom left of this side).</p>
+                    <p>Thank you for your interest!</p>
+                    <a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                        Go to the shop</a>
+                </div>
+            </div>
+        </div>
     </div>
 </section>
+<section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
 
 <footer class="w3-container w3-bottom w3-white">
     <div class="w3-bar">
