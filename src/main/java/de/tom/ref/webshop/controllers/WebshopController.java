@@ -153,4 +153,29 @@ public class WebshopController {
         model.addAttribute("user", customer);
         return "info";
     }
+
+    @GetMapping("/confirmation")
+    public String confirmaOrder(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        model.addAttribute("user", customer);
+        return "confirmation";
+    }
+
+    @GetMapping("/cancel")
+    public String cancelOrder(Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        cart = cartService.emptyCart(cart);
+
+        List<ProductCategory> productCategories = productCategoryService.getAll();
+        List<Product> products = productService.getProducts(0);
+        model.addAttribute("user", customer);
+        model.addAttribute("products", products);
+        model.addAttribute("productCategoryId", 0);
+        model.addAttribute("productCategories", productCategories);
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
+        return "redirect:/";
+    }
+
+
 }

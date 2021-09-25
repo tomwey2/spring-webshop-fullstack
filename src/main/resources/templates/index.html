@@ -121,10 +121,17 @@
                 <td><span th:text="${product.name}"/></td>
                 <td style="text-align: center; vertical-align: middle;"><span th:text="${product.unitsInStock}"/></td>
                 <td style="text-align: right; vertical-align: middle;"><span th:text="${product.unitPrice}"/> €</td>
+
                 <td style="text-align: center; vertical-align: middle;">
-                    <form th:action="@{/add_product_to_cart(productId=${product.id})}" method="post">
-                        <button class="w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
-                    </form>
+                    <div th:if="${product.unitsInStock} == 0">
+                        <button class="w3-disabled w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
+                    </div>
+                    <div th:unless="${product.unitsInStock} == 0">
+                        <form th:action="@{/add_product_to_cart(productId=${product.id})}" method="post">
+                            <button class="w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Add to Cart</button>
+                        </form>
+                    </div>
+
                 </td>
             </tr>
             </tbody>

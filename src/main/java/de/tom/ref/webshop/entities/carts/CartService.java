@@ -84,4 +84,11 @@ public class CartService {
         cartContentService.deleteProductFromCart(cartContent);
     }
 
+    public Cart emptyCart(Cart cart) {
+        List<CartContent> cartContents = getCartContents(cart);
+        for (CartContent cartContent : cartContents) {
+            deleteProductFromCart(cart, cartContent.getId());
+        }
+        return cart;
+    }
 }

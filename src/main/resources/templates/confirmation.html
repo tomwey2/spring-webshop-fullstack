@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Sample Webshop - Proceed to checkout</title>
+    <title>Sample Webshop - Order Confirmation</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
@@ -81,95 +81,37 @@
     </div>
 </header>
 
-<section class="w3-main w3-container w3-display-container w3-section w3-center"
-         style="margin-left:280px; margin-top: 50px;">
+<section class="w3-main w3-container w3-section" style="margin-left:250px; margin-top: 50px;">
     <div class="w3-responsive w3-threequarter">
         <div class="w3-container" style="margin-top: 50px;">
             <div class="w3-container">
-                <div class="w3-panel w3-border-bottom">
-                    <h2>Checkout</h2>
+                <div class="w3-panel ">
+                    <h2>Order Confirmation</h2>
+                    <p>The order process was only fictive in order to demonstrate the functionality.</p>
+                    <p>If you are logged in with your own email (after the registration process) then the system
+                        has sent you a confirmation email. Just for demonstration of the system's
+                        functionality.</p>
+                    <p>If you are logged as one of the demo users 'john.doe@text.com' or 'jane.doe@text.com' then
+                        nothing more happens.</p>
+                    <p>You are welcome to send me any comments. You find the contact information at the information
+                        page (link at bottom left of this side).</p>
+                    <p>Thank you for your interest!</p>
+                    <a th:href="@{/}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                        Back to the shop</a>
                 </div>
-                <h4>
-                <p>Subtotal (<span th:text="${cartContentSize}"/> items):
-                <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')}"/> Euro</p>
-                </h4>
             </div>
         </div>
-
-        <table class="w3-table w3-bordered" style="width=70%; margin-top: 25px;">
-            <thead>
-            <tr>
-                <th>Product</th>
-                <th class="w3-right-align">Price (p. Unit)</th>
-                <th class="w3-center">Quantity</th>
-                <th class="w3-right-align">Price</th>
-            </tr>
-            </thead>
-            <tbody id="products">
-            <tr th:if="${cartContents.isEmpty}">
-                <td colspan="5">No articles in shopping cart</td>
-            </tr>
-            <tr th:each="cartContent : ${cartContents}">
-                <td style="vertical-align: middle;">
-                    <span th:text="${cartContent.product.name}"/></td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <span th:text="${cartContent.product.unitPrice}"/> €</td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <span th:text="${cartContent.quantity}"/>
-                </td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <span th:text="${cartContent.price}"/> €</td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="w3-table w3-bordered" style="width=70%;">
-            <tbody>
-            <tr>
-                <td><b>Subtotal</b></td>
-                <td class="w3-right-align"/>
-                <td class="w3-center"/>
-                <td class="w3-right-align"><b><span th:text="${subTotalSum}"/> €</b></td>
-            </tr>
-            <tr>
-                <td><b>Shipping Costs</b></td>
-                <td class="w3-right-align"/>
-                <td class="w3-center"/>
-                <td class="w3-right-align"><b><span th:text="${shippingCosts}"/> €</b></td>
-            </tr>
-            <tr>
-                <td class="w3-large"><b>Total to pay</b></td>
-                <td class="w3-right-align w3-large"/>
-                <td class="w3-center w3-large"/>
-                <td class="w3-right-align w3-large"><b><span th:text="${totalSum}"/> €</b></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="w3-container w3-bar">
-            <div class="w3-bar-item w3-left">
-                <a th:href="@{/cancel}"
-                   class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Cancel and empty the cart</a>
-            </div>
-            <div class="w3-bar-item w3-right">
-                <a th:href="@{/confirmation}"
-                   class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Order and Checkout</a>
-            </div>
-        </div>
-
     </div>
 </section>
 
 <footer class="w3-container w3-bottom w3-white">
     <div class="w3-bar">
-        <a th:href="@{/info}"
-           class="w3-button w3-left-align w3-hover-white">More Information</a>
-        <a href="https://github.com/tomwey2/webshop"
-           class="w3-button w3-right w3-hover-white">Sources at github.com
+        <a th:href="@{/info}" class="w3-button w3-left-align w3-hover-white">More Information</a>
+        <a href="https://github.com/tomwey2/webshop" class="w3-button w3-right w3-hover-white">Sources at github.com
             <i class="fa fa-github"></i></a>
     </div>
 </footer>
 
 </body>
+
 </html>

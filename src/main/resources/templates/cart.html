@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Sample Webshop - Home (Thymeleaf)</title>
+    <title>Sample Webshop - Shopping Cart</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--
@@ -93,8 +93,15 @@
                 <p>Subtotal (<span th:text="${cartContentSize}"/> items):
                 <span th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')}"/> Euro</p>
                 </h4>
-                <a th:href="@{/order}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Proceed to checkout</a>
+                <div th:if="${cartContentSize} == 0">
+                    <a class="w3-disabled w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                        Proceed to checkout</a>
+                </div>
+                <div th:unless="${cartContentSize} == 0">
+                    <a th:href="@{/order}"
+                       class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+                        Proceed to checkout</a>
+                </div>
             </div>
         </div>
 
