@@ -133,21 +133,13 @@
                             </a>
                         </div>
                     </div>
-
-                    <!--ok:
-                    <select th:value="${cartContent.quantity}">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                    </select>
-                    <input type="number" th:value="${cartContent.quantity}" step="1"/>
-                    -->
                 </td>
                 <td style="text-align: right; vertical-align: middle;">
                     <span th:text="${cartContent.price}"/> €</td>
                 <td style="text-align: right; vertical-align: middle;">
-                    <a href="">Delete</a></td>
+                    <form th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}" method="post">
+                        <button class="w3-button w3-yellow w3-hover-amber w3-round-xlarge w3-small">Delete</button>
+                    </form>
             </tr>
             </tbody>
         </table>

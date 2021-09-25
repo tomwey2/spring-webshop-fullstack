@@ -58,7 +58,7 @@ public class WebshopController {
         return "index";
     }
 
-    @PostMapping("/product_to_cart")
+    @PostMapping("/add_product_to_cart")
     public String addProductToCart(@RequestParam(value = "productId") Integer productId, Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
@@ -73,6 +73,24 @@ public class WebshopController {
         model.addAttribute("productCategories", productCategories);
         model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
         return "redirect:/";
+    }
+
+    @PostMapping("/delete_product_from_cart")
+    public String deleteProductFromCart(@RequestParam(value = "cartContentId") Integer cartContentId,
+                                        Model model) {
+        Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        CartContent cartContent = cartService.getCartContentById(cart, cartContentId);
+        cartService.deleteProductFromCart(cart, cartContent);
+
+        List<CartContent> cartContents = cartService.getCartContents(cart);
+
+        model.addAttribute("user", customer);
+        model.addAttribute("cart", cart);
+        model.addAttribute("cartContents",  cartContents);
+        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
+        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        return "redirect:/cart";
     }
 
     @GetMapping("/cart")
@@ -100,11 +118,11 @@ public class WebshopController {
 
         // change quantity
         CartContent cartContent = cartService.getCartContentById(cart, cartContentId);
-        if ((cartContent.getQuantity() > 1 || changeValue > 0)
-        && (cartContent.getQuantity()<cartContent.getProduct().getUnitsInStock() || changeValue < 0)) {
-            cartContent.setQuantity(cartContent.getQuantity() + changeValue);
-            cartContent.setPrice(cartContent.getProduct().getUnitPrice().multiply(new BigDecimal(cartContent.getQuantity())));
-            cartContent = cartService.saveCartContent(cartContent);
+        if (changeValue > 0) {
+            cartService.increaseQuantity(cartContent, changeValue);
+        }
+        if (changeValue < 0) {
+            cartService.decreaseQuantity(cartContent, -changeValue);
         }
 
         List<CartContent> cartContents = cartService.getCartContents(cart);

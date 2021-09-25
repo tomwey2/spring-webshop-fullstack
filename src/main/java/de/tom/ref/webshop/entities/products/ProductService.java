@@ -1,24 +1,23 @@
 package de.tom.ref.webshop.entities.products;
 
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@AllArgsConstructor
+@Transactional
+@Slf4j
 public class ProductService {
 
     private final ProductRepository productRepository;
     private final ProductCategoryService productCategoryService;
-
-    @Autowired
-    public ProductService(ProductRepository productRepository,
-                          ProductCategoryService productCategoryService) {
-        this.productRepository = productRepository;
-        this.productCategoryService = productCategoryService;
-    }
 
     /**
      * Get all products from repository.
@@ -63,6 +62,16 @@ public class ProductService {
             throw new IllegalStateException("Product with name '" + product.getName() + "' exists.");
         }
         product.setCategory(productCategoryService.getProductCategory(categoryId));
+        return productRepository.save(product);
+    }
+
+    public Product decreaseUnitsInStock(Product product, int quantity) {
+        product.setUnitsInStock(product.getUnitsInStock() - quantity);
+        return productRepository.save(product);
+    }
+
+    public Product increaseUnitsInStock(Product product, int quantity) {
+        product.setUnitsInStock(product.getUnitsInStock() + quantity);
         return productRepository.save(product);
     }
 

@@ -3,6 +3,7 @@ package de.tom.ref.webshop.entities.carts;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
 import de.tom.ref.webshop.entities.products.Product;
+import de.tom.ref.webshop.entities.products.ProductService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -21,6 +22,7 @@ public class CartService {
     private final CartContentRepository cartContentRepository;
     private final CartRepository cartRepository;
     private final CustomerService customerService;
+    private final ProductService productService;
 
     public List<Cart> getAllCarts() {
         return cartRepository.findAll();
@@ -77,12 +79,41 @@ public class CartService {
             return cartContent;
         } else {
             cartContent = new CartContent(cart, product, 1);
+            productService.decreaseUnitsInStock(product, 1);
             return cartContentRepository.save(cartContent);
         }
     }
 
     public void deleteProductFromCart(Cart cart, CartContent cartContent) {
+        productService.increaseUnitsInStock(cartContent.getProduct(), cartContent.getQuantity());
         cartContentRepository.delete(cartContent);
+    }
+
+    private CartContent updatePrice(CartContent cartContent) {
+        BigDecimal price = cartContent.getProduct().getUnitPrice()
+                .multiply(new BigDecimal(cartContent.getQuantity()));
+        cartContent.setPrice(price);
+        return cartContent;
+    }
+
+    public CartContent increaseQuantity(CartContent cartContent, int quantity) {
+        if (quantity <= cartContent.getProduct().getUnitsInStock()) {
+            productService.decreaseUnitsInStock(cartContent.getProduct(), quantity);
+            cartContent.setQuantity(cartContent.getQuantity() + quantity);
+            cartContent = updatePrice(cartContent);
+            cartContent = cartContentRepository.save(cartContent);
+        }
+        return cartContent;
+    }
+
+    public CartContent decreaseQuantity(CartContent cartContent, int quantity) {
+        if (quantity <= cartContent.getQuantity()) {
+            cartContent.setQuantity(cartContent.getQuantity() - quantity);
+            cartContent = updatePrice(cartContent);
+            cartContent = cartContentRepository.save(cartContent);
+            productService.increaseUnitsInStock(cartContent.getProduct(), quantity);
+        }
+        return cartContent;
     }
 
     public CartContent getCartContentById(Cart cart, Integer cartContentId) {
