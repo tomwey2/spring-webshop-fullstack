@@ -20,6 +20,8 @@ public class CartContentService {
 
     /**
      * Add a product to a cart.
+     * If there is no more products in stock then do nothing.
+     * If the product is already in the cart then do nothing.
      *
      * @param cart the cart of the logged in customer
      * @param product the product to be inserted
@@ -28,7 +30,11 @@ public class CartContentService {
     public CartContent addProductToCart(Cart cart, Product product) {
         log.info("Add product {} (id={}) to the cart id={}", product.getName(), product.getId(), cart.getId());
         CartContent cartContent = cartContentRepository.findByProductAndCartId(cart.getId(), product.getId());
-        if (cartContent != null) {
+        if (product.getUnitsInStock() == 0) {
+            log.info("No products in stock: {}", product.getName());
+            return cartContent;
+        }
+        else if (cartContent != null) {
             log.info("Product id={} already in cart id={}", product.getId(), cart.getId());
             return cartContent;
         } else {
