@@ -67,7 +67,7 @@ public class CartContentService {
     }
 
     public CartContent decreaseQuantity(CartContent cartContent, int quantity) {
-        if (quantity <= cartContent.getQuantity()) {
+        if (quantity < cartContent.getQuantity()) {
             cartContent.setQuantity(cartContent.getQuantity() - quantity);
             cartContent = updatePrice(cartContent);
             cartContent = cartContentRepository.save(cartContent);
