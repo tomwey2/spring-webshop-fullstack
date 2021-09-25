@@ -6,6 +6,8 @@ import de.tom.ref.webshop.entities.carts.CartContentService;
 import de.tom.ref.webshop.entities.carts.CartService;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
+import de.tom.ref.webshop.entities.order.Order;
+import de.tom.ref.webshop.entities.order.OrderService;
 import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductCategory;
 import de.tom.ref.webshop.entities.products.ProductCategoryService;
@@ -29,6 +31,7 @@ public class WebshopController {
     private final ProductCategoryService productCategoryService;
     private final CartService cartService;
     private final CartContentService cartContentService;
+    private final OrderService orderService;
 
     @RequestMapping("/")
     public String index(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
@@ -157,7 +160,12 @@ public class WebshopController {
     @GetMapping("/confirmation")
     public String confirmaOrder(Model model) {
         Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+        Order order = orderService.createOrderFromCart(customer, cart);
+
         model.addAttribute("user", customer);
+        model.addAttribute("cart", cart);
+        model.addAttribute("order", order);
         return "confirmation";
     }
 

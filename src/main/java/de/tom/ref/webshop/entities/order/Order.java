@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.entities.carts;
+package de.tom.ref.webshop.entities.order;
 
 import de.tom.ref.webshop.entities.customers.Customer;
 import lombok.AllArgsConstructor;
@@ -7,23 +7,24 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
-@Table(name="carts")
+@Table(name="orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Cart {
-
+public class Order {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
+    @Column(name = "order_id")
     private Integer id;
 
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false, unique = true)
     private Customer customer;
+
+    @Column(name = "order_number", nullable=false, unique = true)
+    private String number;
 
     @Column(name = "create_date")
     private LocalDateTime createDate;
@@ -31,8 +32,10 @@ public class Cart {
     @Column(name = "last_update")
     private LocalDateTime updateDate;
 
-    public Cart(Customer customer) {
+    public Order(Customer customer, String number) {
         this.customer = customer;
-        this.createDate = LocalDateTime.now();;
+        this.number = number;
+        this.createDate = LocalDateTime.now();
     }
+
 }

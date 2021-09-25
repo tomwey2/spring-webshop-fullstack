@@ -91,4 +91,9 @@ public class CartService {
         }
         return cart;
     }
+
+    public void deleteCartContent(Cart cart) {
+        List<CartContent> cartContents = getCartContents(cart);
+        cartContentRepository.deleteAll(cartContents);
+    }
 }
