@@ -2,6 +2,7 @@ package de.tom.ref.webshop.controllers;
 
 import de.tom.ref.webshop.entities.carts.Cart;
 import de.tom.ref.webshop.entities.carts.CartContent;
+import de.tom.ref.webshop.entities.carts.CartContentService;
 import de.tom.ref.webshop.entities.carts.CartService;
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
@@ -28,18 +29,21 @@ public class WebshopController {
     private final ProductService productService;
     private final ProductCategoryService productCategoryService;
     private final CartService cartService;
+    private final CartContentService cartContentService;
 
     @RequestMapping("/")
     public String index(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
                         Model model) {
         Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
+
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(productCategoryId);
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategoryId", productCategoryId);
         model.addAttribute("productCategories", productCategories);
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         return "index";
     }
 
@@ -47,13 +51,14 @@ public class WebshopController {
     public String filter(@RequestParam(value = "id", defaultValue = "0") Integer productCategoryId,
                         Model model) {
         Customer customer = customerService.getSignInCustomer();
+        Cart cart = cartService.getCartOfCustomer(customer);
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(productCategoryId);
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategoryId", productCategoryId);
         model.addAttribute("productCategories", productCategories);
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         //return "redirect:/?id=" + String.valueOf(productCategoryId);
         return "index";
     }
@@ -63,7 +68,7 @@ public class WebshopController {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
         Product product = productService.getProduct(productId);
-        cartService.addProductToCart(cart, product);
+        cartContentService.addProductToCart(cart, product);
 
         List<ProductCategory> productCategories = productCategoryService.getAll();
         List<Product> products = productService.getProducts(0);
@@ -71,7 +76,7 @@ public class WebshopController {
         model.addAttribute("user", customer);
         model.addAttribute("products", products);
         model.addAttribute("productCategories", productCategories);
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         return "redirect:/";
     }
 
@@ -80,16 +85,16 @@ public class WebshopController {
                                         Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        CartContent cartContent = cartService.getCartContentById(cart, cartContentId);
-        cartService.deleteProductFromCart(cart, cartContent);
+        CartContent cartContent = cartContentService.getCartContentById(cart, cartContentId);
+        cartContentService.deleteProductFromCart(cart, cartContent);
 
-        List<CartContent> cartContents = cartService.getCartContents(cart);
+        List<CartContent> cartContents = cartContentService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents",  cartContents);
-        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));;
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         return "redirect:/cart";
     }
 
@@ -97,13 +102,13 @@ public class WebshopController {
     public String getCart(Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        List<CartContent> cartContents = cartService.getCartContents(cart);
+        List<CartContent> cartContents = cartContentService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents",  cartContents);
-        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));;
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         return "cart";
     }
 
@@ -117,20 +122,20 @@ public class WebshopController {
         Cart cart = cartService.getCartOfCustomer(customer);
 
         // change quantity
-        CartContent cartContent = cartService.getCartContentById(cart, cartContentId);
+        CartContent cartContent = cartContentService.getCartContentById(cart, cartContentId);
         if (changeValue > 0) {
-            cartService.increaseQuantity(cartContent, changeValue);
+            cartContentService.increaseQuantity(cartContent, changeValue);
         }
         if (changeValue < 0) {
-            cartService.decreaseQuantity(cartContent, -changeValue);
+            cartContentService.decreaseQuantity(cartContent, -changeValue);
         }
 
-        List<CartContent> cartContents = cartService.getCartContents(cart);
+        List<CartContent> cartContents = cartContentService.getCartContents(cart);
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents", cartContents);
-        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
+        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));;
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
         return "redirect:/cart";
     }
 
@@ -138,15 +143,15 @@ public class WebshopController {
     public String getOrder(Model model) {
         Customer customer = customerService.getSignInCustomer();
         Cart cart = cartService.getCartOfCustomer(customer);
-        List<CartContent> cartContents = cartService.getCartContents(cart);
+        List<CartContent> cartContents = cartContentService.getCartContents(cart);
 
         model.addAttribute("user", customer);
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents",  cartContents);
-        model.addAttribute("cartContentSize", cartService.getAmountOfProductsInCart(customer));
-        model.addAttribute("subTotalSum", cartService.calculateSubtotalSum(cart));;
-        model.addAttribute("shippingCosts", cartService.calculateShippingCosts(cart));;
-        model.addAttribute("totalSum", cartService.calculateTotalSum(cart));;
+        model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
+        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));;
+        model.addAttribute("shippingCosts", cartContentService.calculateShippingCosts(cart));;
+        model.addAttribute("totalSum", cartContentService.calculateTotalSum(cart));;
         return "order";
     }
 

@@ -15,6 +15,7 @@ import java.util.List;
 public class CartController {
     private final CartService cartService;
     private final CustomerService customerService;
+    private final CartContentService cartContentService;
 
     @GetMapping("")
     public List<Cart> getAll() {
@@ -26,13 +27,6 @@ public class CartController {
         log.info("Get cart of user={}", username);
         Customer customer = customerService.getCustomer(username);
         return cartService.getCartOfCustomer(customer);
-    }
-
-    @GetMapping("/{username}/size")
-    public int getCartSize(@PathVariable String username) {
-        log.info("Get amount of content in cart of user={}", username);
-        Customer customer = customerService.getCustomer(username);
-        return cartService.getAmountOfProductsInCart(customer);
     }
 
     @DeleteMapping("/{id}")
