@@ -68,7 +68,8 @@ public class CartService {
         return cartContents.stream()
                 .filter(cartContent -> cartContent.getId() == cartContentId)
                 .findFirst()
-                .orElseThrow(IllegalStateException::new);
+                .orElseThrow(() ->
+                        new IllegalStateException("CartContent not found."));
     }
 
     public CartContent changeQuantityOfCartContent(Cart cart, Integer cartContentId, int value) {

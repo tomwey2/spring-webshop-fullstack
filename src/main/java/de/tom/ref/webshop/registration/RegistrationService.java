@@ -58,8 +58,21 @@ public class RegistrationService {
     }
 
     private String buildEmail(String name,String  link) {
-        String emailText = "";
-        // TODO: build the email content with html
+        String emailText = "<!DOCTYPE html>\n" +
+                "<html lang=\"en\">\n" +
+                "<head>\n" +
+                "<meta charset=\"UTF-8\">\n" +
+                "<title>Title</title>\n" +
+                "</head>\n" +
+                "<body>\n" +
+                "<p>Hi " + name + ",</p>\n" +
+                "<p>Thank you for registering at my test webshop.</p>\n" +
+                "<p>Please click on the below link to activate your account:</p>\n" +
+                "<p><a href=\"" + link + "\">Activate Now</a></p>\n" +
+                "<p>The link will expire in 15 minutes.</p>\n" +
+                "<p>Regards,<br>Thomas</p>\n" +
+                "</body>\n" +
+                "</html>\n";
         return emailText;
     }
 }

@@ -26,11 +26,11 @@ public class EmailService implements EmailSender {
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");
-            helper.setText(text);
+            helper.setText(text, true);
             helper.setTo(to);
             helper.setSubject(subject);
             helper.setFrom("info@webshop.com");
-            // TODO: mailSender.send(mimeMessage);
+            mailSender.send(mimeMessage);
         } catch (MessagingException e) {
             log.error(EMAIL_SEND_FAILED, e);
             new IllegalStateException(EMAIL_SEND_FAILED);
