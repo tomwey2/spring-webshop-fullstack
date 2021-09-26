@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Sign Up Success</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
+    <script src="js/app.js" defer type="text/javascript"></script>
+</head>
+<body>
+<!-- This is the header in case of a large or medium display -->
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+            </div>
+        </div>
+    </div>
+</header>
+<!-- This is the header in case of a small display -->
+<header class="w3-hide-large w3-top w3-black">
+    <div class="w3-bar">
+        <div class="w3-left">
+            <div class="w3-bar-item">
+                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+                    <i class="fa fa-bars"></i>
+                </a>
+            </div>
+            <div class="w3-bar-item">
+                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<div class="w3-row" style="margin-top: 50px;">
+    <div class="w3-quarter w3-container"></div>
+    <div class="w3-half w3-container">
+        <div class="w3-center">
+            <h2>Sign Up Success</h2>
+        </div>
+        <p>You have signed up successfully.</p>
+        <p><a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+            Go to the shop</a></p>
+    </div>
+    <div class="w3-quarter w3-container"></div>
+</div>
+</body>
+</html>

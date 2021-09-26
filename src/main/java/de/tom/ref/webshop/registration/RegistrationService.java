@@ -31,7 +31,7 @@ public class RegistrationService {
                 request.getPassword(),
                 UserRole.ROLE_USER);
         String token = customerService.signUpUser(customer);
-        String link = "http://localhost:8080/api/registration/confirm?token=" + token;
+        String link = "http://localhost:8080/register_confirm?token=" + token;
         emailSender.send(
                 request.getEmail(),
                 "confirm your email",

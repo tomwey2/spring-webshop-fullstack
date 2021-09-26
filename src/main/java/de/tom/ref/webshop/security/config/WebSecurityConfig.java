@@ -53,9 +53,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .authenticated()
                 .and()
                 .formLogin()
+                    .loginPage("/login").permitAll()
+                    //.loginProcessingUrl("/signin_form")
                     .defaultSuccessUrl("/shop", true)
-                //.loginPage("/login.html")
-                //.failureUrl("/login-error.html")
+                    //.failureUrl("/signin_form.html?error=true")
+                    //.failureHandler(authenticationFailureHandler()
                 .and()
                 .logout()
                 .logoutSuccessUrl("/");

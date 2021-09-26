@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org">
+<head>
+    <title>Sign In</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
+    <script src="js/app.js" defer type="text/javascript"></script>
+</head>
+<body>
+<div class="w3-row">
+    <div class="w3-quarter w3-container"></div>
+    <div class="w3-half w3-container">
+        <div class="w3-center">
+            <h2>Sign In</h2>
+        </div>
+        <div class="w3-panel w3-border w3-round-xxlarge w3-light-grey w3-margin">
+            <form class="w3-container" th:action="@{/login}" method="post">
+                <div class="w3-container">
+                    <p>
+                        <label class="w3-left-align" for="username">Email address</label>
+                        <input class="w3-input w3-border" type="text" name="username" id="username" required>
+                    </p>
+                    <p>
+                        <label class="w3-left-align" for="password">Password</label>
+                        <input class="w3-input w3-border" type="password" name="password" id="password" required>
+                    </p>
+                    <button type="submit"
+                            class="w3-block w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">Sign In</button>
+                </div>
+            </form>
+            <div class="w3-container w3-margin-top">
+                <div class="w3-bar">
+                    <div class="w3-bar-item w3-left">New in webshop?</div>
+                    <div class="w3-bar-item w3-right"><a th:href="@{/register}"><b>Sign up</b></a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w3-quarter w3-container"></div>
+</div>
+</body>
+</html>

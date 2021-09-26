@@ -12,6 +12,7 @@ import de.tom.ref.webshop.entities.products.Product;
 import de.tom.ref.webshop.entities.products.ProductCategory;
 import de.tom.ref.webshop.entities.products.ProductCategoryService;
 import de.tom.ref.webshop.entities.products.ProductService;
+import de.tom.ref.webshop.registration.RegistrationRequest;
 import de.tom.ref.webshop.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -193,5 +194,32 @@ public class WebshopController {
         return "redirect:/shop";
     }
 
+    @GetMapping("/login")
+    public String signin() {
+        return "signin_form";
+    }
+
+    @GetMapping("/register")
+    public String hello(Model model) {
+        RegistrationRequest request = new RegistrationRequest("", "", "");
+        model.addAttribute("registrationRequest", request);
+        return "signup_form";
+    }
+
+    @PostMapping("/register_process")
+    public String register(RegistrationRequest request, Model model) {
+        log.info("Register of user={} email={}", request.getName(), request.getEmail());
+        String token = registrationService.register(request);
+        model.addAttribute("token", token);
+        return "signup_confirm";
+    }
+
+    @GetMapping("/register_confirm")
+    public String confirm(@RequestParam(value = "token") String token, Model model) {
+        log.info("Called register_confirmation with token={}", token);
+        String result = registrationService.confirmation(token);
+        log.info("Confirmation result: {}", result);
+        return "signup_success";
+    }
 
 }
