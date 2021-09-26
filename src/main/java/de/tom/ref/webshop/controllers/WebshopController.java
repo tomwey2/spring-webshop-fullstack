@@ -152,9 +152,9 @@ public class WebshopController {
         model.addAttribute("cart", cart);
         model.addAttribute("cartContents",  cartContents);
         model.addAttribute("cartContentSize", cartContentService.getAmountOfProductsInCart(cart));
-        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));;
-        model.addAttribute("shippingCosts", cartContentService.calculateShippingCosts(cart));;
-        model.addAttribute("totalSum", cartContentService.calculateTotalSum(cart));;
+        model.addAttribute("subTotalSum", cartContentService.calculateSubtotalSum(cart));
+        model.addAttribute("shippingCosts", cartContentService.calculateShippingCosts(cart));
+        model.addAttribute("totalSum", cartContentService.calculateTotalSum(cart));
         return "order";
     }
 
