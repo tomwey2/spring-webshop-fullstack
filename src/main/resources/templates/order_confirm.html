@@ -22,62 +22,49 @@
 <body>
 
 <!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <div th:if="${#strings.isEmpty(user.name)}">
+            <a th:href="@{/login}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i> Sign in</a>
         </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i> Sign in</a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
-            </div>
+        <div th:if="${not #strings.isEmpty(user.name)}">
+            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"></span>)
+            </a>
         </div>
     </div>
+    <div class="w3-bar-item w3-right">
+        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
+            <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"></span>)</a>
+    </div>
+</div>
 </header>
 <!-- This is the header in case of a small display -->
 <header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
+    <div class="w3-bar-item w3-left">
+        <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+            <i class="fa fa-bars"></i></a>
+    </div>
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <div th:if="${#strings.isEmpty(user.name)}">
+            <a th:href="@{/login}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i></a>
         </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-                    <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i></a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
-            </div>
+        <div th:if="${not #strings.isEmpty(user.name)}">
+            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i>(<span th:text="${user?.email}"></span>)</a>
         </div>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
+            <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"></span>)</a>
     </div>
 </header>
 

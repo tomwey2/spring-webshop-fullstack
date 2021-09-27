@@ -22,129 +22,115 @@
 <body>
 
 <!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <div th:if="${#strings.isEmpty(user.name)}">
+            <a th:href="@{/login}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i> Sign in</a>
         </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-                    <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i> Sign in</a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
-            </div>
+        <div th:if="${not #strings.isEmpty(user.name)}">
+            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"></span>)
+            </a>
         </div>
     </div>
+    <div class="w3-bar-item w3-right">
+        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
+            <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"></span>)</a>
+    </div>
+</div>
 </header>
 <!-- This is the header in case of a small display -->
 <header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
+    <div class="w3-bar-item w3-left">
+        <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+            <i class="fa fa-bars"></i></a>
+    </div>
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <div th:if="${#strings.isEmpty(user.name)}">
+            <a th:href="@{/login}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i></a>
         </div>
-        <div class="w3-right">
-            <div class="w3-bar-item">
-                <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-                    <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"/>)</a>
-            </div>
-            <div class="w3-bar-item">
-                <div th:if="${#strings.isEmpty(user.name)}">
-                    <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i></a>
-                </div>
-                <div th:if="${not #strings.isEmpty(user.name)}">
-                    <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                        <i class="fa fa-user"></i>(<span th:text="${user?.email}"/>)
-                    </a>
-                </div>
-            </div>
+        <div th:if="${not #strings.isEmpty(user.name)}">
+            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i>(<span th:text="${user?.email}"></span>)</a>
         </div>
+    </div>
+    <div class="w3-bar-item w3-right">
+        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
+            <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"></span>)</a>
     </div>
 </header>
 
 <aside class="w3-sidebar w3-bar-block w3-collapse w3-animate-left w3-border-right" id="mySidebar">
-        <div class="w3-container w3-display-container w3-padding-16">
-            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
-        </div>
-        <div class="w3-container w3-center">
-            <p>Information:</p>
-        </div>
-        <ul class="w3-ul w3-center w3-hoverable">
-            <li><a href="#contact" class="w3-bar-item w3-button w3-center">Contact</a></li>
-            <li><a href="#imprint" class="w3-bar-item w3-button w3-center">Imprint</a></li>
-            <li><a href="#conditions" class="w3-bar-item w3-button w3-center">Conditions</a></li>
-            <li><a href="#licenses" class="w3-bar-item w3-button w3-center">License Information</a></li>
-        </ul>
-
-    </aside>
-
-    <div class="w3-main" style="margin-left:250px; margin-top: 50px;">
-        <section class="w3-container w3-section">
-        </section>
-
-        <section class="w3-container w3-section">
-            <h3>Copyright</h3>
-            <p>(c) 2021 Thomas Weyrath</p>
-        </section>
-
-        <section id="contact" class="w3-container w3-section">
-            <h3>Contact</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
-                inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
-                inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore
-                inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
-        </section>
-
-        <section id="imprint" class="w3-container w3-section">
-            <h3>Imprint</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
-                inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
-        </section>
-
-        <section id="conditions" class="w3-container w3-section">
-            <h3>Condtions</h3>
-            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
-                inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
-        </section>
-
-        <section id="licenses" class="w3-container w3-section">
-            <h3>License Information</h3>
-            <p>Copyright 2021 by Thomas Weyrath</p>
-            <p>This product includes software developed by the <a href="https://www.apache.org/">Apache Software Foundation</a>. 
-                The following libraries with Apache 2.0 license are used:</p>
-            <ul>
-                <li>Spring boot</li>
-                <li>Apache Tomcat</li>
-                <li></li>
-            </ul>
-            <p>This product also includes the following libraries which are covered by the GNU GPL and GNU LGPL Licenses:</p>
-            <ul>
-                <li>Maria DB</li>
-            </ul>
-        </section>
-
+    <div class="w3-container w3-display-container w3-padding-16">
+        <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-button w3-display-topright"></i>
     </div>
+    <div class="w3-container w3-center">
+        <p>Information:</p>
+    </div>
+    <ul class="w3-ul w3-center w3-hoverable">
+        <li><a href="#contact" class="w3-bar-item w3-button w3-center">Contact</a></li>
+        <li><a href="#imprint" class="w3-bar-item w3-button w3-center">Imprint</a></li>
+        <li><a href="#conditions" class="w3-bar-item w3-button w3-center">Conditions</a></li>
+        <li><a href="#licenses" class="w3-bar-item w3-button w3-center">License Information</a></li>
+    </ul>
+</aside>
+
+<div class="w3-main" style="margin-left:250px; margin-top: 50px;">
+    <section class="w3-container w3-section">
+    </section>
+
+    <section class="w3-container w3-section">
+        <h3>Copyright</h3>
+        <p>(c) 2021 Thomas Weyrath</p>
+    </section>
+
+    <section id="contact" class="w3-container w3-section">
+        <h3>Contact</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
+            inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
+            inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore
+            inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
+    </section>
+
+    <section id="imprint" class="w3-container w3-section">
+        <h3>Imprint</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
+            inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
+    </section>
+
+    <section id="conditions" class="w3-container w3-section">
+        <h3>Condtions</h3>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Eveniet atque accusamus, minus debitis tempore 
+            inventore obcaecati quos ad tempora, iste aut esse nobis nisi accusantium facere, quam corporis ullam odio!</p>
+    </section>
+
+    <section id="licenses" class="w3-container w3-section">
+        <h3>License Information</h3>
+        <p>Copyright 2021 by Thomas Weyrath</p>
+        <p>This product includes software developed by the <a href="https://www.apache.org/">Apache Software Foundation</a>. 
+            The following libraries with Apache 2.0 license are used:</p>
+        <ul>
+            <li>Spring boot</li>
+            <li>Apache Tomcat</li>
+            <li></li>
+        </ul>
+        <p>This product also includes the following libraries which are covered by the GNU GPL and GNU LGPL Licenses:</p>
+        <ul>
+            <li>Maria DB</li>
+        </ul>
+    </section>
+
+</div>
 <section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
 
 <footer class="w3-container w3-bottom w3-white">

@@ -1,22 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="https://www.thymeleaf.org">
 <head>
+    <title>Sample Webshop - Shop</title>
     <meta charset="UTF-8">
-    <title>Test</title>
-
-    <script src="js/test.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link href="css/w3.css" type="text/css" rel="stylesheet" >
+    <script src="js/app.js" defer type="text/javascript"></script>
 </head>
+
+<style>
+    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
+    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
+    .fill100 {height: 100%;}
+</style>
+
 <body>
-    <p>Test Delegate Function:</p>
-    <ul id="parent-list">
-        <li id="a">Item A</li>
-        <li id="b">Item B</li>
-        <li id="c">Item C</li>
-        <li id="d">Item D</li>
-        <li id="e">Item E</li>
-        <li id="f">Item F</li>
-    </ul>
-    
+
+<!-- This is the header in case of a large or medium display -->
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
+    <div class="w3-left w3-bar-item">
+            <a href="" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+        </div>
+    <div class="w3-right w3-bar-item">
+            <a href="" class="w3-button w3-hover-amber">
+                <i class="fa fa-shopping-cart"></i> Cart ()</a>
+    </div>
+    <div class="w3-right w3-bar-item">
+            <a th:href="" class="w3-button w3-hover-amber">
+                <i class="fa fa-user"></i> Sign in</a>
+    </div>
+
+</header>
         
 </body>
 </html>

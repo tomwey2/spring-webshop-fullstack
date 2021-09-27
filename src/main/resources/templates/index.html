@@ -22,58 +22,46 @@
 <body>
 
 <!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
-        </div>
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
+    <div class="w3-bar w3-left w3-bar-item">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
     </div>
 </header>
 <!-- This is the header in case of a small display -->
 <header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar">
-        <div class="w3-left">
-            <div class="w3-bar-item">
-                <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-                    <i class="fa fa-bars"></i>
-                </a>
-            </div>
-            <div class="w3-bar-item">
-                <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-            </div>
-        </div>
+    <div class="w3-bar-item w3-left">
+        <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
     </div>
 </header>
 
-<section class="w3-main w3-container w3-section" style="margin-left:250px; margin-top: 50px;">
-    <div class="w3-responsive w3-threequarter">
-        <div class="w3-container" style="margin-top: 50px;">
-            <div class="w3-container">
-                <div class="w3-panel ">
-                    <h2>Welcome</h2>
-                    <p>This is my reference implementation of a little webshop in order to
-                    demonstrate how spring boot works.</p>
-                    <p>Feel free to test my implementation. You can authorize as follows:</p>
-                    <ul>
-                        <li>with your own account: please register, fill the form with
-                        your email address and a password. After an order you get a confirmation email
-                        in order to show this functionality. If you log out then your account
-                        will be deleted again.</li>
-                        <li>with one of the fixed implemented demo accounts: please sign in either as
-                            'john.doe@test.com' or 'jane.doe@test.com'. The password is 'password'.
-                        In this case, the system does not send an email when finishing the order.</li>
-                    </ul>
-                    <p>You are welcome to send me any comments. You find the contact information at the information
-                        page (link at bottom left of this side).</p>
-                    <p>Thank you for your interest!</p>
-                    <a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                        Go to the shop</a>
-                </div>
-            </div>
-        </div>
+<section class="w3-row w3-main w3-container" style="margin-top: 50px;">
+    <div class="w3-col w3-container" style="width: 250px"></div>
+    <div class="w3-threequarter w3-container">
+        <h2>Welcome</h2>
+        <p>This is my reference implementation of a little webshop in order to
+        demonstrate how spring boot works.</p>
+        <p>Feel free to test my implementation. You can authorize as follows:</p>
+        <ul>
+            <li>with your own account: please register, fill the form with
+            your email address and a password. After an order you get a confirmation email
+            in order to show this functionality. If you log out then your account
+            will be deleted again.</li>
+            <li>with one of the fixed implemented demo accounts: please sign in either as
+                'john.doe@test.com' or 'jane.doe@test.com'. The password is 'password'.
+            In this case, the system does not send an email when finishing the order.</li>
+        </ul>
+        <p>You are welcome to send me any comments. You find the contact information at the information
+            page (link at bottom left of this side).</p>
+        <p>Thank you for your interest!</p>
+        <a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
+            Go to the shop</a>
     </div>
+    <div class="w3-rest w3-container"></div>
 </section>
 <section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
 

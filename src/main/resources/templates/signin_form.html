@@ -13,7 +13,24 @@
     <script src="js/app.js" defer type="text/javascript"></script>
 </head>
 <body>
-<div class="w3-row">
+<!-- This is the header in case of a large or medium display -->
+<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
+    <div class="w3-bar-item w3-left">
+            <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+</header>
+<!-- This is the header in case of a small display -->
+<header class="w3-hide-large w3-top w3-black">
+    <div class="w3-bar-item w3-left">
+            <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
+                <i class="fa fa-bars"></i></a>
+    </div>
+    <div class="w3-bar-item w3-left">
+        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+    </div>
+</header>
+
+<div class="w3-row" style="margin-top: 50px;">
     <div class="w3-quarter w3-container"></div>
     <div class="w3-half w3-container">
         <div class="w3-center">
