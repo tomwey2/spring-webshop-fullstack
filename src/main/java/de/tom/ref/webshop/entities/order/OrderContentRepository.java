@@ -11,7 +11,7 @@ public interface OrderContentRepository extends JpaRepository<OrderContent, Inte
     List<OrderContent> findByOrderId(@Param("order_id") Integer orderId);
     OrderContent findByProductId(@Param("product_id") Integer productId);
 
-    @Query(value = "select * from order_content oc where oc.order_id = ?1 and cc.product_id = ?2",
+    @Query(value = "select * from order_contents oc where oc.order_id = ?1 and cc.product_id = ?2",
             nativeQuery = true)
     CartContent findByProductAndOrderId(@Param("order_id") Integer orderId,
                                        @Param("product_id") Integer productId);

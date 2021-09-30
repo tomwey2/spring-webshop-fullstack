@@ -9,14 +9,14 @@ import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-@Table(name="order_content")
+@Table(name="order_contents")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class OrderContent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "content_id")
+    @Column(name = "id")
     private Integer id;
 
     @ManyToOne
