@@ -19,19 +19,19 @@ public class Product {
      * Product's unique identifier. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "product_id")
+    @Column(name = "id")
     private Integer id;
 
     /**
      * The product's name (or title). Example: 'Mens Pique Polo Shirt'
      * The product title has max. 150 characters. It clearly describes
      * the product. */
-    @Column(name = "product_name", length = 150)
+    @Column(name = "title", length = 150)
     private String title;
 
     /**
      * The product's description. It has max. 5000 characters. */
-    @Column(name = "product_description", length = 500)
+    @Column(name = "description", length = 500)
     private String description;
 
     /**
@@ -59,9 +59,6 @@ public class Product {
 
     @Column(name = "units_in_stock")
     private Integer unitsInStock = 0;
-
-    @Column(name = "units_on_order")
-    private Integer unitsOnOrder = 0;
 
     /**
      * The product's availability.

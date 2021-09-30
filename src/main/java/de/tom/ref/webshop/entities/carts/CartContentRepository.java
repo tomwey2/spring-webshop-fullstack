@@ -10,7 +10,7 @@ public interface CartContentRepository extends JpaRepository<CartContent, Intege
     List<CartContent> findByCartId(@Param("cart_id") Integer cartId);
     CartContent findByProductId(@Param("product_id") Integer productId);
 
-    @Query(value = "select * from cart_content cc where cc.cart_id = ?1 and cc.product_id = ?2", nativeQuery = true)
+    @Query(value = "select * from cart_contents cc where cc.cart_id = ?1 and cc.product_id = ?2", nativeQuery = true)
     CartContent findByProductAndCartId(@Param("cart_id") Integer cartId,
                                        @Param("product_id") Integer productId);
 }
