@@ -105,9 +105,9 @@
                 <td colspan="4">No products available</td>
             </tr>
             <tr th:each="product : ${products}">
-                <td><span th:text="${product.name}"/></td>
+                <td><span th:text="${product.title}"/></td>
                 <td style="text-align: center; vertical-align: middle;"><span th:text="${product.unitsInStock}"/></td>
-                <td style="text-align: right; vertical-align: middle;"><span th:text="${product.unitPrice}"/> €</td>
+                <td style="text-align: right; vertical-align: middle;"><span th:text="${product.price}"/> €</td>
 
                 <td style="text-align: center; vertical-align: middle;">
                     <div th:if="${product.unitsInStock} == 0">

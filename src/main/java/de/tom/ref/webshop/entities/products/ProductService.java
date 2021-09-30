@@ -2,7 +2,6 @@ package de.tom.ref.webshop.entities.products;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -58,8 +57,8 @@ public class ProductService {
      * @return the products that was added if it not exists otherwise throw an exception.
      */
     public Product addProduct(Integer categoryId, Product product) {
-        if (productRepository.findByName(product.getName()) != null) {
-            throw new IllegalStateException("Product with name '" + product.getName() + "' exists.");
+        if (productRepository.findByName(product.getTitle()) != null) {
+            throw new IllegalStateException("Product with name '" + product.getTitle() + "' exists.");
         }
         product.setCategory(productCategoryService.getProductCategory(categoryId));
         return productRepository.save(product);

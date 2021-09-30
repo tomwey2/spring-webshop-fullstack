@@ -38,7 +38,7 @@ public class CartContent {
         this.cart = cart;
         this.product = product;
         this.quantity = quantity;
-        this.price = product.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
+        this.price = product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
 }

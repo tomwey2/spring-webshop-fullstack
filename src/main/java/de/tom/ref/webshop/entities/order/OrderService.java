@@ -8,13 +8,11 @@ import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.registration.email.EmailSender;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
-import java.util.Calendar;
 import java.util.List;
 import java.util.UUID;
 
@@ -103,8 +101,8 @@ public class OrderService {
 
         for (OrderContent orderContent : orderContents) {
             emailText += "      <tr>\n" +
-                    "        <td>" + orderContent.getProduct().getName() + "</td>\n" +
-                    "        <td style=\"text-align: right;\">" + orderContent.getProduct().getUnitPrice() + " Euro</td>\n" +
+                    "        <td>" + orderContent.getProduct().getTitle() + "</td>\n" +
+                    "        <td style=\"text-align: right;\">" + orderContent.getProduct().getPrice() + " Euro</td>\n" +
                     "        <td style=\"text-align: center;\">" + orderContent.getQuantity() + "</td>\n" +
                     "        <td style=\"text-align: right;\">" + orderContent.getPrice() + " Euro</td>\n" +
                     "      </tr>\n";

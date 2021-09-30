@@ -96,9 +96,9 @@
             </tr>
             <tr th:each="cartContent : ${cartContents}">
                 <td style="vertical-align: middle;">
-                    <span th:text="${cartContent.product.name}"></span></td>
+                    <span th:text="${cartContent.product.title}"></span></td>
                 <td style="text-align: right; vertical-align: middle;">
-                    <span th:text="${cartContent.product.unitPrice}"></span> €</td>
+                    <span th:text="${cartContent.product.price}"></span> €</td>
                 <td style="text-align: center; vertical-align: middle;">
                     <span th:text="${cartContent.quantity}"></span>
                 </td>

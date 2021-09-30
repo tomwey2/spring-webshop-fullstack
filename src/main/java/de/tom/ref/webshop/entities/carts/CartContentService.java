@@ -28,10 +28,10 @@ public class CartContentService {
      * @return created cart content
      */
     public CartContent addProductToCart(Cart cart, Product product) {
-        log.info("Add product {} (id={}) to the cart id={}", product.getName(), product.getId(), cart.getId());
+        log.info("Add product {} (id={}) to the cart id={}", product.getTitle(), product.getId(), cart.getId());
         CartContent cartContent = cartContentRepository.findByProductAndCartId(cart.getId(), product.getId());
         if (product.getUnitsInStock() == 0) {
-            log.info("No products in stock: {}", product.getName());
+            log.info("No products in stock: {}", product.getTitle());
             return cartContent;
         }
         else if (cartContent != null) {
@@ -50,7 +50,7 @@ public class CartContentService {
     }
 
     private CartContent updatePrice(CartContent cartContent) {
-        BigDecimal price = cartContent.getProduct().getUnitPrice()
+        BigDecimal price = cartContent.getProduct().getPrice()
                 .multiply(new BigDecimal(cartContent.getQuantity()));
         cartContent.setPrice(price);
         return cartContent;

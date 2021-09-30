@@ -1,6 +1,5 @@
 package de.tom.ref.webshop.entities.order;
 
-import de.tom.ref.webshop.entities.carts.Cart;
 import de.tom.ref.webshop.entities.products.Product;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -38,7 +37,7 @@ public class OrderContent {
         this.order = order;
         this.product = product;
         this.quantity = quantity;
-        this.price = product.getUnitPrice().multiply(BigDecimal.valueOf(quantity));
+        this.price = product.getPrice().multiply(BigDecimal.valueOf(quantity));
     }
 
 }
