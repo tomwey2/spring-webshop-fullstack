@@ -1,0 +1,101 @@
+html,
+body {
+  height: 100%;
+  width: 100%;
+  color: #222;
+}
+
+.mandarine {
+  background-color: #ffae42;
+  color: black;
+}
+
+.navbar {
+  padding: 0.8rem;
+}
+
+.navbar-nav li {
+  padding-right: 20px;
+}
+
+.search {
+  background-color: #ffae42;
+  color: black;
+}
+
+.light-button,
+.dark-button,
+.empty-button {
+  border: none;
+  border-radius: 16px; /* rounded-pill */
+  text-align: center;
+  display: block;
+  width: 100%;
+}
+
+.light-button {
+  background-color: #ffd800; /* schoolbus-yellow */
+  color: black;
+}
+
+.light-button:hover {
+  background-color: #ffae42;
+  color: black;
+}
+
+.dark-button {
+  background-color: #ffae42; /* yellow orange */
+  color: black;
+  border-color: black;
+}
+
+.dark-button:hover {
+  background-color: #ffd800;
+  color: white;
+}
+
+.empty-button {
+  background-color: #ffffff;
+  color: black;
+  border: thin solid;
+  border-color: darkgray;
+}
+
+.empty-button:hover {
+  background-color: darkgray;
+  color: white;
+}
+
+.instock {
+  color: darkgreen;
+}
+
+.price-tag {
+  color: darkred;
+}
+
+.checked {
+  color: orange;
+}
+
+li.product-item {
+  padding-left: 0px;
+  padding-right: 0px;
+  border: 0px;
+}
+
+.product-description {
+  font-size: 0.9rem;
+}
+
+footer {
+  border-top: 1px solid #888;
+}
+
+footer a.nav-link {
+  color: #111111;
+}
+
+.bi-twitter {
+  font-size: 3rem;
+}
