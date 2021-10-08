@@ -42,7 +42,4 @@ public class ProductController {
         service.delProduct(id);
     }
 
-    public Product create(String name, ProductCategory category, BigDecimal unitPrice, Integer unitsInStock) {
-        return new Product(name, category, unitPrice, unitsInStock);
-    }
 }

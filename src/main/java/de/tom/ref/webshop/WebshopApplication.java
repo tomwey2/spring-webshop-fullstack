@@ -62,20 +62,64 @@ public class WebshopApplication {
 		productCategories.add(new ProductCategory("Arduino"));
 		productCategories.add(new ProductCategory("Cable & Cards"));
 		productCategories.add(new ProductCategory("Sensors"));
+		productCategories.add(new ProductCategory("Calliope"));
 		return productCategories;
 	}
 
 	public static List<Product> initProducts(List<ProductCategory> productCategories) {
 		List<Product> products = new ArrayList<>();
-		products.add(new Product("Raspberry Pi 3 Model B+", productCategories.get(0), new BigDecimal("38.50"), 10));
-		products.add(new Product("Raspberry Pi 4 Model B", productCategories.get(0), new BigDecimal("45.50"), 3));
-		products.add(new Product("Raspberry Pi  power adapter", productCategories.get(0), new BigDecimal("6.40"), 10));
-		products.add(new Product("Raspberry Pi  Case", productCategories.get(0), new BigDecimal("5.50"), 12));
-		products.add(new Product("Arduino UNO", productCategories.get(1), new BigDecimal("23.20"), 5));
-		products.add(new Product("Arduino Nano", productCategories.get(1), new BigDecimal("25.50"), 5));
-		products.add(new Product("Arduino Sensor Kit", productCategories.get(1), new BigDecimal("27.25"), 5));
-		products.add(new Product("USB 3.0 Cable", productCategories.get(2), new BigDecimal("8.25"), 15));
-		products.add(new Product("HDMI Cable", productCategories.get(2), new BigDecimal("10.25"), 15));
+		products.add(new Product("Raspberry Pi 3 Model B+",
+				"Raspberry Pi 3 B+, 4x1,4GHz 1GB RAM, WLAN, BT",
+				productCategories.get(0), new BigDecimal("38.50"), 10,
+				"640px-Raspberry_Pi_4_Model_B.jpg"));
+		products.add(new Product("Raspberry Pi 4 Model B",
+				"Raspberry Pi 4 B, 4x1,5GHz, 1 GB RAM, WLAN, BT",
+				productCategories.get(0), new BigDecimal("45.50"), 3,
+				"640px-Raspberry_Pi_4_Model_B_top.jpg"));
+		products.add(new Product("Raspberry Pi  power adapter",
+				"5V, 2,5A, 1m cable, original, black",
+				productCategories.get(0), new BigDecimal("6.40"), 10,
+				"640px-Raspberry_Pi_4_Model_B.jpg"));
+		products.add(new Product("Raspberry Pi  Case",
+				"Original Raspberry PI 3 Case, white red, for models 3B+, 3B, 2B, B+",
+				productCategories.get(0), new BigDecimal("5.50"), 12,
+				"640px-Raspberry_Pi_official_case.jpg"));
+		products.add(new Product("Raspberry Pi  Keyboard",
+				"Original Raspberry PI Keyboard, white and red, US layout, USB 2.0",
+				productCategories.get(0), new BigDecimal("5.50"), 12,
+				"640px-RaspberryPi_KeyBoardHub.jpg"));
+		products.add(new Product("Arduino UNO",
+				"Arduino Uno Rev.3, ATmega328, USB, 5V, 14 digital pins, 6 analog outputs",
+				productCategories.get(1), new BigDecimal("23.20"), 5,
+				"640px-Arduino_Uno_top.jpg"));
+		products.add(new Product("Arduino Nano 33BLE H",
+				"Arduino Nano 33 BLE Sense, with header, 3,3V 14 digital pins, 9 analog inputs",
+				productCategories.get(1), new BigDecimal("25.50"), 5,
+				"640px-Arduino_nano.jpg"));
+		products.add(new Product("Arduino Robot",
+				"",
+				productCategories.get(1), new BigDecimal("27.25"), 5,
+				"Arduino_Robot_Top.jpg"));
+		products.add(new Product("USB 3.0 Cable",
+				"USB 3.0 cable, Micro B Stecker to A Stecker",
+				productCategories.get(2), new BigDecimal("8.25"), 15,
+				"514px-usb_cable.jpg"));
+		products.add(new Product("HDMI Cable",
+				"High Retention HDMI cable 2,5m",
+				productCategories.get(2), new BigDecimal("10.25"), 15,
+				"640px-HDMI_connector.jpg"));
+		products.add(new Product("DVI HDMI Adapter",
+				"High Retention HDMI cable 2,5m",
+				productCategories.get(2), new BigDecimal("17.25"), 7,
+				"640px-DVI-HDMI-Adapter.jpg"));
+		products.add(new Product("Calliope Mini",
+				"High Retention HDMI cable 2,5m",
+				productCategories.get(3), new BigDecimal("21.50"), 5,
+				"480px-Calliope_mini.jpg"));
+		products.add(new Product("Calliope Mini Starter Set",
+				"High Retention HDMI cable 2,5m",
+				productCategories.get(2), new BigDecimal("38.75"), 2,
+				"540px-Calliope_mini_StarterSet.jpg"));
 		return products;
 	}
 }

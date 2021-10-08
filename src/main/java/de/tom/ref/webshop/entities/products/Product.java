@@ -77,14 +77,16 @@ public class Product {
     @Column(name = "last_update")
     private LocalDateTime updateDate;
 
-    public Product(String title, ProductCategory category, BigDecimal price, Integer unitsInStock) {
+    public Product(String title, String description, ProductCategory category, BigDecimal price, Integer unitsInStock, String image) {
         this.title = title;
+        this.description = description;
         this.category = category;
         this.price = price;
         this.unitsInStock = unitsInStock;
         this.availability = unitsInStock > 0 ? ProductAvailability.in_stock : ProductAvailability.out_of_stock;
         this.active = Boolean.TRUE;
         this.createDate = LocalDateTime.now();
+        this.image = image;
     }
 
 }

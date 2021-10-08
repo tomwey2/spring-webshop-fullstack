@@ -70,7 +70,7 @@ public class ProductServiceTest {
     void addNewProduct() {
         log.debug(separator, "Test addNewProduct()");
         String newProductName = "new Product";
-        Product newProduct = new Product(newProductName, null, BigDecimal.ZERO, 0);
+        Product newProduct = new Product(newProductName, "", null, BigDecimal.ZERO, 0, "");
         Integer categoryId = 1;
         ProductCategory category = new ProductCategory("Test Category");
         category.setId(categoryId);
@@ -89,7 +89,7 @@ public class ProductServiceTest {
     void addExistingProduct() {
         log.debug(separator, "Test addExistingProduct()");
         String existingProductName = "existing Product";
-        Product existingProduct = new Product(existingProductName, null, BigDecimal.ZERO, 0);
+        Product existingProduct = new Product(existingProductName, "", null, BigDecimal.ZERO, 0, "");
         Integer categoryId = 1;
         ProductCategory category = new ProductCategory("Test Category");
         category.setId(categoryId);
