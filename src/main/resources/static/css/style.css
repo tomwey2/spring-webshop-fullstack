@@ -92,6 +92,7 @@ footer {
   border-top: 1px solid #888;
 }
 
+nav li.nav-item,
 footer a.nav-link {
   color: #111111;
 }
