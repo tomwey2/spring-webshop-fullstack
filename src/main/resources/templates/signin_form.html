@@ -31,7 +31,6 @@
     -->
 
     <!--own CSS-->
-    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" />
     <link th:href="@{css/style.css}" type="text/css" rel="stylesheet" />
   </head>
   <body>
@@ -44,49 +43,43 @@
       </div>
     </nav>
 
-    <div class="container mt-3 ">
-        <div class="row text-center">
-          <h3>Sign In</h3>
-        </div>
-  
-        <div id="contact" class="container">
-          <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+          <h3 class="text-center">Sign In</h3>
 
-                <form th:action="@{/login}" method="post">
-                    <div class="mb-3">
-                      <label for="username" class="form-label">Email address</label>
-                      <input
-                        class="form-control"
-                        type="text"
-                        name="username"
-                        id="username"
-                        required
-                      />
-                    </div>
-                    <div class="mb-3">
-                      <label for="password" class="form-label">Password</label>
-                      <input
-                        class="form-control"
-                        type="password"
-                        name="password"
-                        id="password"
-                        required
-                      />
-                    </div>
-                    <button type="submit" class="btn light-button">Sign In</button>
-                  </form>
-              
-                  <ul class="nav mt-2">
-                    <li class="nav-item">New in webshop?</li>
-                    <li class="nav-item ms-auto">
-                      <a class="nav-link" th:href="@{/signup}"><b>Sign up</b></a>
-                    </li>
-                  </ul>
+          <form th:action="@{/login}" method="post">
+            <div class="mb-3">
+              <label for="username" class="form-label">Email address</label>
+              <input
+                class="form-control"
+                type="text"
+                name="username"
+                id="username"
+                required
+              />
             </div>
-            <div class="col-3"></div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                name="password"
+                id="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn light-button">Sign In</button>
+          </form>
+
+          <ul class="nav mt-2">
+            <li class="nav-item">New in webshop?</li>
+            <li class="nav-item ms-auto">
+              <a class="nav-link" th:href="@{/signup}"><b>Sign up</b></a>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
   </body>
 </html>

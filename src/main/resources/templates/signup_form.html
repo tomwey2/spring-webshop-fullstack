@@ -1,73 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-<head>
+  <head>
     <title>Sign Up Form</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
-    <script src="js/app.js" defer type="text/javascript"></script>
-</head>
-<body>
-<!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
-    <div class="w3-bar-item w3-left">
-            <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-</header>
-<!-- This is the header in case of a small display -->
-<header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar-item w3-left">
-            <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-                <i class="fa fa-bars"></i></a>
-    </div>
-    <div class="w3-bar-item w3-left">
-        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-</header>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<div class="w3-row" style="margin-top: 50px;">
-    <div class="w3-quarter w3-container"></div>
-    <div class="w3-half w3-container">
-        <div class="w3-center">
-            <h2>Sign Up</h2>
-        </div>
-        <div class="w3-panel w3-border w3-round-xxlarge w3-light-grey w3-margin">
-            <form class="w3-container"
-                  th:action="@{/register}" th:object="${registrationRequest}" method="post">
-                <div class="w3-container">
-                    <p>
-                        <label class="w3-left-align" for="name">Name</label>
-                        <input class="w3-input w3-border" type="text" required
-                               th:field="*{name}" name="name" id="name">
-                    </p>
-                    <p>
-                        <label class="w3-left-align" for="email">Email address</label>
-                        <input class="w3-input w3-border" type="text" required
-                               th:field="*{email}" name="email" id="email" >
-                    </p>
-                    <p>
-                        <label class="w3-left-align" for="password">Password</label>
-                        <input class="w3-input w3-border" type="password" required
-                               th:field="*{password}" name="password" id="password" >
-                    </p>
-                    <button type="submit"
-                            class="w3-block w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">Sign Up</button>
-                </div>
-            </form>
-            <div class="w3-container w3-margin-top">
-                <div class="w3-bar">
-                    <div class="w3-bar-item w3-left">Already have an account?</div>
-                    <div class="w3-bar-item w3-right"><a th:href="@{/login}"><b>Sign in</b></a></div>
-                </div>
+    <!--Fonts-->
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Roboto"
+      rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+      crossorigin="anonymous"
+    />
+    <!--
+    <link
+      th:href="@{bootstrap-5.1.1-dist/css/bootstrap.css}"
+      type="text/css"
+      rel="stylesheet"
+    />
+    -->
+
+    <!--own CSS-->
+    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet" />
+  </head>
+  <body>
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-light mandarine sticky-top">
+      <div class="container">
+        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}"
+          >Mandarine Shop
+        </a>
+      </div>
+    </nav>
+
+    <div class="container mt-3">
+      <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+          <h3 class="text-center">Sign Up</h3>
+
+          <form
+            th:action="@{/register}"
+            th:object="${registrationRequest}"
+            method="post"
+          >
+            <div class="mb-3">
+              <label for="name" class="form-label">Name</label>
+              <input
+                class="form-control"
+                type="text"
+                th:field="*{name}"
+                name="name"
+                id="name"
+                required
+              />
             </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email address</label>
+              <input
+                class="form-control"
+                th:field="*{email}"
+                name="email"
+                id="email"
+                required
+              />
+            </div>
+            <div class="mb-3">
+              <label for="password" class="form-label">Password</label>
+              <input
+                class="form-control"
+                type="password"
+                th:field="*{password}"
+                name="password"
+                id="password"
+                required
+              />
+            </div>
+            <button type="submit" class="btn light-button">Sign Up</button>
+          </form>
+
+          <ul class="nav mt-2">
+            <li class="nav-item">Already have an account?</li>
+            <li class="nav-item ms-auto">
+              <a class="nav-link" th:href="@{/login}"><b>Sign in</b></a>
+            </li>
+          </ul>
         </div>
+      </div>
     </div>
-    <div class="w3-quarter w3-container"></div>
-</div>
-</body>
+  </body>
 </html>
