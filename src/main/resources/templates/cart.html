@@ -72,6 +72,7 @@
       </div>
     </nav>
 
+    <!-- Main -->
     <div class="container mt-3 mb-5">
       <div class="row">
         <div class="col text-center">
@@ -102,7 +103,7 @@
         </div>
       </div>
 
-      <div class="container mt-3 mb-5">
+      <div class="container d-none d-md-block mt-3 mb-5">
         <table class="table">
           <thead>
             <tr>
@@ -127,25 +128,24 @@
                 ></span>
               </td>
               <td>
-                <div class="btn-group">
+                <div class="btn-group" role="group">
                   <a
-                    class="btn p-0"
+                    class="btn btn-outline-secondary pt-0 pb-0"
                     th:href="@{/cartContent(id=${cartContent.id}, change=-1)}"
                   >
-                    <i class="fa fa-minus-square-o"></i>L
+                    <h6 class="p-0">-</h6>
                   </a>
-                  <span
-                    class="ms-2 me-2"
-                    th:text="${cartContent.quantity}"
-                  ></span>
+                  <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
+                    <h6 class="p-0" th:text="${cartContent.quantity}"></h6>
+                  </a>
                   <a
-                    class="btn p-0"
+                    class="btn btn-outline-secondary pt-0 pb-0"
                     th:href="@{/cartContent(id=${cartContent.id}, change=1)}"
                   >
-                    <i class="fa fa-plus-square-o"></i>M
+                    <h6 class="p-0">+</h6>
                   </a>
                 </div>
-              </td>
+            </td>
               <td>
                 <span
                   th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'"
@@ -165,7 +165,66 @@
       </div>
     </div>
 
-    <!-- Footer -->
+    <div class="container d-block d-md-none mt-3 mb-5">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Product</th>
+            <th scope="col">Price</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="products">
+          <tr th:if="${cartContents.isEmpty}">
+            <td colspan="3">No articles in shopping cart</td>
+          </tr>
+          <tr th:each="cartContent : ${cartContents}">
+            <td>
+              <span th:text="${cartContent.product.title}"></span>
+            </td>
+            <td>
+              <span
+                th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'"
+              ></span>
+            </td>
+            <td style="text-align: right; vertical-align: middle">
+              <ul class="list-group">
+                <li class="list-group-item px-0 pb-0 border-0 pt-0 text-center">
+                  <div class="btn-group" role="group">
+                    <a
+                      class="btn btn-outline-secondary pt-0 pb-0"
+                      th:href="@{/cartContent(id=${cartContent.id}, change=-1)}"
+                    >
+                      <h6 class="p-0">-</h6>
+                    </a>
+                    <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
+                      <h6 class="p-0" th:text="${cartContent.quantity}"></h6>
+                    </a>
+                    <a
+                      class="btn btn-outline-secondary pt-0 pb-0"
+                      th:href="@{/cartContent(id=${cartContent.id}, change=1)}"
+                    >
+                      <h6 class="p-0">+</h6>
+                    </a>
+                  </div>
+                </li>
+                <li class="list-group-item px-0 pb-0 border-0">
+                  <form
+                    th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}"
+                    method="post"
+                  >
+                    <button class="btn light-button">Delete</button>
+                  </form>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
     <footer>
       <ul class="nav">
         <li class="nav-item">

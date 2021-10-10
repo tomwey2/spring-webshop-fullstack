@@ -1,41 +1,264 @@
 <!DOCTYPE html>
-<html xmlns:th="https://www.thymeleaf.org">
+<html lang="en">
 <head>
-    <title>Sample Webshop - Shop</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!--
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link href="css/w3.css" type="text/css" rel="stylesheet" >
-    <script src="js/app.js" defer type="text/javascript"></script>
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <!--Fonts-->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap-5.1.1-dist/css/bootstrap.css" rel="stylesheet" />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
+
+    <!--own CSS-->
+    <link href="css/style.css" rel="stylesheet" />
+
+    <title>Shop</title>
 </head>
 
-<style>
-    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
-    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
-    .fill100 {height: 100%;}
-</style>
+<body">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
+    <div class="container">
+        <a class="navbar-brand fs-5 fw-bold" href="#">Mandarine Shop</a>
 
-<body>
-
-<!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-left-align w3-orange">
-    <div class="w3-left w3-bar-item">
-            <a href="" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarToggleContent"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarToggleContent">
+            <ul class="navbar-nav ms-auto fw-bold">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a
+                            class="nav-link"
+                            data-bs-toggle="collapse"
+                            href="#search"> Search</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        <i class="fa fa-shopping-cart"></i> Cart</a
+                    >
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled">
+                        <i class="fa fa-user"></i> Sign In</a
+                    >
+                </li>
+            </ul>
         </div>
-    <div class="w3-right w3-bar-item">
-            <a href="" class="w3-button w3-hover-amber">
-                <i class="fa fa-shopping-cart"></i> Cart ()</a>
     </div>
-    <div class="w3-right w3-bar-item">
-            <a th:href="" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i> Sign in</a>
+</nav>
+
+<!-- Product search-->
+<div class="container-fluid search">
+    <div class="collapse" id="search">
+        <form>
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ms-md-auto mb-3">
+                    <input class="form-control" type="text" placeholder="type to search ..." />
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-2 mb-3">
+                    <button type="submit" class="btn light-button">
+                        Search
+                    </button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
+
+<!-- Products -->
+<main>
+    <div class="container d-md-none d-lg-none mt-3 mb-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <div class="container d-block">
+                        <img src="img/640px-Raspberry-Pi-Zero.jpg" width="150" /><br>
+                    </div>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0 pb-0 border-0">
+                            <h6>Raspberry Pi Nano</h6>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <p class="fw-light product-description">This is a description text of the product.</p>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="ms-1">(10)</span>
+                        </li>
+                        <ul class="nav">
+                            <li class="list-group-item product-item">
+                                <h5 class="price-tag">150,60 €</h5>
+                            </li>
+                            <li class="list-group-item ms-auto px-0 border-0">
+                                <form>
+                                    <button type="submit" class="btn light-button">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span class="instock">0 in stock</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="container pageContent d-none d-md-block mt-3 mb-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><img src="img/640px-Raspberry-Pi-Zero.jpg" width="150" /></td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0 pb-0 border-0">
+                            <h6>Raspberry Pi Nano</h6>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <p class="fw-light product-description">
+                                This is a description text of the product.</p>
+                        </li>
+                        <li class="list-group-item product-item">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="fa fa-star "></span>
+                            <span class="ms-1">(10)</span>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span class="instock">0 in stock</span>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0">
+                            <h5 class="text-center price-tag">150,60 €</h5>
+                        </li>
+                        <li class="list-group-item">
+                            <form class="text-center">
+                                <button type="submit" class="btn light-button">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+            </tbody>
+        </table>
     </div>
 
-</header>
-        
+    <div class="row">
+        <div class="col">
+            <h2 class="text-center">Shopping Cart</h2>
+        </div>
+    </div>
+
+
+    <div class="btn-group" role="group">
+        <a
+                class="btn btn-outline-secondary pt-0 pb-0"
+                href="#"
+        >
+            <h6 class="p-0">-</h6>
+        </a>
+        <a class="btn btn-outline-secondary pe-none pt-0 pb-0"
+           href="#">
+            <h6 class="p-0">7</h6>
+        </a>
+        <a
+                class="btn btn-outline-secondary pt-0 pb-0"
+                href="#"
+        >
+            <h6 class="p-0">+</h6>
+        </a>
+    </div>
+
+    <div class="container border-bottom border-top mb-2">
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#"
+                       aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#"
+                       aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+
+</main>
+<!-- Footer -->
+<footer>
+    <ul class="nav">
+        <li class="nav-item">
+            <a href="#" class="nav-link">&copy; 2021 More Information</a>
+        </li>
+        <li class="nav-item ms-auto">
+            <a href="https://github.com/tomwey2/webshop" class="nav-link"
+            >Sources at github.com <i class="bi-github"></i
+            ></a>
+        </li>
+    </ul>
+</footer>
+
+<!-- Bootstrap Bundle with Popper -->
+<script src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
