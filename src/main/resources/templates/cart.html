@@ -137,19 +137,21 @@
                     class="btn btn-outline-secondary pt-0 pb-0"
                     th:href="@{/cartContent(id=${cartContent.id}, change=-1)}"
                   >
-                    <h6 class="p-0">-</h6>
+                    <!--<h6 class="p-0">-</h6>-->
+                    <i class="bi bi-dash"></i>
                   </a>
                   <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
-                    <h6 class="p-0" th:text="${cartContent.quantity}"></h6>
+                    <span th:text="${cartContent.quantity}"></span>
                   </a>
                   <a
                     class="btn btn-outline-secondary pt-0 pb-0"
                     th:href="@{/cartContent(id=${cartContent.id}, change=1)}"
                   >
-                    <h6 class="p-0">+</h6>
+                    <!--<h6 class="p-0">+</h6>-->
+                    <i class="bi bi-plus"></i>
                   </a>
                 </div>
-            </td>
+          </td>
               <td>
                 <span
                   th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'"
@@ -191,9 +193,9 @@
                 th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'"
               ></span>
             </td>
-            <td style="text-align: right; vertical-align: middle">
+            <td>
               <ul class="list-group">
-                <li class="list-group-item px-0 pb-0 border-0 pt-0 text-center">
+                <li class="list-group-item px-0 pb-0 pt-0 border-0 text-center">
                   <div class="btn-group" role="group">
                     <a
                       class="btn btn-outline-secondary pt-0 pb-0"
@@ -203,7 +205,7 @@
                       <i class="bi bi-dash"></i>
                     </a>
                     <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
-                      <h6 class="p-0" th:text="${cartContent.quantity}"></h6>
+                      <span th:text="${cartContent.quantity}"></span>
                     </a>
                     <a
                       class="btn btn-outline-secondary pt-0 pb-0"
