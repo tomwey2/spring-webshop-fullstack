@@ -2,160 +2,287 @@
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
     <title>Sample Webshop - Proceed to checkout</title>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+    <!--Fonts-->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
     <!--
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link
+      th:href="@{bootstrap-5.1.1-dist/css/bootstrap.css}"
+      type="text/css"
+      rel="stylesheet"
+    />
     -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
-    <script src="js/app.js" defer type="text/javascript"></script>
+
+    <!--own CSS-->
+    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet"/>
 </head>
 
-<style>
-    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
-    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
-    .fill100 {height: 100%;}
-</style>
-
 <body>
-
-<!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
-    <div class="w3-bar-item w3-left">
-        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <div th:if="${#strings.isEmpty(user.name)}">
-            <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i> Sign in</a>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
+    <div class="container mandarine">
+        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}">
+            Mandarine Shop
+        </a>
+        <ul class="d-md-none d-lg-none nav ms-auto fw-bold">
+            <li class="nav-item">
+                <a th:href="@{/cart}" class="nav-link mandarine">
+                    <i class="bi bi-cart me-1"></i>
+                    (<span th:text="${cartContentSize}"></span>)
+                </a>
+            </li>
+            <li class="nav-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="nav-link mandarine">
+                        <i class="bi bi-person me-1"></i>
+                    </a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a
+                            th:href="@{/logout}"
+                            class="nav-link mandarine"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            th:title="${user?.email}">
+                        <i class="bi bi-person-fill me-1"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <button class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto fw-bold">
+                <li class="nav-item">
+                    <a th:href="@{/cart}" class="nav-link">
+                        <i class="bi bi-cart me-1"></i>
+                        Cart (<span th:text="${cartContentSize}"></span>)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div th:if="${#strings.isEmpty(user.name)}">
+                        <a th:href="@{/login}" class="nav-link">
+                            <i class="bi bi-person me-1"></i>Sign in
+                        </a>
+                    </div>
+                    <div th:if="${not #strings.isEmpty(user.name)}">
+                        <a th:href="@{/logout}" class="nav-link">
+                            <i class="bi bi-person-fill me-1"></i>
+                            Sign out (<span th:text="${user?.email}"></span>)
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div th:if="${not #strings.isEmpty(user.name)}">
-            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"></span>)
+    </div>
+</nav>
+
+<!-- Main -->
+<div class="container mt-3 mb-5">
+    <div class="row">
+        <div class="col text-center">
+            <h3>Checkout</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col text-center">
+            <h4>
+                Total (<span th:text="${cartContentSize}"></span> items):
+                <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')}">
+                </span>
+                Euro
+            </h4>
+        </div>
+    </div>
+
+    <div class="container d-none d-md-block mt-3 mb-1">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-end">Price (p. Unit)</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-end">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${cartContents.isEmpty}">
+                <td colspan="4">No articles in shopping cart</td>
+            </tr>
+            <tr th:each="cartContent : ${cartContents}">
+                <td>
+                    <span th:text="${cartContent.product.title}"></span>
+                </td>
+                <td class="text-end">
+                <span
+                    th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'">
+                </span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cartContent.quantity}"></span>
+                </td>
+                <td class="text-end">
+                <span th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'">
+                </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Subtotal</b></td>
+                <td></td>
+                <td></td>
+                <td class="text-end">
+                    <b>
+                    <span th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td>Shipping Costs</td>
+                <td></td>
+                <td></td>
+                <td class="text-end">
+                <span th:text="${#numbers.formatDecimal(shippingCosts, 1, 2, 'COMMA')} + ' €'">
+                </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Total to pay</b></td>
+                <td></td>
+                <td></td>
+                <td class="text-end">
+                    <b>
+                    <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                    </b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="container d-block d-md-none mt-3 mb-5">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-end">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${cartContents.isEmpty}">
+                <td colspan="3">No articles in shopping cart</td>
+            </tr>
+            <tr th:each="cartContent : ${cartContents}">
+                <td>
+                    <span th:text="${cartContent.product.title}"></span>
+                </td>
+                <td class="text-center">
+                    <span th:text="${cartContent.quantity}"></span>
+                </td>
+                <td class="text-end">
+                <span th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'">
+                </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Subtotal</b></td>
+                <td></td>
+                <td class="text-end">
+                    <b>
+                    <span th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                    </b>
+                </td>
+            </tr>
+            <tr>
+                <td>Shipping Costs</td>
+                <td></td>
+                <td class="text-end">
+                    <span th:text="${#numbers.formatDecimal(shippingCosts, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td><b>Total to pay</b></td>
+                <td></td>
+                <td class="text-end">
+                    <b>
+                        <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')} + ' €'">
+                        </span>
+                    </b>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-xs-8 col-sm-8 col-md-5 col-lg-3 mb-2 mt-2">
+            <a class="btn light-button" th:href="@{/order_cancel}">
+                Cancel and empty the cart
+            </a>
+        </div>
+        <div class="col-xs-8 col-sm-8 col-md-5 col-lg-3 mb-2 mt-2">
+            <a class="btn light-button" th:href="@{/order_confirm}">
+                Order and Checkout
             </a>
         </div>
     </div>
-    <div class="w3-bar-item w3-right">
-        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-            <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"></span>)</a>
-    </div>
 </div>
-</header>
-<!-- This is the header in case of a small display -->
-<header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar-item w3-left">
-        <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-            <i class="fa fa-bars"></i></a>
-    </div>
-    <div class="w3-bar-item w3-left">
-        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <div th:if="${#strings.isEmpty(user.name)}">
-            <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i></a>
-        </div>
-        <div th:if="${not #strings.isEmpty(user.name)}">
-            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i>(<span th:text="${user?.email}"></span>)</a>
-        </div>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-            <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"></span>)</a>
-    </div>
-</header>
 
-<section class="w3-main w3-container w3-display-container w3-section w3-center"
-         style="margin-left:280px; margin-top: 25px;">
-    <div class="w3-responsive w3-threequarter">
-        <div class="w3-container">
-            <div class="w3-panel w3-border-bottom">
-                <h2>Checkout</h2>
-            </div>
-            <h4>
-                Subtotal (<span th:text="${cartContentSize}"></span> items):
-                <span th:text="${#numbers.formatDecimal(totalSum, 1, 2, 'COMMA')}"></span> Euro
-            </h4>
-        </div>
-
-        <table class="w3-table w3-bordered" style="margin-top: 25px;">
-            <thead>
-            <tr>
-                <th>Product</th>
-                <th class="w3-right-align">Price (p. Unit)</th>
-                <th class="w3-center">Quantity</th>
-                <th class="w3-right-align">Price</th>
-            </tr>
-            </thead>
-            <tbody id="products">
-            <tr th:if="${cartContents.isEmpty}">
-                <td colspan="5">No articles in shopping cart</td>
-            </tr>
-            <tr th:each="cartContent : ${cartContents}">
-                <td style="vertical-align: middle;">
-                    <span th:text="${cartContent.product.title}"></span></td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <span th:text="${cartContent.product.price}"></span> €</td>
-                <td style="text-align: center; vertical-align: middle;">
-                    <span th:text="${cartContent.quantity}"></span>
-                </td>
-                <td style="text-align: right; vertical-align: middle;">
-                    <span th:text="${cartContent.price}"></span> €</td>
-            </tr>
-            </tbody>
-        </table>
-        <table class="w3-table w3-bordered">
-            <tbody>
-            <tr>
-                <td><b>Subtotal</b></td>
-                <td class="w3-right-align"></td>
-                <td class="w3-center"></td>
-                <td class="w3-right-align"><b><span th:text="${subTotalSum}"></span> €</b></td>
-            </tr>
-            <tr>
-                <td><b>Shipping Costs</b></td>
-                <td class="w3-right-align"></td>
-                <td class="w3-center"></td>
-                <td class="w3-right-align"><b><span th:text="${shippingCosts}"></span> €</b></td>
-            </tr>
-            <tr>
-                <td class="w3-large"><b>Total to pay</b></td>
-                <td class="w3-right-align w3-large"></td>
-                <td class="w3-center w3-large"></td>
-                <td class="w3-right-align w3-large"><b><span th:text="${totalSum}"></span> €</b></td>
-            </tr>
-            </tbody>
-        </table>
-
-        <div class="w3-container w3-bar">
-            <div class="w3-bar-item w3-left">
-                <a th:href="@{/order_cancel}"
-                   class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Cancel and empty the cart</a>
-            </div>
-            <div class="w3-bar-item w3-right">
-                <a th:href="@{/order_confirm}"
-                   class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                    Order and Checkout</a>
-            </div>
-        </div>
-
-    </div>
-</section>
-<section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
-
-<footer class="w3-container w3-bottom w3-white">
-    <div class="w3-bar">
-        <a th:href="@{/info}"
-           class="w3-button w3-left-align w3-hover-white">More Information</a>
-        <a href="https://github.com/tomwey2/webshop"
-           class="w3-button w3-right w3-hover-white">Sources at github.com
-            <i class="fa fa-github"></i></a>
-    </div>
+<!-- Footer -->
+<footer>
+    <nav class="nav nav-fill">
+        <a th:href="@{/info}" class="nav-link">
+            &copy; 2021 Thomas Weyrath
+        </a>
+        <a th:href="@{/info}" class="nav-link">
+            More Information
+        </a>
+        <a href="https://github.com/tomwey2/webshop" class="nav-link">
+            Sources at github.com <i class="bi bi-github"></i>
+        </a>
+    </nav>
 </footer>
 
-</body>
+<!-- Bootstrap Bundle with Popper -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+        crossorigin="anonymous"
+></script>
+<!--
+<script
+src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"
+defer
+type="text/javascript"
+></script>
+--></body>
 </html>

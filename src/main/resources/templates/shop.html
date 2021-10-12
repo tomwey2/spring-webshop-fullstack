@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-  <head>
+<head>
     <title>Sample Webshop - Shop</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!--Fonts-->
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
     />
 
     <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+            crossorigin="anonymous"
     />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
     <!--
     <link
@@ -35,291 +35,278 @@
     -->
 
     <!--own CSS-->
-    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet" />
-  </head>
+    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet"/>
+</head>
 
-  <body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
-      <div class="container mandarine">
-        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}"
-          >Mandarine Shop
+<body>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
+    <div class="container mandarine">
+        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}">
+            Mandarine Shop
         </a>
         <ul class="d-md-none d-lg-none nav ms-auto fw-bold">
-          <li class="nav-item">
-            <a th:href="@{/cart}" class="nav-link mandarine">
-              <i class="bi bi-cart me-1"></i>
-              (<span th:text="${cartContentSize}"></span>)
-            </a>
-          </li>
-          <li class="nav-item">
-            <div th:if="${#strings.isEmpty(user.name)}">
-              <a th:href="@{/login}" class="nav-link mandarine">
-                <i class="bi bi-person me-1"></i>
-              </a>
-            </div>
-            <div th:if="${not #strings.isEmpty(user.name)}">
-              <a
-                th:href="@{/logout}"
-                class="nav-link mandarine"
-                data-bs-toggle="tooltip"
-                data-bs-placement="bottom"
-                th:title="${user?.email}"
-              >
-                <i class="bi bi-person-fill me-1"></i>
-              </a>
-            </div>
-          </li>
+            <li class="nav-item">
+                <a th:href="@{/cart}" class="nav-link mandarine">
+                    <i class="bi bi-cart me-1"></i>
+                    (<span th:text="${cartContentSize}"></span>)
+                </a>
+            </li>
+            <li class="nav-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="nav-link mandarine">
+                        <i class="bi bi-person me-1"></i>
+                    </a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a
+                            th:href="@{/logout}"
+                            class="nav-link mandarine"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            th:title="${user?.email}">
+                        <i class="bi bi-person-fill me-1"></i>
+                    </a>
+                </div>
+            </li>
         </ul>
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-        >
-          <span class="navbar-toggler-icon"></span>
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto fw-bold">
-            <li class="nav-item">
-              <a th:href="@{/}" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" data-bs-toggle="collapse" href="#search">
-                Search
-              </a>
-            </li>
-            <li class="nav-item">
-              <a th:href="@{/cart}" class="nav-link">
-                <i class="bi bi-cart me-1"></i>
-                Cart (<span th:text="${cartContentSize}"></span>)
-              </a>
-            </li>
-            <li class="nav-item">
-              <div th:if="${#strings.isEmpty(user.name)}">
-                <a th:href="@{/login}" class="nav-link">
-                  <i class="bi bi-person me-1"></i>Sign in
-                </a>
-              </div>
-              <div th:if="${not #strings.isEmpty(user.name)}">
-                <a th:href="@{/logout}" class="nav-link">
-                  <i class="bi bi-person-fill me-1"></i>
-                  Sign out (<span th:text="${user?.email}"></span>)
-                </a>
-              </div>
-            </li>
-          </ul>
+            <ul class="navbar-nav ms-auto fw-bold">
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="collapse" href="#search">
+                        Search
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a th:href="@{/cart}" class="nav-link">
+                        <i class="bi bi-cart me-1"></i>
+                        Cart (<span th:text="${cartContentSize}"></span>)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div th:if="${#strings.isEmpty(user.name)}">
+                        <a th:href="@{/login}" class="nav-link">
+                            <i class="bi bi-person me-1"></i>Sign in
+                        </a>
+                    </div>
+                    <div th:if="${not #strings.isEmpty(user.name)}">
+                        <a th:href="@{/logout}" class="nav-link">
+                            <i class="bi bi-person-fill me-1"></i>
+                            Sign out (<span th:text="${user?.email}"></span>)
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Product search-->
-    <div class="container-fluid search">
-      <div class="collapse" id="search">
+<!-- Product search-->
+<div class="container-fluid search">
+    <div class="collapse" id="search">
         <form>
-          <div class="row">
-            <div class="col-sm-12 col-md-6 col-lg-4 ms-md-auto mb-3">
-              <input
-                class="form-control"
-                type="text"
-                placeholder="type to search ..."
-              />
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-4 ms-md-auto mb-3">
+                    <input
+                        class="form-control"
+                        type="text"
+                        placeholder="type to search ..."/>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-2 mb-3">
+                    <button type="submit" class="btn light-button">Search</button>
+                </div>
             </div>
-            <div class="col-sm-12 col-md-6 col-lg-2 mb-3">
-              <button type="submit" class="btn light-button">Search</button>
-            </div>
-          </div>
         </form>
-      </div>
     </div>
+</div>
 
-    <!-- Products -->
-    <div class="container d-md-none d-lg-none mt-3 mb-5">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Products</th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:if="${products.isEmpty}">
-            <td colspan="2">No products available</td>
-          </tr>
-          <tr th:each="product : ${products}">
-            <td>
-              <div class="container d-block">
-                <img th:src="@{${'img/'+product.image}}" width="100" /><br />
-              </div>
-            </td>
-            <td>
-              <ul class="list-group">
-                <li class="list-group-item px-0 pb-0 border-0">
-                  <h6><span th:text="${product.title}"></span></h6>
-                </li>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <p
-                    class="fw-light product-description"
-                    th:text="${product.description}"
-                  ></p>
-                </li>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="ms-1">(10)</span>
-                </li>
-                <ul class="nav">
-                  <li class="list-group-item px-0 pt-3 border-0">
-                    <h5
-                      th:text="${#numbers.formatDecimal(product.price, 1, 2, 'COMMA')} + ' €'"
-                      class="price-tag"
-                    ></h5>
-                  </li>
-                  <li class="list-group-item ms-auto px-0 border-0">
-                    <form
-                      th:action="@{/add_product_to_cart(productId=${product.id})}"
-                      method="post"
-                    >
-                      <button type="submit" class="btn light-button">
-                        Add to Cart
-                      </button>
-                    </form>
-                  </li>
-                </ul>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <span
-                    th:text="${product.unitsInStock}"
-                    class="instock"
-                  ></span>
-                  <span class="instock">in stock</span>
-                </li>
-              </ul>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+<!-- Main -->
+<div class="container mt-3 mb-5">
+    <div class="container d-md-none d-lg-none">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${products.isEmpty}">
+                <td colspan="2">No products available</td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td>
+                    <div class="container d-block">
+                        <img th:src="@{${'img/'+product.image}}" width="100"/><br/>
+                    </div>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0 pb-0 border-0">
+                            <h6><span th:text="${product.title}"></span></h6>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <p
+                                    class="fw-light product-description"
+                                    th:text="${product.description}">
+                            </p>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="ms-1">(10)</span>
+                        </li>
+                        <ul class="nav">
+                            <li class="list-group-item px-0 pt-3 border-0">
+                                <h5
+                                        th:text="${#numbers.formatDecimal(product.price, 1, 2, 'COMMA')} + ' €'"
+                                        class="price-tag"
+                                ></h5>
+                            </li>
+                            <li class="list-group-item ms-auto px-0 border-0">
+                                <form th:action="@{/add_product_to_cart(productId=${product.id})}"
+                                      method="post">
+                                    <button type="submit" class="btn light-button">
+                                        Add to Cart
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span
+                              th:text="${product.unitsInStock}"
+                              class="instock">
+                            </span>
+                            <span class="instock">in stock</span>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
-    <div class="container d-none d-md-block mt-3 mb-5">
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Products</th>
-            <th scope="col"></th>
-            <th scope="col"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr th:if="${products.isEmpty}">
-            <td colspan="3">No products available</td>
-          </tr>
-          <tr th:each="product : ${products}">
-            <td><img th:src="@{${'img/'+product.image}}" width="150" /></td>
-            <td>
-              <ul class="list-group">
-                <li class="list-group-item px-0 pb-0 border-0">
-                  <h6><span th:text="${product.title}"></span></h6>
-                </li>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <p
-                    class="fw-light product-description"
-                    th:text="${product.description}"
-                  ></p>
-                </li>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star checked"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="fa fa-star"></span>
-                  <span class="ms-1">(10)</span>
-                </li>
-                <li class="list-group-item px-0 p-0 border-0">
-                  <span
-                    th:text="${product.unitsInStock}"
-                    class="instock"
-                  ></span>
-                  <span class="instock">in stock</span>
-                </li>
-              </ul>
-            </td>
-            <td>
-              <ul class="list-group">
-                <li class="list-group-item px-0 border-0">
-                  <h5
-                    class="text-center price-tag"
-                    th:text="${#numbers.formatDecimal(product.price, 1, 2, 'COMMA')} + ' €'"
-                  ></h5>
-                </li>
-                <li class="list-group-item border-0">
-                  <form
-                    class="text-center"
-                    th:action="@{/add_product_to_cart(productId=${product.id})}"
-                    method="post"
-                  >
-                    <button type="submit" class="btn light-button">
-                      Add to Cart
-                    </button>
-                  </form>
-                </li>
-              </ul>
-            </td>
-          </tr>
-          <tr></tr>
-        </tbody>
-      </table>
+    <div class="container d-none d-md-block">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Products</th>
+                <th scope="col"></th>
+                <th scope="col"></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${products.isEmpty}">
+                <td colspan="3">No products available</td>
+            </tr>
+            <tr th:each="product : ${products}">
+                <td><img th:src="@{${'img/'+product.image}}" width="150"/></td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0 pb-0 border-0">
+                            <h6><span th:text="${product.title}"></span></h6>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <p class="fw-light product-description"
+                               th:text="${product.description}">
+                            </p>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star checked"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="fa fa-star"></span>
+                            <span class="ms-1">(10)</span>
+                        </li>
+                        <li class="list-group-item px-0 p-0 border-0">
+                            <span th:text="${product.unitsInStock}"
+                                class="instock">
+                            </span>
+                            <span class="instock">in stock</span>
+                        </li>
+                    </ul>
+                </td>
+                <td>
+                    <ul class="list-group">
+                        <li class="list-group-item px-0 border-0">
+                            <h5 class="text-center price-tag"
+                                th:text="${#numbers.formatDecimal(product.price, 1, 2, 'COMMA')} + ' €'">
+                            </h5>
+                        </li>
+                        <li class="list-group-item border-0">
+                            <form class="text-center"
+                                  th:action="@{/add_product_to_cart(productId=${product.id})}"
+                                  method="post">
+                                <button type="submit" class="btn light-button">
+                                    Add to Cart
+                                </button>
+                            </form>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+            <tr></tr>
+            </tbody>
+        </table>
     </div>
-
     <div class="container">
-      <nav aria-label="Page navigation">
+    <nav aria-label="Page navigation">
         <ul class="pagination justify-content-center">
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Previous">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item active"><a class="page-link" href="#">1</a></li>
-          <li class="page-item"><a class="page-link" href="#">2</a></li>
-          <li class="page-item"><a class="page-link" href="#">3</a></li>
-          <li class="page-item">
-            <a class="page-link" href="#" aria-label="Next">
-              <span aria-hidden="true">&raquo;</span>
-            </a>
-          </li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <li class="page-item active"><a class="page-link" href="#">1</a></li>
+            <li class="page-item"><a class="page-link" href="#">2</a></li>
+            <li class="page-item"><a class="page-link" href="#">3</a></li>
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>
         </ul>
-      </nav>
-    </div>
+    </nav>
+</div>
+</div>
 
-    <!-- Footer -->
-    <footer>
-      <ul class="nav">
-        <li class="nav-item">
-          <a th:href="@{/info}" class="nav-link"
-            >&copy; 2021 More Information</a
-          >
-        </li>
-        <li class="nav-item ms-auto">
-          <a href="https://github.com/tomwey2/webshop" class="nav-link"
-            >Sources at github.com <i class="bi bi-github"></i
-          ></a>
-        </li>
-      </ul>
-    </footer>
+<!-- Footer -->
+<footer>
+    <nav class="nav nav-fill">
+        <a th:href="@{/info}" class="nav-link">
+            &copy; 2021 Thomas Weyrath
+        </a>
+        <a th:href="@{/info}" class="nav-link">
+            More Information
+        </a>
+        <a href="https://github.com/tomwey2/webshop" class="nav-link">
+            Sources at github.com <i class="bi bi-github"></i>
+        </a>
+    </nav>
+</footer>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-      crossorigin="anonymous"
-    ></script>
-    <!--
-    <script
-      src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"
-      defer
-      type="text/javascript"
-    ></script>
-    -->
-  </body>
+<!-- Bootstrap Bundle with Popper -->
+<script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+        crossorigin="anonymous"
+></script>
+<!--
+<script
+  src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"
+  defer
+  type="text/javascript"
+></script>
+-->
+</body>
 </html>

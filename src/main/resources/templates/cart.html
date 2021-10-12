@@ -1,30 +1,30 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
-  <head>
+<head>
     <title>Sample Webshop - Shopping Cart</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
     <!--Fonts-->
     <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-      rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css?family=Roboto"
-      rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
     />
 
     <!-- Bootstrap CSS -->
     <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
-      crossorigin="anonymous"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+            crossorigin="anonymous"
     />
     <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
     />
     <!--
     <link
@@ -35,231 +35,204 @@
     -->
 
     <!--own CSS-->
-    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet" />
-  </head>
+    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet"/>
+</head>
 
-  <body>
-    <!-- Navigation bar -->
-    <nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
-      <div class="container">
-        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}"
-          >Mandarine Shop
+<body>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
+    <div class="container">
+        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}">
+            Mandarine Shop
         </a>
         <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarSupportedContent"
-        >
-          <span class="navbar-toggler-icon"></span>
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent">
+            <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul class="navbar-nav ms-auto fw-bold">
-            <li class="nav-item">
-              <a th:href="@{/}" class="nav-link active">Home</a>
-            </li>
-            <li class="nav-item">
-              <div th:if="${#strings.isEmpty(user.name)}">
-                <a th:href="@{/login}" class="nav-link">
-                  <i class="fa fa-user me-1"></i>Sign in
-                </a>
-              </div>
-              <div th:if="${not #strings.isEmpty(user.name)}">
-                <a th:href="@{/logout}" class="nav-link">
-                  <i class="fa fa-user me-1"></i>
-                  Sign out (<span th:text="${user?.email}"></span>)
-                </a>
-              </div>
-            </li>
-          </ul>
+            <ul class="navbar-nav ms-auto fw-bold">
+                <li class="nav-item">
+                    <div th:if="${#strings.isEmpty(user.name)}">
+                        <a th:href="@{/login}" class="nav-link">
+                            <i class="fa fa-user me-1"></i>Sign in
+                        </a>
+                    </div>
+                    <div th:if="${not #strings.isEmpty(user.name)}">
+                        <a th:href="@{/logout}" class="nav-link">
+                            <i class="fa fa-user me-1"></i>
+                            Sign out (<span th:text="${user?.email}"></span>)
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
-      </div>
-    </nav>
+    </div>
+</nav>
 
-    <!-- Main -->
-    <div class="container mt-3 mb-5">
-      <div class="row">
+<!-- Main -->
+<div class="container mt-3 mb-5">
+    <div class="row">
         <div class="col text-center">
-          <h3>Shopping Cart</h3>
+            <h3>Shopping Cart</h3>
         </div>
-      </div>
-      <div class="row">
+    </div>
+    <div class="row">
         <div class="col text-center">
-          <h4>
-            Subtotal (<span th:text="${cartContentSize}"></span> items):
-            <span
-              th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')}"
-            ></span>
-            Euro
-          </h4>
+            <h4>
+                Subtotal (<span th:text="${cartContentSize}"></span> items):
+                <span th:text="${#numbers.formatDecimal(subTotalSum, 1, 2, 'COMMA')}">
+                </span>
+                Euro
+            </h4>
         </div>
-      </div>
-      <div class="row justify-content-center">
+    </div>
+    <div class="row justify-content-center">
         <div class="col-sm-8 col-md-6 col-lg-4 text-center">
-          <div th:if="${cartContentSize} == 0">
-            <a class="btn light-button disabled"> Proceed to checkout</a>
-          </div>
-          <div th:unless="${cartContentSize} == 0">
-            <a th:href="@{/order}" class="btn light-button">
-              Proceed to checkout</a
-            >
-          </div>
+            <div th:if="${cartContentSize} == 0">
+                <a class="btn light-button disabled"> Proceed to checkout</a>
+            </div>
+            <div th:unless="${cartContentSize} == 0">
+                <a th:href="@{/order}" class="btn light-button">
+                    Proceed to checkout</a>
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="container d-none d-md-block mt-3 mb-5">
+    <div class="container d-none d-md-block mt-3 mb-5">
         <table class="table">
-          <thead>
+            <thead>
             <tr>
-              <th scope="col">Product</th>
-              <th scope="col">Price (p. Unit)</th>
-              <th scope="col">Quantity</th>
-              <th scope="col">Price</th>
-              <th></th>
+                <th scope="col">Product</th>
+                <th scope="col" class="text-end">Price (p. Unit)</th>
+                <th scope="col" class="text-center">Quantity</th>
+                <th scope="col" class="text-end">Price</th>
+                <th></th>
             </tr>
-          </thead>
-          <tbody id="products">
+            </thead>
+            <tbody>
             <tr th:if="${cartContents.isEmpty}">
-              <td colspan="5">No articles in shopping cart</td>
+                <td colspan="5">No articles in shopping cart</td>
             </tr>
             <tr th:each="cartContent : ${cartContents}">
-              <td>
-                <span th:text="${cartContent.product.title}"></span>
-              </td>
-              <td>
-                <span
-                  th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'"
-                ></span>
-              </td>
-              <td>
-                <div class="btn-group" role="group">
-                  <a
-                    class="btn btn-outline-secondary pt-0 pb-0"
-                    th:href="@{/cartContent(id=${cartContent.id}, change=-1)}"
-                  >
-                    <!--<h6 class="p-0">-</h6>-->
-                    <i class="bi bi-dash"></i>
-                  </a>
-                  <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
-                    <span th:text="${cartContent.quantity}"></span>
-                  </a>
-                  <a
-                    class="btn btn-outline-secondary pt-0 pb-0"
-                    th:href="@{/cartContent(id=${cartContent.id}, change=1)}"
-                  >
-                    <!--<h6 class="p-0">+</h6>-->
-                    <i class="bi bi-plus"></i>
-                  </a>
-                </div>
-          </td>
-              <td>
-                <span
-                  th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'"
-                ></span>
-              </td>
-              <td style="text-align: right; vertical-align: middle">
-                <form
-                  th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}"
-                  method="post"
-                >
-                  <button class="btn light-button">Delete</button>
-                </form>
-              </td>
+                <td>
+                    <span th:text="${cartContent.product.title}"></span>
+                </td>
+                <td class="text-end">
+                    <span th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                </td>
+                <td class="text-center">
+                    <div class="btn-group" role="group">
+                        <a class="btn btn-outline-secondary pt-0 pb-0"
+                           th:href="@{/cartContent(id=${cartContent.id}, change=-1)}">
+                            <i class="bi bi-dash"></i>
+                        </a>
+                        <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
+                            <span th:text="${cartContent.quantity}"></span>
+                        </a>
+                        <a class="btn btn-outline-secondary pt-0 pb-0"
+                           th:href="@{/cartContent(id=${cartContent.id}, change=1)}">
+                            <i class="bi bi-plus"></i>
+                        </a>
+                    </div>
+                </td>
+                <td class="text-end">
+                    <span th:text="${#numbers.formatDecimal(cartContent.price, 1, 2, 'COMMA')} + ' €'">
+                    </span>
+                </td>
+                <td>
+                    <form th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}"
+                          method="post">
+                        <button class="btn light-button">Delete</button>
+                    </form>
+                </td>
             </tr>
-          </tbody>
+            </tbody>
         </table>
-      </div>
     </div>
+</div>
 
-    <div class="container d-block d-md-none mt-3 mb-5">
-      <table class="table">
+<div class="container d-block d-md-none mt-3 mb-5">
+    <table class="table">
         <thead>
-          <tr>
+        <tr>
             <th scope="col">Product</th>
-            <th scope="col">Price</th>
+            <th scope="col" class="text-end">Price</th>
             <th></th>
-          </tr>
+        </tr>
         </thead>
-        <tbody id="products">
-          <tr th:if="${cartContents.isEmpty}">
+        <tbody>
+        <tr th:if="${cartContents.isEmpty}">
             <td colspan="3">No articles in shopping cart</td>
-          </tr>
-          <tr th:each="cartContent : ${cartContents}">
+        </tr>
+        <tr th:each="cartContent : ${cartContents}">
             <td>
-              <span th:text="${cartContent.product.title}"></span>
+                <span th:text="${cartContent.product.title}"></span>
+            </td>
+            <td class="text-end">
+              <span th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'">
+              </span>
             </td>
             <td>
-              <span
-                th:text="${#numbers.formatDecimal(cartContent.product.price, 1, 2, 'COMMA')} + ' €'"
-              ></span>
+                <ul class="list-group">
+                    <li class="list-group-item px-0 pb-0 pt-0 border-0 text-center">
+                        <div class="btn-group" role="group">
+                            <a class="btn btn-outline-secondary pt-0 pb-0"
+                               th:href="@{/cartContent(id=${cartContent.id}, change=-1)}">
+                                <i class="bi bi-dash"></i>
+                            </a>
+                            <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
+                                <span th:text="${cartContent.quantity}"></span>
+                            </a>
+                            <a class="btn btn-outline-secondary pt-0 pb-0"
+                               th:href="@{/cartContent(id=${cartContent.id}, change=1)}">
+                                <i class="bi bi-plus"></i>
+                            </a>
+                        </div>
+                    </li>
+                    <li class="list-group-item px-0 pb-0 border-0">
+                        <form th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}"
+                              method="post">
+                            <button class="btn light-button">Delete</button>
+                        </form>
+                    </li>
+                </ul>
             </td>
-            <td>
-              <ul class="list-group">
-                <li class="list-group-item px-0 pb-0 pt-0 border-0 text-center">
-                  <div class="btn-group" role="group">
-                    <a
-                      class="btn btn-outline-secondary pt-0 pb-0"
-                      th:href="@{/cartContent(id=${cartContent.id}, change=-1)}"
-                    >
-                      <!--<h6 class="p-0">-</h6>-->
-                      <i class="bi bi-dash"></i>
-                    </a>
-                    <a class="btn btn-outline-secondary pe-none pt-0 pb-0" href="#">
-                      <span th:text="${cartContent.quantity}"></span>
-                    </a>
-                    <a
-                      class="btn btn-outline-secondary pt-0 pb-0"
-                      th:href="@{/cartContent(id=${cartContent.id}, change=1)}"
-                    >
-                      <!--<h6 class="p-0">+</h6>-->
-                      <i class="bi bi-plus"></i>
-                    </a>
-                  </div>
-                </li>
-                <li class="list-group-item px-0 pb-0 border-0">
-                  <form
-                    th:action="@{/delete_product_from_cart(cartContentId=${cartContent.id})}"
-                    method="post"
-                  >
-                    <button class="btn light-button">Delete</button>
-                  </form>
-                </li>
-              </ul>
-            </td>
-          </tr>
+        </tr>
         </tbody>
-      </table>
-    </div>
-  </div>
+    </table>
+</div>
 
-  <!-- Footer -->
-    <footer>
-      <ul class="nav">
-        <li class="nav-item">
-          <a th:href="@{/info}" class="nav-link"
-            >&copy; 2021 More Information</a
-          >
-        </li>
-        <li class="nav-item ms-auto">
-          <a href="https://github.com/tomwey2/webshop" class="nav-link"
-            >Sources at github.com <i class="bi bi-github"></i
-          ></a>
-        </li>
-      </ul>
-    </footer>
+<!-- Footer -->
+<footer>
+    <nav class="nav nav-fill">
+        <a th:href="@{/info}" class="nav-link">
+            &copy; 2021 Thomas Weyrath
+        </a>
+        <a th:href="@{/info}" class="nav-link">
+            More Information
+        </a>
+        <a href="https://github.com/tomwey2/webshop" class="nav-link">
+            Sources at github.com <i class="bi bi-github"></i>
+        </a>
+    </nav>
+</footer>
 
-    <!-- Bootstrap Bundle with Popper -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
-      crossorigin="anonymous"
-    ></script>
-    <!--
-    <script
-      src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"
-      defer
-      type="text/javascript"
-    ></script>
-    -->
-  </body>
+<!-- Bootstrap Bundle with Popper -->
+<script
+    src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-kQtW33rZJAHjgefvhyyzcGF3C5TFyBQBA13V1RKPf4uH+bwyzQxZ6CmMZHmNBEfJ"
+    crossorigin="anonymous"
+></script>
+<!--
+<script
+  src="bootstrap-5.1.1-dist/js/bootstrap.bundle.min.js"
+  defer
+  type="text/javascript"
+></script>
+-->
+</body>
 </html>

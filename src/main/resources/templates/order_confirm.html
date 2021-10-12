@@ -4,101 +4,146 @@
     <title>Sample Webshop - Order Confirmation</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--Fonts-->
+    <link
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+            rel="stylesheet"
+    />
+    <link
+            href="https://fonts.googleapis.com/css?family=Roboto"
+            rel="stylesheet"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-uWxY/CJNBR+1zjPWmfnSnVxwRheevXITnMqoEIeG1LJrdI0GlVs/9cVSyPYXdcSF"
+            crossorigin="anonymous"
+    />
+    <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css"
+    />
     <!--
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link
+      th:href="@{bootstrap-5.1.1-dist/css/bootstrap.css}"
+      type="text/css"
+      rel="stylesheet"
+    />
     -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-    <link th:href="@{/css/w3.css}" type="text/css" rel="stylesheet" >
-    <script src="js/app.js" defer type="text/javascript"></script>
+
+    <!--own CSS-->
+    <link th:href="@{css/style.css}" type="text/css" rel="stylesheet"/>
 </head>
 
-<style>
-    html,body,h1,h2,h3,h4,h5,h6 { font-family: "Roboto", sans-serif; }
-    .w3-sidebar {z-index: 3;width: 250px;top: 60px;bottom: 50px;height: inherit;}
-    .fill100 {height: 100%;}
-</style>
-
 <body>
-
-<!-- This is the header in case of a large or medium display -->
-<header class="w3-container w3-hide-small w3-hide-medium w3-top w3-orange">
-    <div class="w3-bar-item w3-left">
-        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <div th:if="${#strings.isEmpty(user.name)}">
-            <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i> Sign in</a>
+<!-- Navigation bar -->
+<nav class="navbar navbar-expand-md navbar-light mandarine sticky-top">
+    <div class="container mandarine">
+        <a class="navbar-brand fs-5 fw-bold" th:href="@{/shop}">
+            Mandarine Shop
+        </a>
+        <ul class="d-md-none d-lg-none nav ms-auto fw-bold">
+            <li class="nav-item">
+                <a th:href="@{/cart}" class="nav-link mandarine">
+                    <i class="bi bi-cart me-1"></i>
+                    (<span th:text="${cartContentSize}"></span>)
+                </a>
+            </li>
+            <li class="nav-item">
+                <div th:if="${#strings.isEmpty(user.name)}">
+                    <a th:href="@{/login}" class="nav-link mandarine">
+                        <i class="bi bi-person me-1"></i>
+                    </a>
+                </div>
+                <div th:if="${not #strings.isEmpty(user.name)}">
+                    <a
+                            th:href="@{/logout}"
+                            class="nav-link mandarine"
+                            data-bs-toggle="tooltip"
+                            data-bs-placement="bottom"
+                            th:title="${user?.email}"
+                    >
+                        <i class="bi bi-person-fill me-1"></i>
+                    </a>
+                </div>
+            </li>
+        </ul>
+        <button
+                class="navbar-toggler"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ms-auto fw-bold">
+                <li class="nav-item">
+                    <a th:href="@{/cart}" class="nav-link">
+                        <i class="bi bi-cart me-1"></i>
+                        Cart (<span th:text="${cartContentSize}"></span>)
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <div th:if="${#strings.isEmpty(user.name)}">
+                        <a th:href="@{/login}" class="nav-link">
+                            <i class="bi bi-person me-1"></i>Sign in
+                        </a>
+                    </div>
+                    <div th:if="${not #strings.isEmpty(user.name)}">
+                        <a th:href="@{/logout}" class="nav-link">
+                            <i class="bi bi-person-fill me-1"></i>
+                            Sign out (<span th:text="${user?.email}"></span>)
+                        </a>
+                    </div>
+                </li>
+            </ul>
         </div>
-        <div th:if="${not #strings.isEmpty(user.name)}">
-            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i> Sign out (<span th:text="${user?.email}"></span>)
+    </div>
+</nav>
+
+<div class="container mt-3 mb-5">
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-6">
+            <h3>Order Confirmation</h3>
+            <p><b>Order: <span th:text="${order.number}"/></b></p>
+            <p>The order process was only fictive in order to demonstrate the functionality.</p>
+            <p>If you are logged in with your own email (after the registration process) then the system
+                has sent you a confirmation email. Just for demonstration of the system's
+                functionality.</p>
+            <p>If you are logged as one of the demo users 'john.doe@text.com' or 'jane.doe@text.com' then
+                nothing more happens.</p>
+            <p>You are welcome to send me any comments. You find the contact information at the information
+                page (link at bottom left of this side).</p>
+            <p>Thank you for your interest!</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-8 col-lg-4 text-center">
+            <a th:href="@{/shop}" class="btn light-button">
+                <b>Go to the shop</b>
             </a>
         </div>
     </div>
-    <div class="w3-bar-item w3-right">
-        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-            <i class="fa fa-shopping-cart"></i> Cart (<span th:text="${cartContentSize}"></span>)</a>
-    </div>
 </div>
-</header>
-<!-- This is the header in case of a small display -->
-<header class="w3-hide-large w3-top w3-black">
-    <div class="w3-bar-item w3-left">
-        <a href="javascript:void(0)" class="w3-button w3-left-align" onclick="w3_open()">
-            <i class="fa fa-bars"></i></a>
-    </div>
-    <div class="w3-bar-item w3-left">
-        <a th:href="@{/shop}" class="w3-button w3-hover-amber"><b>MANDARINE</b> shop</a>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <div th:if="${#strings.isEmpty(user.name)}">
-            <a th:href="@{/login}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i></a>
-        </div>
-        <div th:if="${not #strings.isEmpty(user.name)}">
-            <a th:href="@{/logout}" class="w3-button w3-hover-amber">
-                <i class="fa fa-user"></i>(<span th:text="${user?.email}"></span>)</a>
-        </div>
-    </div>
-    <div class="w3-bar-item w3-right">
-        <a th:href="@{/cart}" class="w3-button w3-hover-amber">
-            <i class="fa fa-shopping-cart"></i>(<span th:text="${cartContentSize}"></span>)</a>
-    </div>
-</header>
 
-<section class="w3-main w3-container w3-section" style="margin-left:250px; margin-top: 50px;">
-    <div class="w3-responsive w3-threequarter">
-        <div class="w3-container" style="margin-top: 50px;">
-            <div class="w3-container">
-                <div class="w3-panel ">
-                    <h2>Order Confirmation</h2>
-                    <p><b>Order: <span th:text="${order.number}" /></b></p>
-                    <p>The order process was only fictive in order to demonstrate the functionality.</p>
-                    <p>If you are logged in with your own email (after the registration process) then the system
-                        has sent you a confirmation email. Just for demonstration of the system's
-                        functionality.</p>
-                    <p>If you are logged as one of the demo users 'john.doe@text.com' or 'jane.doe@text.com' then
-                        nothing more happens.</p>
-                    <p>You are welcome to send me any comments. You find the contact information at the information
-                        page (link at bottom left of this side).</p>
-                    <p>Thank you for your interest!</p>
-                    <a th:href="@{/shop}" class="w3-center w3-button w3-yellow w3-hover-amber w3-round-xlarge">
-                        Back to the shop</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="w3-section" style="margin-bottom: 50px;">.</section> <!-- hack! -->
-
-<footer class="w3-container w3-bottom w3-white">
-    <div class="w3-bar">
-        <a th:href="@{/info}" class="w3-button w3-left-align w3-hover-white">More Information</a>
-        <a href="https://github.com/tomwey2/webshop" class="w3-button w3-right w3-hover-white">Sources at github.com
-            <i class="fa fa-github"></i></a>
-    </div>
+<!-- Footer -->
+<footer>
+    <nav class="nav nav-fill">
+        <a th:href="@{/info}" class="nav-link">
+            &copy; 2021 Thomas Weyrath
+        </a>
+        <a th:href="@{/info}" class="nav-link">
+            More Information
+        </a>
+        <a href="https://github.com/tomwey2/webshop" class="nav-link">
+            Sources at github.com <i class="bi bi-github"></i>
+        </a>
+    </nav>
 </footer>
 
 </body>
