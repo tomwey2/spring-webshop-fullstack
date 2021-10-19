@@ -39,13 +39,13 @@ public class Product {
      * sent to a landing page on the website for that product. The link
      * attribute is the URL.
      * Actually not used. */
-    @Column(name = "link", length = 50)
+    @Column(name = "link", length = 256)
     private String link;
 
     /**
      * The URL of the main image of the product.
      * Actually not used. */
-    @Column(name = "image_link", length = 50)
+    @Column(name = "image_link", length = 256)
     private String image;
 
     /**
@@ -77,7 +77,8 @@ public class Product {
     @Column(name = "last_update")
     private LocalDateTime updateDate;
 
-    public Product(String title, String description, ProductCategory category, BigDecimal price, Integer unitsInStock, String image) {
+    public Product(String title, String description, ProductCategory category, BigDecimal price,
+                   Integer unitsInStock, String image, String link) {
         this.title = title;
         this.description = description;
         this.category = category;
@@ -87,6 +88,7 @@ public class Product {
         this.active = Boolean.TRUE;
         this.createDate = LocalDateTime.now();
         this.image = image;
+        this.link = link;
     }
 
 }
