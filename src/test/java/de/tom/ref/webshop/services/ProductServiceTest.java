@@ -54,6 +54,10 @@ public class ProductServiceTest {
         }
     }
 
+    private long countProductsOfCategory(Integer categoryId) {
+        return testProducts.stream().filter(product -> product.getCategory().getId() == categoryId).count();
+    }
+
     @Test
     void getProducts() {
         log.debug(separator, "Test getProducts()");
@@ -61,9 +65,9 @@ public class ProductServiceTest {
 
         assertEquals(testProducts.size(), productService.getProducts(null).size()); // get all products
         assertEquals(testProducts.size(), productService.getProducts(0).size()); // get all products
-        assertEquals(2, productService.getProducts(1).size());
-        assertEquals(3, productService.getProducts(2).size());
-        assertEquals(0, productService.getProducts(5).size()); // list is empty if the category not exists
+        assertEquals(countProductsOfCategory(1), productService.getProducts(1).size());
+        assertEquals(countProductsOfCategory(2), productService.getProducts(2).size());
+        assertEquals(countProductsOfCategory(5), productService.getProducts(5).size()); // list is empty if the category not exists
     }
 
     @Test
