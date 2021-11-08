@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>de.tom.ref</groupId>
 	<artifactId>webshop</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.8.1-SNAPSHOT</version>
 	<!--pi: <packaging>war</packaging> -->
 	<packaging>jar</packaging>
 	<name>webshop</name>
@@ -76,7 +76,7 @@
     </dependencies>
 
 	<build>
-		<finalName>webshop</finalName>
+		<!-- pi: <finalName>webshop</finalName>-->
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
