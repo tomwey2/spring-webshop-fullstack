@@ -4,7 +4,7 @@
 # Set here configurations for the database connection
 spring:
   profiles:
-    active: productive
+    active:
 
   datasource:
     url: jdbc:mariadb://webshopdb.cwsiq4cabmkt.eu-central-1.rds.amazonaws.com:3306/webshop

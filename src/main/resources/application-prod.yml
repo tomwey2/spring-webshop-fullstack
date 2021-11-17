@@ -1,11 +1,12 @@
-# ===============================
+spring:
+  profiles:
+#    active: prod
+    active: @spring.profiles.active@
+
+  # ===============================
 # = DATA SOURCE
 # ===============================
 # Set here configurations for the database connection
-spring:
-  profiles:
-    active: productive
-
   datasource:
     url: jdbc:mariadb://webshopdb.cwsiq4cabmkt.eu-central-1.rds.amazonaws.com:3306/webshop
     username: admin
@@ -38,9 +39,26 @@ spring:
 # ===============================
 # = MAIL
 # ===============================
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: hello
+    password: hello
+
+    properties:
+      mail:
+        smtp:
+          ssl:
+            trust: "*"
+          auth: true
+          starttls:
+            enable: true
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
 
 # Add error message to the server response
 server:
-  port: 5000
+#  port: 5000
   error:
     include-message: always

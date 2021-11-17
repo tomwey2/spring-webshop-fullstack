@@ -83,16 +83,31 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<!-- skip the following because we use spring-boot-starter-parent-->
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+				<filtering>true</filtering>
+			</resource>
+		</resources>
+
 	</build>
 
 	<profiles>
 		<profile>
 			<id>prod</id>
 			<properties>
-				<spring.profiles.active>
-					prod
-				</spring.profiles.active>
+				<spring.profiles.active>prod</spring.profiles.active>
 			</properties>
+		</profile>
+		<profile>
+			<id>dev</id>
+			<properties>
+				<spring.profiles.active>dev</spring.profiles.active>
+			</properties>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
 		</profile>
 	</profiles>
 

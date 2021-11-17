@@ -1,11 +1,12 @@
-# ===============================
+spring:
+  profiles:
+    #   active: dev
+    active: @spring.profiles.active@
+
+  # ===============================
 # = DATA SOURCE
 # ===============================
 # Set here configurations for the database connection
-spring:
-  profiles:
-    active:
-
   datasource:
     url: jdbc:mariadb://localhost:3306/webshop
     username: user
