@@ -17,23 +17,40 @@ import java.util.Date;
 @AllArgsConstructor
 public class Customer {
 
+    /**
+     * Customer's unique identifier. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    /**
+     * The customer's name. Example: 'John Doe'
+     * The name has max. 50 characters. It contains the firstname together
+     * with the last name. */
     @Column(name = "name", length = 50)
     private String name;
 
+    /**
+     * The customer's email address. Example 'john.doe@test.com'. */
     @Column(name = "email", length = 50)
     private String email;
 
+    /**
+     * The customer's password. It will be saved encrypted in the database. */
     private String password;
 
+    /**
+     * If enabled is true then the customer is registered and he/she can sign in.
+     */
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean enabled = false;
 
+    /**
+     * After registering the user gets a confirmation email. Then his account is locked
+     * i.e. locked=true. After confirming the email then the account is unlocked, i.e.
+     * locked=false */
     @Column(nullable = false)
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean locked = false;

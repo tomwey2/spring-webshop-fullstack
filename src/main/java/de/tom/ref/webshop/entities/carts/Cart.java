@@ -16,11 +16,16 @@ import java.util.Date;
 @AllArgsConstructor
 public class Cart {
 
+    /**
+     * The cart's unique identifier. */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
 
+    /**
+     * The reference to the customer who belongs the cart.
+     */
     @ManyToOne
     @JoinColumn(name="customer_id", nullable=false, unique = true)
     private Customer customer;
