@@ -12,6 +12,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.math.BigDecimal;
@@ -22,6 +23,7 @@ import java.util.List;
 @AllArgsConstructor
 public class WebshopApplication {
 	private final BCryptPasswordEncoder passwordEncoder;
+	private final Environment env;
 
 	public static void main(String[] args) {
 		SpringApplication.run(WebshopApplication.class, args);
@@ -36,23 +38,32 @@ public class WebshopApplication {
 			List<Product> products = initProducts(productCategories);
 			String encodedPassword = passwordEncoder.encode("1234");
 			String encodedPasswordDemoUser = passwordEncoder.encode("password");
+			String profile = this.env.getProperty("spring.profiles.active");
 
-			customerRepository.saveAll(initCustomers(encodedPassword, encodedPasswordDemoUser));
+			customerRepository.saveAll(initCustomers(encodedPassword, encodedPasswordDemoUser, profile));
 			productCategoryRepository.saveAll(productCategories);
 			productRepository.saveAll(products);
 		};
 	}
 
-	public static List<Customer> initCustomers(String encodedPassword, String encodedPasswordDemoUser) {
+	public static List<Customer> initCustomers(String encodedPassword, String encodedPasswordDemoUser, String profile) {
 		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.com", encodedPassword,
-				UserRole.ROLE_ADMIN, true, false));
-		customers.add(new Customer("Jim Carry", "jim@test.com", encodedPassword,
-				UserRole.ROLE_USER, true, false));
+
+		// in all environments there are two demo users to test the web functionality
+		// with these users the email service is not used
 		customers.add(new Customer("John Doe", "john.doe@test.com", encodedPasswordDemoUser,
 				UserRole.ROLE_USER, true, false));
 		customers.add(new Customer("Jane Doe", "jane.doe@test.com", encodedPasswordDemoUser,
 				UserRole.ROLE_USER, true, false));
+
+		// in the "dev" environment there are two more demo users to test the email service, locally
+		if (profile.toLowerCase().equals("dev")) {
+			customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.com", encodedPassword,
+					UserRole.ROLE_ADMIN, true, false));
+			customers.add(new Customer("Jim Carry", "jim@test.com", encodedPassword,
+					UserRole.ROLE_USER, true, false));
+		}
+
 		return customers;
 	}
 

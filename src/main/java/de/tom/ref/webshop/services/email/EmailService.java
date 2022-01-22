@@ -1,5 +1,6 @@
 package de.tom.ref.webshop.services.email;
 
+import de.tom.ref.webshop.Constants;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -23,6 +24,13 @@ public class EmailService implements EmailSender {
     @Override
     @Async
     public void send(String to, String subject, String text) {
+        // send email only to the registered users, not to the fictive demo users
+        if (Constants.LIST_OF_DEMO_USERS.contains(to)) {
+            log.info("don't send email to user: {}", to);
+            return;
+        }
+
+        log.info("send email to user: {}", to);
         try {
             MimeMessage mimeMessage = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, "utf-8");

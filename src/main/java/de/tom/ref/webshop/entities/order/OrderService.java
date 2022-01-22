@@ -50,22 +50,19 @@ public class OrderService {
         final String baseUrl =
                 ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 
-        // send email only to the registered users, not to the fictive demo users
-        if (!Constants.LIST_OF_DEMO_USERS.contains(customer.getEmail())) {
-            emailSender.send(
-                    customer.getEmail(),
-                    "Order Confirmation: " + order.getNumber(),
-                    buildEmail(
-                            customer.getName(),
-                            order,
-                            orderContentRepository.findByOrderId(order.getId()),
-                            orderContentService.calculateSubtotalSum(order),
-                            orderContentService.calculateShippingCosts(order),
-                            orderContentService.calculateTotalSum(order),
-                            baseUrl)
-            );
+        emailSender.send(
+                customer.getEmail(),
+                "Order Confirmation: " + order.getNumber(),
+                buildEmail(
+                        customer.getName(),
+                        order,
+                        orderContentRepository.findByOrderId(order.getId()),
+                        orderContentService.calculateSubtotalSum(order),
+                        orderContentService.calculateShippingCosts(order),
+                        orderContentService.calculateTotalSum(order),
+                        baseUrl)
+        );
 
-        }
         return order;
     }
 
