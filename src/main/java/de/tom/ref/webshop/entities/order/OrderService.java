@@ -6,7 +6,7 @@ import de.tom.ref.webshop.entities.carts.CartContent;
 import de.tom.ref.webshop.entities.carts.CartContentService;
 import de.tom.ref.webshop.entities.carts.CartService;
 import de.tom.ref.webshop.entities.customers.Customer;
-import de.tom.ref.webshop.registration.email.EmailSender;
+import de.tom.ref.webshop.services.email.EmailSender;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;

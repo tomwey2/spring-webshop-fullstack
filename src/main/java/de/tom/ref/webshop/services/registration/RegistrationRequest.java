@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.registration;
+package de.tom.ref.webshop.services.registration;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

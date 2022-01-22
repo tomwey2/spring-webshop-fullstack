@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.registration.token;
+package de.tom.ref.webshop.services.registration.token;
 
 import de.tom.ref.webshop.entities.customers.Customer;
 import lombok.Data;

@@ -1,12 +1,11 @@
 package de.tom.ref.webshop.entities.customers;
 
 import de.tom.ref.webshop.Constants;
-import de.tom.ref.webshop.entities.carts.CartContent;
 import de.tom.ref.webshop.enums.UserRole;
 import de.tom.ref.webshop.errorhandling.CustomerNotFoundException;
 import de.tom.ref.webshop.errorhandling.NotFoundException;
-import de.tom.ref.webshop.registration.token.ConfirmationToken;
-import de.tom.ref.webshop.registration.token.ConfirmationTokenService;
+import de.tom.ref.webshop.services.registration.token.ConfirmationToken;
+import de.tom.ref.webshop.services.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.registration.token;
+package de.tom.ref.webshop.services.registration.token;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;

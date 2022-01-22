@@ -1,12 +1,12 @@
-package de.tom.ref.webshop.registration;
+package de.tom.ref.webshop.services.registration;
 
 import de.tom.ref.webshop.entities.customers.Customer;
 import de.tom.ref.webshop.entities.customers.CustomerService;
 import de.tom.ref.webshop.enums.UserRole;
-import de.tom.ref.webshop.registration.email.EmailSender;
-import de.tom.ref.webshop.registration.email.EmailValidator;
-import de.tom.ref.webshop.registration.token.ConfirmationToken;
-import de.tom.ref.webshop.registration.token.ConfirmationTokenService;
+import de.tom.ref.webshop.services.email.EmailSender;
+import de.tom.ref.webshop.services.email.EmailValidator;
+import de.tom.ref.webshop.services.registration.token.ConfirmationToken;
+import de.tom.ref.webshop.services.registration.token.ConfirmationTokenService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

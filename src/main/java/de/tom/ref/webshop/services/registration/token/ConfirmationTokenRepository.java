@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.registration.token;
+package de.tom.ref.webshop.services.registration.token;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

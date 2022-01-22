@@ -1,10 +1,9 @@
 package de.tom.ref.webshop.controllers;
 
-import de.tom.ref.webshop.registration.RegistrationRequest;
-import de.tom.ref.webshop.registration.RegistrationService;
+import de.tom.ref.webshop.services.registration.RegistrationRequest;
+import de.tom.ref.webshop.services.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 

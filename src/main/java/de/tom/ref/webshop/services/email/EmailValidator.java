@@ -1,4 +1,4 @@
-package de.tom.ref.webshop.registration.email;
+package de.tom.ref.webshop.services.email;
 
 import org.springframework.stereotype.Service;
 
