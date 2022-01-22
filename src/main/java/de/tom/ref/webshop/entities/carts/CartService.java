@@ -39,7 +39,7 @@ public class CartService {
         if (customer == null || StringUtils.isEmpty(customer.getEmail())) {
             return null;
         }
-        log.info("Get cart of user {} (id={})", customer.getEmail(), customer.getId());
+        log.debug("Get cart of user {} (id={})", customer.getEmail(), customer.getId());
         Optional<Cart> cart = cartRepository.findByCustomerId(customer.getId());
         if (cart.isPresent()) {
             return cart.get();
@@ -49,7 +49,7 @@ public class CartService {
     }
 
     private Cart addNewCart(Customer customer) {
-        log.info("Add new cart for user {} (id={})", customer.getEmail(), customer.getId());
+        log.debug("Add new cart for user {} (id={})", customer.getEmail(), customer.getId());
         Cart cart = new Cart(customer);
         return cartRepository.save(cart);
     }

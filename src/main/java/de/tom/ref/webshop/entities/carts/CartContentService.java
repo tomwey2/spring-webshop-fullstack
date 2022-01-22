@@ -28,14 +28,14 @@ public class CartContentService {
      * @return created cart content
      */
     public CartContent addProductToCart(Cart cart, Product product) {
-        log.info("Add product {} (id={}) to the cart id={}", product.getTitle(), product.getId(), cart.getId());
+        log.debug("Add product {} (id={}) to the cart id={}", product.getTitle(), product.getId(), cart.getId());
         CartContent cartContent = cartContentRepository.findByProductAndCartId(cart.getId(), product.getId());
         if (product.getUnitsInStock() == 0) {
-            log.info("No products in stock: {}", product.getTitle());
+            log.debug("No products in stock: {}", product.getTitle());
             return cartContent;
         }
         else if (cartContent != null) {
-            log.info("Product id={} already in cart id={}", product.getId(), cart.getId());
+            log.debug("Product id={} already in cart id={}", product.getId(), cart.getId());
             return cartContent;
         } else {
             cartContent = new CartContent(cart, product, 1);
