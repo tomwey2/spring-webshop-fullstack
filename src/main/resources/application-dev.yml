@@ -1,44 +1,41 @@
 spring:
-  profiles:
-    #   active: dev
-    active: @spring.profiles.active@
 
   # ===============================
-# = DATA SOURCE
-# ===============================
-# Set here configurations for the database connection
+  # = DATA SOURCE
+  # ===============================
+  # Set here configurations for the database connection
   datasource:
     url: jdbc:mariadb://localhost:3306/webshop
     username: user
     password: user
     driver-class-name: org.mariadb.jdbc.Driver
-# Keep the connection alive if idle for a long time (needed in production)
+    # Keep the connection alive if idle for a long time (needed in production)
     testWhileIdle: true
     validationQuery: SELECT 1
-# ===============================
-# = JPA / HIBERNATE
-# ===============================
-# Show or not log for each sql query
+  # ===============================
+  # = JPA / HIBERNATE
+  # ===============================
+  # Show or not log for each sql query
   jpa:
     show-sql: false
-# Hibernate ddl auto (create, create-drop, update): with "create-drop" the database
-# schema will be automatically created afresh for every start of application
+    # Hibernate ddl auto (create, create-drop, update): with "create-drop" the database
+    # schema will be automatically created afresh for every start of application
     hibernate:
       ddl-auto: create-drop
-##pi: ddl-auto: update
-# Naming strategy
+      ##pi: ddl-auto: update
+      # Naming strategy
       naming:
         implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyHbmImpl
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
-# Allows Hibernate to generate SQL optimized for a particular DBMS
+    # Allows Hibernate to generate SQL optimized for a particular DBMS
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-# Show the database calls in the console
-##spring.jpa.properties.hibernate.format_sql=true
-# ===============================
-# = MAIL
-# ===============================
+  # Show the database calls in the console
+  ##spring.jpa.properties.hibernate.format_sql=true
+  # ===============================
+  # = MAIL
+  # ===============================
   mail:
     host: localhost
     port: 1025
