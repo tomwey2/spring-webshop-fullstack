@@ -1,5 +1,6 @@
 package de.tom.ref.webshop.entities.order;
 
+import de.tom.ref.webshop.Constants;
 import de.tom.ref.webshop.entities.carts.Cart;
 import de.tom.ref.webshop.entities.carts.CartContent;
 import de.tom.ref.webshop.entities.carts.CartContentService;
@@ -49,19 +50,22 @@ public class OrderService {
         final String baseUrl =
                 ServletUriComponentsBuilder.fromCurrentContextPath().build().toUriString();
 
-        emailSender.send(
-                customer.getEmail(),
-                "Order Confirmation: " + order.getNumber(),
-                buildEmail(
-                        customer.getName(),
-                        order,
-                        orderContentRepository.findByOrderId(order.getId()),
-                        orderContentService.calculateSubtotalSum(order),
-                        orderContentService.calculateShippingCosts(order),
-                        orderContentService.calculateTotalSum(order),
-                        baseUrl)
-        );
+        // send email only to the registered users, not to the fictive demo users
+        if (!Constants.LIST_OF_DEMO_USERS.contains(customer.getEmail())) {
+            emailSender.send(
+                    customer.getEmail(),
+                    "Order Confirmation: " + order.getNumber(),
+                    buildEmail(
+                            customer.getName(),
+                            order,
+                            orderContentRepository.findByOrderId(order.getId()),
+                            orderContentService.calculateSubtotalSum(order),
+                            orderContentService.calculateShippingCosts(order),
+                            orderContentService.calculateTotalSum(order),
+                            baseUrl)
+            );
 
+        }
         return order;
     }
 

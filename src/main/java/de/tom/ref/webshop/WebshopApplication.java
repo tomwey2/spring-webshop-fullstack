@@ -45,9 +45,9 @@ public class WebshopApplication {
 
 	public static List<Customer> initCustomers(String encodedPassword, String encodedPasswordDemoUser) {
 		List<Customer> customers = new ArrayList<>();
-		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.de", encodedPassword,
+		customers.add(new Customer("Arnold Schwarzenegger", "arnold@test.com", encodedPassword,
 				UserRole.ROLE_ADMIN, true, false));
-		customers.add(new Customer("Jim Carry", "jim@test.de", encodedPassword,
+		customers.add(new Customer("Jim Carry", "jim@test.com", encodedPassword,
 				UserRole.ROLE_USER, true, false));
 		customers.add(new Customer("John Doe", "john.doe@test.com", encodedPasswordDemoUser,
 				UserRole.ROLE_USER, true, false));
