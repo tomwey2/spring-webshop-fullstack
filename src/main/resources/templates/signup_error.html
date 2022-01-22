@@ -1,10 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="https://www.thymeleaf.org">
 <head>
-    <title>Sign Up Confirmation</title>
+    <title>Sign Up Success</title>
     <meta charset="UTF-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
-
     <!--Fonts-->
     <link
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
@@ -23,17 +22,16 @@
             crossorigin="anonymous"
     />
     <!--
-    <link
-      th:href="@{bootstrap-5.1.1-dist/css/bootstrap.css}"
-      type="text/css"
-      rel="stylesheet"
-    />
-    -->
+ <link
+   th:href="@{bootstrap-5.1.1-dist/css/bootstrap.css}"
+   type="text/css"
+   rel="stylesheet"
+ />
+ -->
 
     <!--own CSS-->
     <link th:href="@{css/style.css}" type="text/css" rel="stylesheet"/>
 </head>
-
 <body>
 <!-- Navigation bar -->
 <nav class="navbar navbar-expand-lg navbar-light mandarine sticky-top">
@@ -45,15 +43,12 @@
 </nav>
 
 <div class="container mt-3 mb-5">
+
     <div class="container mt-3">
         <div class="row">
             <div class="col-sm-12 col-md-8 col-lg-6">
-                <h3 class="text-center">Sign Up Confirmation</h3>
-                <p>
-                    We send you an email with a token to activate your account. Please
-                    confirm this email by clicking at the confirmation link.
-                </p>
-                <p>Your token is: <span th:text="${token}"></span></p>
+                <h3 class="text-center">Sign Up Error</h3>
+                <p>The signed up process is not run.</p>
             </div>
         </div>
 
@@ -66,7 +61,6 @@
         </div>
     </div>
 </div>
-
 <footer>
     <nav class="nav nav-fill">
         <a th:href="@{/info}" class="nav-link">

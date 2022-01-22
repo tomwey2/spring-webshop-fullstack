@@ -7,4 +7,7 @@ public class Constants {
     public final static String CART_NOT_FOUND = "Cart of User %s not found in the database";
 
     public final static List<String> LIST_OF_DEMO_USERS = List.of("john.doe@test.com", "jane.doe@test.com");
+
+    public final static String PROFILE_DEV = "dev";
+    public final static String PROFILE_PROD = "prod";
 }

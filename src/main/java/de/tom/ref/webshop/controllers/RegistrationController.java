@@ -4,8 +4,12 @@ import de.tom.ref.webshop.services.registration.RegistrationRequest;
 import de.tom.ref.webshop.services.registration.RegistrationService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.core.env.Environment;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import static de.tom.ref.webshop.Constants.PROFILE_DEV;
+import static de.tom.ref.webshop.Constants.PROFILE_PROD;
 
 @RestController
 @RequestMapping(path = "/")
@@ -14,6 +18,7 @@ import org.springframework.web.servlet.ModelAndView;
 public class RegistrationController {
 
     private RegistrationService registrationService;
+    private final Environment env;
 
     @GetMapping("/signup")
     public ModelAndView hello(ModelAndView model) {
@@ -26,9 +31,16 @@ public class RegistrationController {
     @PostMapping("/register")
     public ModelAndView register(RegistrationRequest request, ModelAndView model) {
         log.info("Register of user={} email={}", request.getName(), request.getEmail());
-        String token = registrationService.register(request);
-        model.addObject("token", token);
-        model.setViewName("signup_confirm");
+
+        String profile = this.env.getProperty("spring.profiles.active");
+        if (profile.equalsIgnoreCase(PROFILE_PROD)) {
+            model.setViewName("signup_error");
+        } else {
+            String token = registrationService.register(request);
+            model.addObject("token", token);
+            model.setViewName("signup_confirm");
+        }
+
         return model;
     }
 
